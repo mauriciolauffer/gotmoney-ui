@@ -1,0 +1,48 @@
+<mvc:View controllerName="com.mlauffer.gotmoneyappui5.controller.Index" xmlns:core="sap.ui.core"
+          xmlns:mvc="sap.ui.core.mvc" xmlns:l="sap.ui.layout"
+          xmlns="sap.m" busyIndicatorDelay="0">
+    <Page id="page" title="{i18n>Index.title}">
+        <l:BlockLayout class="sapUiSmallMargin">
+            <l:BlockLayoutRow>
+                <l:BlockLayoutCell titleAlignment="Center" title="{i18n>Index.subTitle1}">
+                    <Text text="{i18n>Index.subTitle2}"/>
+                </l:BlockLayoutCell>
+            </l:BlockLayoutRow>
+            <l:BlockLayoutRow>
+                <l:BlockLayoutCell width="2" titleAlignment="Begin" title="{i18n>Index.t1}" class="sapUiContentPadding">
+                    <Text text="{i18n>Index.p1a}"/>
+                    <Text text="{i18n>Index.p1b}"/>
+                    <Text text="{i18n>Index.p1c}"/>
+                </l:BlockLayoutCell>
+                <l:BlockLayoutCell width="2" class="sapUiNoContentPadding"/>
+            </l:BlockLayoutRow>
+            <l:BlockLayoutRow>
+                <l:BlockLayoutCell width="2" class="sapUiNoContentPadding"/>
+                <l:BlockLayoutCell width="2" titleAlignment="End" title="{i18n>Index.t2}" class="sapUiContentPadding">
+                    <Text text="{i18n>Index.p2a}"/>
+                    <Text text="{i18n>Index.p2b}"/>
+                </l:BlockLayoutCell>
+            </l:BlockLayoutRow>
+            <l:BlockLayoutRow>
+                <l:BlockLayoutCell width="2" titleAlignment="Begin" title="{i18n>Index.t3}" class="sapUiContentPadding">
+                    <Text text="{i18n>Index.p3a}"/>
+                    <Text text="{i18n>Index.p3b}"/>
+                    <Text text="{i18n>Index.p3c}"/>
+                </l:BlockLayoutCell>
+                <l:BlockLayoutCell width="2" class="sapUiNoContentPadding"/>
+            </l:BlockLayoutRow>
+            <l:BlockLayoutRow>
+                <l:BlockLayoutCell width="2" class="sapUiNoContentPadding"/>
+                <l:BlockLayoutCell width="2" titleAlignment="End" title="{i18n>Index.t4}" class="sapUiContentPadding">
+                    <Text text="{i18n>Index.p4a}"/>
+                    <Text text="{i18n>Index.p4b}"/>
+                    <Text text="{i18n>Index.p4c}"/>
+                    <Text text="{i18n>Index.p4d}"/>
+                </l:BlockLayoutCell>
+            </l:BlockLayoutRow>
+        </l:BlockLayout>
+        <footer>
+            <core:Fragment fragmentName="com.mlauffer.gotmoneyappui5.view.IndexFooter" type="XML"/>
+        </footer>
+    </Page>
+</mvc:View>

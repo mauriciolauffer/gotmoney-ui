@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="description"
+          content="GotMoney App - Gerenciador financeiro pessoal. Controle suas despesas online e sem custos!">
+    <meta name="keywords"
+          content="finan&ccedil;as, despesas, or&ccedil;amento, gerenciador, controle, planejamento, financeiro, pessoal, familiar, contas">
+    <meta name="author" content="Mauricio Lauffer">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#6699ff">
+    <meta name="google-signin-scope" content="profile email">
+    <meta name="google-signin-client_id" content="512998861746.apps.googleusercontent.com">
+    <link rel="stylesheet" type="text/css" href="../../webapp/css/gotmoneyapp.min.css">
+    <link rel="icon" type="image/ico" href="../../webapp/images/favicon.ico">
+    <link rel="icon" type="image/png" sizes="192x192" href="../../webapp/images/pig-192x192.png">
+    <link rel="manifest" href="../../manifest.json">
+    <title>GotMoney App - MockServer for Testing</title>
+    <script id="sap-ui-bootstrap"
+            src="../../../resources/sap-ui-core.js"
+            data-sap-ui-theme="sap_belize" data-sap-ui-libs="sap.m" data-sap-ui-bindingSyntax="complex"
+            data-sap-ui-preload="async" data-sap-ui-compatVersion="edge" data-sap-ui-frameOptions="deny"
+            data-sap-ui-xx-waitForTheme="true"
+            data-sap-ui-resourceroots='{"com.mlauffer.gotmoneyappui5": "../"}'></script>
+</head>
+<body class="sapUiBody" role="application">
+<div id="content" class="spinner"></div>
+<script>
+  //SAP OpenUI5
+  'use strict';
+  sap.ui.getCore().attachInit(function () {
+    sap.ui.require([
+      'sap/m/Shell',
+      'sap/ui/core/ComponentContainer',
+      "com/mlauffer/gotmoneyappui5/localService/mockserver"
+    ], function (Shell, ComponentContainer, mockserver) {
+      mockserver.init();
+      sap.ui.component({
+        name: 'com.mlauffer.gotmoneyappui5',
+        manifest: true,
+        async: true
+      })
+        .then(function (oComponent) {
+          var shell = new Shell({
+            app: new ComponentContainer({
+              async: true,
+              height: '100%',
+              component: oComponent
+            }),
+            appWidthLimited: true
+          });
+          shell.placeAt('content');
+        })
+        .catch(function (err) {
+          console.error(err);
+        });
+    });
+  });
+</script>
+<script src="../../webapp/js/gotmoneyapp.min.js" async defer></script>
+<script src="../../webapp/js/lockr.min.js" async defer></script>
+<script src="https://apis.google.com/js/platform.js?onload=onLoadGoogleClient" async defer></script>
+<script src="https://www.googletagmanager.com/gtag/js?id=UA-11465363-7" async defer></script>
+<script id="facebook-jssdk" src="https://connect.facebook.net/en_US/sdk.js" async defer></script>
+<noscript>
+    <div id="noScriptMessageEN">GotMoney cannot be displayed! JavaScript is not enabled. Please enable JavaScript in
+        your browser and try again...
+    </div>
+    <div id="noScriptMessagePT">GotMoney não pode ser exibido! JavaScript não está habilitado. Por favor, habilite
+        JavaScript no seu navegador e tente novamente...
+    </div>
+</noscript>
+</body>
+</html>

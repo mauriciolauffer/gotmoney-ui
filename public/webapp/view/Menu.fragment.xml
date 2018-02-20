@@ -1,0 +1,19 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns:tnt="sap.tnt" xmlns="sap.m">
+    <NavContainer>
+        <Page title="{i18n>Menu.title}">
+            <tnt:NavigationList>
+                <!--<tnt:NavigationListItem text="{i18n>Menu.sync}" icon="sap-icon://refresh" select="onSync"/>-->
+                <tnt:NavigationListItem text="{i18n>Menu.profile}" icon="sap-icon://person-placeholder"
+                                        select="onProfile"/>
+                <tnt:NavigationListItem text="{i18n>Menu.account}" icon="sap-icon://folder" select="onAccount"/>
+                <tnt:NavigationListItem text="{i18n>Menu.category}" icon="sap-icon://tag" select="onCategory"/>
+                <tnt:NavigationListItem text="{i18n>Menu.transaction}" icon="sap-icon://appointment"
+                                        select="onTransaction"/>
+                <tnt:NavigationListItem text="{i18n>Menu.transactionOverdue}" icon="sap-icon://message-warning"
+                                        select="onTransactionOverdue"/>
+                <!--<tnt:NavigationListItem text="{i18n>Menu.report}" icon="sap-icon://bar-chart" select="onReport"/>-->
+                <tnt:NavigationListItem id="btLogoff" text="{i18n>Menu.logoff}" icon="sap-icon://log" select="onLogoff"/>
+            </tnt:NavigationList>
+        </Page>
+    </NavContainer>
+</core:FragmentDefinition>

@@ -1,0 +1,42 @@
+<mvc:View controllerName="com.mlauffer.gotmoneyappui5.controller.User"
+		  xmlns:f="sap.ui.layout.form" xmlns:mvc="sap.ui.core.mvc"
+		  xmlns:core="sap.ui.core" xmlns="sap.m" busyIndicatorDelay="0">
+	<Page id="page" title="{i18n>User.title}" showNavButton="true" navButtonPress="onNavBack">
+		<f:SimpleForm id="form" minWidth="800"
+					  maxContainerCols="2" editable="true" layout="ResponsiveGridLayout"
+					  labelSpanL="3" labelSpanM="3" emptySpanL="3" emptySpanM="3"
+					  columnsL="1" columnsM="1">
+			<core:Title text="{i18n>General.edit}" />
+			<Label text="{i18n>User.email}" required="true" />
+			<Input id="email" type="Email" enabled="false" value="{email}" />
+			<Label text="{i18n>User.name}" required="true" />
+			<Input id="name" value="{name}" />
+			<Label text="{i18n>User.sex}" required="true" />
+			<Select id="sex" selectedKey="{gender}">
+				<core:Item key="F" text="{i18n>Female}" />
+				<core:Item key="M" text="{i18n>Male}" />
+			</Select>
+			<Label text="{i18n>User.birthdate}" required="true" />
+			<DatePicker id="birthdate" dateValue="{path:'birthdate', formatter:'.formatter.dateFromJSON'}" />
+			<Label text="{i18n>User.notification}" />
+			<Switch id="alert" state="{path:'alert', formatter:'.formatter.numeralBoolean'}" />
+			<core:Title text="{i18n>User.security}" />
+			<Label text="{i18n>User.passwordOld}" />
+			<Input id="pwdOld" type="Password" value="{pwdOld}" />
+			<Label text="{i18n>User.passwordNew}" />
+			<Input id="pwd" type="Password" value="{pwd}" />
+			<Label text="{i18n>User.passwordRepeat}" />
+			<Input id="pwdRepeat" type="Password" value="{pwdRepeat}" />
+		</f:SimpleForm>
+		<footer>
+			<Toolbar>
+				<Button id="btMessagePopover" icon="sap-icon://message-popup" type="Reject"
+						text="{=${message>/}.length}"
+						visible="{=${message>/}.length > 0}"
+						press="onMessagePopoverPress"/>
+				<ToolbarSpacer />
+				<Button id="btSave" icon="sap-icon://save" text="{i18n>XBUT.save}" type="Emphasized" press="onSave" />
+			</Toolbar>
+		</footer>
+	</Page>
+</mvc:View>

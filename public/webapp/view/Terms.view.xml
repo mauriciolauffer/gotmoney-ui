@@ -1,0 +1,22 @@
+<mvc:View controllerName="com.mlauffer.gotmoneyappui5.controller.Index" xmlns:core="sap.ui.core"
+          xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" busyIndicatorDelay="0">
+    <Page id="page" title="{i18n>Terms.title}" showNavButton="true" navButtonPress="onNavBack">
+        <Panel class="sapUiLargeMargin" width="auto">
+            <VBox>
+                <Title level="H2" text="{i18n>Terms.t1}" class="sapMH3FontSize"/>
+                <Text text="{i18n>Terms.p1}"/>
+                <Title level="H2" text="{i18n>Terms.t2}" class="sapMH3FontSize sapUiLargeMarginTop"/>
+                <Text text="{i18n>Terms.p2}"/>
+                <Title level="H2" text="{i18n>Terms.t3}" class="sapMH3FontSize sapUiLargeMarginTop"/>
+                <Text text="{i18n>Terms.p3}"/>
+                <Title level="H2" text="{i18n>Terms.t4}" class="sapMH3FontSize sapUiLargeMarginTop"/>
+                <Text text="{i18n>Terms.p4}"/>
+                <Title level="H2" text="{i18n>Terms.t5}" class="sapMH3FontSize sapUiLargeMarginTop"/>
+                <Text text="{i18n>Terms.p5}"/>
+            </VBox>
+        </Panel>
+        <footer>
+            <core:Fragment fragmentName="com.mlauffer.gotmoneyappui5.view.IndexFooter" type="XML"/>
+        </footer>
+    </Page>
+</mvc:View>

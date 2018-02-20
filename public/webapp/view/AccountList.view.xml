@@ -1,0 +1,16 @@
+<mvc:View controllerName="com.mlauffer.gotmoneyappui5.controller.AccountList"
+	xmlns:mvc="sap.ui.core.mvc" xmlns:core="sap.ui.core" xmlns="sap.m" busyIndicatorDelay="0">
+	<Page id="page" title="{i18n>Account.title}" showNavButton="true" navButtonPress="onNavBack">
+		<List id="list" items="{/User/Account}">
+			<StandardListItem title="{description}" type="Navigation"
+				description="{path: 'idtype', formatter: '.formatter.accountTypeName'}"
+				icon="{path: 'idtype', formatter: '.formatter.accountTypeIcon'}" press="onItemPress" />
+		</List>
+		<footer>
+			<Toolbar>
+				<ToolbarSpacer />
+				<Button id="btNew" icon="sap-icon://add" text="{i18n>XBUT.new}" press="onAddNew" />
+			</Toolbar>
+		</footer>
+	</Page>
+</mvc:View>

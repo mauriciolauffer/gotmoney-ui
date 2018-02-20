@@ -1,0 +1,26 @@
+<mvc:View controllerName="com.mlauffer.gotmoneyappui5.controller.App"
+	displayBlock="true" xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:u="sap.ui.unified" xmlns="sap.m"
+		  busyIndicatorDelay="0">
+	<u:Shell id="appUShell" icon="/webapp/images/pig-32x32.png">
+		<u:headItems>
+			<u:ShellHeadItem id="btIndex" tooltip="{i18n>Menu.home}" icon="sap-icon://home" press="onPressIndex" />
+			<u:ShellHeadItem id="btHome" tooltip="{i18n>Menu.home}" icon="sap-icon://home" press="onPressHome" visible="false" />
+			<u:ShellHeadItem id="btMenu" tooltip="{i18n>Menu.title}" icon="sap-icon://menu2" press="onPressMenu" visible="false" />
+		</u:headItems>
+		<u:headEndItems>
+			<u:ShellHeadItem id="btLogin" tooltip="{i18n>Menu.login}" icon="sap-icon://customer" press="onLogin" />
+			<u:ShellHeadItem id="btSignup" tooltip="{i18n>Menu.signup}" icon="sap-icon://leads" press="onSignup" />
+		</u:headEndItems>
+		<u:user>
+		</u:user>
+		<u:search>
+			<Title level="H1" text="{i18n>appTitle}"/>
+		</u:search>
+		<u:paneContent>
+			<core:Fragment fragmentName="com.mlauffer.gotmoneyappui5.view.Menu" type="XML" />
+		</u:paneContent>
+		<u:content>
+			<App id="idAppControl" />
+		</u:content>
+	</u:Shell>
+</mvc:View>

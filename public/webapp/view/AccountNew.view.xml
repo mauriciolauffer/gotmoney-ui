@@ -1,0 +1,34 @@
+<mvc:View controllerName="com.mlauffer.gotmoneyappui5.controller.Account"
+		  xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core"
+		  xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" busyIndicatorDelay="0">
+	<Page id="page" title="{i18n>Account.title}" showNavButton="true" navButtonPress="onNavBack">
+		<f:SimpleForm id="form" minWidth="800"
+					  maxContainerCols="2" editable="true" layout="ResponsiveGridLayout"
+					  labelSpanL="3" labelSpanM="3" emptySpanL="3" emptySpanM="3"
+					  columnsL="1" columnsM="1">
+			<core:Title text="{i18n>General.create}" />
+			<Label text="{i18n>Account.accountType}" required="true" />
+			<Select id="idtype" selectedKey="{account>/idtype}" items="{/AccountType}" change="onChangeType">
+				<core:Item key="{idtype}" text="{path:'idtype', formatter:'.formatter.accountTypeName'}"/>
+			</Select>
+			<Label text="{i18n>Account.description}" required="true" />
+			<Input id="description" value="{account>/description}" />
+			<Label text="{i18n>Account.openDate}" required="true" />
+			<DatePicker id="opendate" dateValue="{account>/openingdate}" />
+			<Label text="{i18n>Account.creditLimit}" />
+			<Input id="creditlimit" type="Number" value="{account>/limitecredito}" />
+			<Label id="invoicedayLabel" text="{i18n>Account.invoiceDay}" visible="false" required="true" />
+			<Input id="invoiceday" type="Number" visible="false" value="{account>/duedate}" />
+		</f:SimpleForm>
+		<footer>
+			<Toolbar>
+				<Button id="btMessagePopover" icon="sap-icon://message-popup" type="Reject"
+						text="{=${message>/}.length}"
+						visible="{=${message>/}.length > 0}"
+						press="onMessagePopoverPress"/>
+				<ToolbarSpacer />
+				<Button id="btSave" icon="sap-icon://save" text="{i18n>XBUT.save}" type="Emphasized" press="onSave" />
+			</Toolbar>
+		</footer>
+	</Page>
+</mvc:View>

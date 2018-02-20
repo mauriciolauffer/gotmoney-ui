@@ -1,0 +1,25 @@
+<mvc:View controllerName="com.mlauffer.gotmoneyappui5.controller.Category"
+          xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core"
+          xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" busyIndicatorDelay="0">
+    <Page id="page" title="{i18n>Category.title}" showNavButton="true" navButtonPress="onNavBack">
+        <f:SimpleForm id="form" minWidth="800"
+                      maxContainerCols="2" editable="true" layout="ResponsiveGridLayout"
+                      labelSpanL="3" labelSpanM="3" emptySpanL="3" emptySpanM="3"
+                      columnsL="1" columnsM="1">
+            <core:Title text="{i18n>General.edit}"/>
+            <Label text="{i18n>Category.description}" required="true"/>
+            <Input id="description" value="{description}"/>
+        </f:SimpleForm>
+        <footer>
+            <Toolbar>
+                <Button id="btMessagePopover" icon="sap-icon://message-popup" type="Reject"
+                        text="{=${message>/}.length}"
+                        visible="{=${message>/}.length > 0}"
+                        press="onMessagePopoverPress"/>
+                <ToolbarSpacer/>
+                <Button id="btSave" icon="sap-icon://save" text="{i18n>XBUT.save}" type="Emphasized" press="onSave"/>
+                <Button id="btDelete" icon="sap-icon://delete" text="{i18n>XBUT.delete}" press="onDelete"/>
+            </Toolbar>
+        </footer>
+    </Page>
+</mvc:View>

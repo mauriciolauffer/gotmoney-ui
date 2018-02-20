@@ -1,0 +1,32 @@
+<mvc:View controllerName="com.mlauffer.gotmoneyappui5.controller.Index" xmlns:core="sap.ui.core"
+          xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" busyIndicatorDelay="0">
+    <Page id="page" title="{i18n>Privacy.title}" showNavButton="true"
+          navButtonPress="onNavBack">
+        <Panel class="sapUiLargeMargin" width="auto">
+            <VBox>
+                <Title level="H2" text="{i18n>Privacy.t1}" class="sapMH3FontSize"/>
+                <Text text="{i18n>Privacy.p1}"/>
+                <Title level="H2" text="{i18n>Privacy.t2}" class="sapMH3FontSize sapUiLargeMarginTop"/>
+                <Text text="{i18n>Privacy.p2}"/>
+                <Title level="H2" text="{i18n>Privacy.t3}" class="sapMH3FontSize sapUiLargeMarginTop"/>
+                <Text text="{i18n>Privacy.p3}"/>
+                <Title level="H2" text="{i18n>Privacy.t4}" class="sapMH3FontSize sapUiLargeMarginTop"/>
+                <Text text="{i18n>Privacy.p4}"/>
+                <Title level="H2" text="{i18n>Privacy.t5}" class="sapMH3FontSize sapUiLargeMarginTop"/>
+                <Text text="{i18n>Privacy.p5}"/>
+                <Title level="H2" text="{i18n>Privacy.t6}" class="sapMH3FontSize sapUiLargeMarginTop"/>
+                <Text text="{i18n>Privacy.p6}"/>
+                <Title level="H2" text="{i18n>Privacy.t7}" class="sapMH3FontSize sapUiLargeMarginTop"/>
+                <Text text="{i18n>Privacy.p7}"/>
+                <Title level="H2" text="{i18n>Privacy.t8}" class="sapMH3FontSize sapUiLargeMarginTop"/>
+                <HBox>
+                    <Text text="{i18n>Privacy.p8} "/>
+                    <Link text=" contato@gotmoneyapp.com" href="mailto:contato@gotmoneyapp.com"/>
+                </HBox>
+            </VBox>
+        </Panel>
+        <footer>
+            <core:Fragment fragmentName="com.mlauffer.gotmoneyappui5.view.IndexFooter" type="XML"/>
+        </footer>
+    </Page>
+</mvc:View>

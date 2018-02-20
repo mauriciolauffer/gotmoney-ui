@@ -1,0 +1,64 @@
+<mvc:View controllerName="com.mlauffer.gotmoneyappui5.controller.Home"
+          xmlns:mvc="sap.ui.core.mvc" xmlns:core="sap.ui.core" xmlns="sap.m" busyIndicatorDelay="0">
+    <Page id="page" showHeader="false" class="sapUiUfdShellBG sapUiStrongBackgroundColor" title="{i18n>Home.title} xxx">
+        <Panel backgroundDesign="Transparent">
+            <HBox>
+                <Title text="{i18n>Home.launchpad.title}" level="H2"/>
+            </HBox>
+            <GenericTile class="sapUiSmallMargin" header="{i18n>Menu.profile}" press="onProfile">
+                <tileContent>
+                    <TileContent>
+                        <content>
+                            <NumericContent nullifyValue="false" value="" icon="sap-icon://person-placeholder"/>
+                        </content>
+                    </TileContent>
+                </tileContent>
+            </GenericTile>
+            <GenericTile class="sapUiSmallMargin" header="{i18n>Menu.account}" press="onAccount">
+                <tileContent>
+                    <TileContent>
+                        <content>
+                            <NumericContent id="accountTile" nullifyValue="false" icon="sap-icon://folder"/>
+                        </content>
+                    </TileContent>
+                </tileContent>
+            </GenericTile>
+            <GenericTile class="sapUiSmallMargin" header="{i18n>Menu.category}" press="onCategory">
+                <tileContent>
+                    <TileContent>
+                        <content>
+                            <NumericContent id="categoryTile" icon="sap-icon://tag"/>
+                        </content>
+                    </TileContent>
+                </tileContent>
+            </GenericTile>
+            <GenericTile class="sapUiSmallMargin" header="{i18n>Menu.transaction}" press="onTransaction">
+                <tileContent>
+                    <TileContent>
+                        <content>
+                            <NumericContent id="transactionTile" nullifyValue="false" value="" icon="sap-icon://appointment"/>
+                        </content>
+                    </TileContent>
+                </tileContent>
+            </GenericTile>
+            <GenericTile class="sapUiSmallMargin" header="{i18n>Menu.transactionOverdue}" press="onTransactionOverdue">
+                <tileContent>
+                    <TileContent>
+                        <content>
+                            <NumericContent id="transactionOverdueTile" nullifyValue="false" value="" icon="sap-icon://message-warning"/>
+                        </content>
+                    </TileContent>
+                </tileContent>
+            </GenericTile>
+            <GenericTile class="sapUiSmallMargin" header="{i18n>Menu.report}" press="bar-chart" visible="false">
+                <tileContent>
+                    <TileContent>
+                        <content>
+                            <NumericContent nullifyValue="false" value="" icon="sap-icon://bar"/>
+                        </content>
+                    </TileContent>
+                </tileContent>
+            </GenericTile>
+        </Panel>
+    </Page>
+</mvc:View>

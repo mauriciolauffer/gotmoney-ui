@@ -1,0 +1,11 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m">
+    <Toolbar>
+        <ToolbarSpacer />
+        <Button id="btAbout" text="{i18n>Home.about}" press="onAbout" />
+        <ToolbarSpacer />
+        <Button id="btPrivacy" text="{i18n>Home.privacy}" press="onPrivacy" />
+        <ToolbarSpacer />
+        <Button id="btTerms" text="{i18n>Home.terms}" press="onTerms" />
+        <ToolbarSpacer />
+    </Toolbar>
+</core:FragmentDefinition>
