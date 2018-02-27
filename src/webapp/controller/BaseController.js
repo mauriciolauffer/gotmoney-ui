@@ -223,14 +223,11 @@ sap.ui.define([
   BaseController.prototype.checkUserConnected = function() {
     var connected = false;
     jQuery.ajax({
-      url: '/api/session/loggedin',
+      url: GOTMONEY.BACKEND_API_HOSTNAME + '/api/session/loggedin',
       async: false,
       method: 'GET',
       contentType: 'application/json',
-      dataType: 'json',
-      xhrFields: {
-        withCredentials: true
-      }
+      dataType: 'json'
     })
       .done(function() {
         connected = true;
@@ -251,19 +248,26 @@ sap.ui.define([
 
   BaseController.prototype.getToken = function() {
     jQuery.ajax({
-      url: '/api/session/token',
+      url: GOTMONEY.BACKEND_API_HOSTNAME + '/api/session/token',
       method: 'GET',
       contentType: 'application/json'
     })
       .done(function(result) {
         jQuery.ajaxSetup({
-          beforeSend: function(xhr) {
-            xhr.setRequestHeader('x-csrf-token', result.csrfToken);
+          beforeSend: function(jqXHR, settings) {
+            // Do not set CSRF header for external calls
+            var backendDomain = new RegExp('^' + GOTMONEY.BACKEND_API_HOSTNAME);
+            if (backendDomain.test(settings.url)) {
+              jqXHR.setRequestHeader('x-csrf-token', result.csrfToken);
+            }
           }
         });
       })
       .fail(function(jqXHR, textStatus, errorThrown) {
-        //jqXHR
+        jQuery.sap.log.error('xxx');
+        console.dir(jqXHR);
+        console.dir(textStatus);
+        console.dir(errorThrown);
       });
   };
 
@@ -297,13 +301,10 @@ sap.ui.define([
     var that = this;
     return new Promise(function(resolve, reject) {
       jQuery.ajax({
-        url: '/api/user/' + jQuery.now(),
+        url: GOTMONEY.BACKEND_API_HOSTNAME + '/api/user/' + jQuery.now(),
         method: 'GET',
         contentType: 'application/json',
-        dataType: 'json',
-        xhrFields: {
-          withCredentials: true
-        }
+        dataType: 'json'
       })
         .done(function(response) {
           that.getView().getModel().getData().User = response.User;
@@ -324,13 +325,10 @@ sap.ui.define([
     var that = this;
     return new Promise(function(resolve, reject) {
       jQuery.ajax({
-        url: '/api/category/',
+        url: GOTMONEY.BACKEND_API_HOSTNAME + '/api/category/',
         method: 'GET',
         contentType: 'application/json',
-        dataType: 'json',
-        xhrFields: {
-          withCredentials: true
-        }
+        dataType: 'json'
       })
         .done(function(response) {
           that.getView().getModel().getData().User.Category = response || [];
@@ -347,13 +345,10 @@ sap.ui.define([
     var that = this;
     return new Promise(function(resolve, reject) {
       jQuery.ajax({
-        url: '/api/account/',
+        url: GOTMONEY.BACKEND_API_HOSTNAME + '/api/account/',
         method: 'GET',
         contentType: 'application/json',
-        dataType: 'json',
-        xhrFields: {
-          withCredentials: true
-        }
+        dataType: 'json'
       })
         .done(function(response) {
           that.getView().getModel().getData().User.Account = response || [];
@@ -370,13 +365,10 @@ sap.ui.define([
     var that = this;
     return new Promise(function(resolve, reject) {
       jQuery.ajax({
-        url: '/api/transaction/',
+        url: GOTMONEY.BACKEND_API_HOSTNAME + '/api/transaction/',
         method: 'GET',
         contentType: 'application/json',
-        dataType: 'json',
-        xhrFields: {
-          withCredentials: true
-        }
+        dataType: 'json'
       })
         .done(function(response) {
           that.getView().getModel().getData().User.Transaction = response || [];
@@ -393,13 +385,10 @@ sap.ui.define([
     var that = this;
     return new Promise(function(resolve, reject) {
       jQuery.ajax({
-        url: '/api/accounttype/',
+        url: GOTMONEY.BACKEND_API_HOSTNAME + '/api/accounttype/',
         method: 'GET',
         contentType: 'application/json',
-        dataType: 'json',
-        xhrFields: {
-          withCredentials: true
-        }
+        dataType: 'json'
       })
         .done(function(response) {
           that.getView().getModel().getData().AccountType = response || [];

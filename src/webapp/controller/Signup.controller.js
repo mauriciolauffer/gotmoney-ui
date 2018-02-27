@@ -112,14 +112,11 @@ sap.ui.define([
       mPayload.iduser = jQuery.now();
 
       jQuery.ajax({
-        url: '/api/session/signup',
+        url: GOTMONEY.BACKEND_API_HOSTNAME + '/api/session/signup',
         data: JSON.stringify(mPayload),
         method: 'POST',
         contentType: 'application/json',
-        dataType: 'json',
-        xhrFields: {
-          withCredentials: true
-        }
+        dataType: 'json'
       })
         .done(function() {
           that._newDone(mPayload);

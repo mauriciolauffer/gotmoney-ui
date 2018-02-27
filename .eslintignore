@@ -1,2 +1,8 @@
-node_modules
-public/js/resources
+.idea/
+build/
+dist/
+coverage/
+data/logs/
+node_modules/
+.nyc_output/
+**/openui5/

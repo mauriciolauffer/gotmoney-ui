@@ -123,14 +123,11 @@ sap.ui.define([
       var data = { data: mPayload };
 
       jQuery.ajax({
-        url: '/api/transaction',
+        url: GOTMONEY.BACKEND_API_HOSTNAME + '/api/transaction',
         data: JSON.stringify(data),
         method: 'POST',
         contentType: 'application/json',
-        dataType: 'json',
-        xhrFields: {
-          withCredentials: true
-        }
+        dataType: 'json'
       })
         .done(function() {
           that._newDone(mPayload);
@@ -146,14 +143,11 @@ sap.ui.define([
       mPayload.idtransaction = oContext.getProperty('idtransaction');
 
       jQuery.ajax({
-        url: '/api/transaction/' + mPayload.idtransaction,
+        url: GOTMONEY.BACKEND_API_HOSTNAME + '/api/transaction/' + mPayload.idtransaction,
         data: JSON.stringify(mPayload),
         method: 'PUT',
         contentType: 'application/json',
-        dataType: 'json',
-        xhrFields: {
-          withCredentials: true
-        }
+        dataType: 'json'
       })
         .done(function() {
           that._editDone(mPayload, oContext);
@@ -166,13 +160,10 @@ sap.ui.define([
       this.getView().setBusy(true);
       var that = this;
       jQuery.ajax({
-        url: '/api/transaction/' + oContext.getProperty('idtransaction'),
+        url: GOTMONEY.BACKEND_API_HOSTNAME + '/api/transaction/' + oContext.getProperty('idtransaction'),
         method: 'DELETE',
         contentType: 'application/json',
-        dataType: 'json',
-        xhrFields: {
-          withCredentials: true
-        }
+        dataType: 'json'
       })
         .done(function() {
           that._deleteDone(oContext);

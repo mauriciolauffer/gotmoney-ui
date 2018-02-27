@@ -9,8 +9,8 @@ sap.ui.define([
   'com/mlauffer/gotmoneyappui5/controller/FacebookLogin',
   'com/mlauffer/gotmoneyappui5/controller/GoogleLogin'
 ], function(jQuery, MessageBox, MessageToast, Fragment, ValueState, ShellHeadUserItem, BaseController, FacebookLogin,
-  GoogleLogin) {
-  'use strict';
+            GoogleLogin) {
+  'use strict'
 
   return BaseController.extend('com.mlauffer.gotmoneyappui5.controller.App', {
     _oDialogLogin: null,
@@ -36,26 +36,18 @@ sap.ui.define([
 
       sap.ui.getCore().getMessageManager().registerObject(this.getView(), true);
 
-      jQuery.ajax({
-        url: '/api/session/token',
-        method: 'GET',
-        contentType: 'application/json'
-      })
-        .done(function(result) {
-          jQuery.ajaxSetup({
-            beforeSend: function(jqXHR, settings) {
-              // Do not set CSRF header for external calls
-              if (!/openui5.hana.ondemand.com/.test(settings.url) &&
-                !/facebook.com/.test(settings.url) &&
-                !/google.com/.test(settings.url)) {
-                jqXHR.setRequestHeader('x-csrf-token', result.csrfToken);
-              }
-            }
-          });
-        })
-        .fail(function(jqXHR, textStatus, errorThrown) {
-          //jqXHR
-        });
+      jQuery.ajaxPrefilter( function(options) {
+        var regexp = new RegExp('^' + GOTMONEY.BACKEND_API_HOSTNAME);
+        if (regexp.test(options.url)) {
+          options.crossDomain = {
+            crossDomain: true
+          };
+          options.xhrFields = {
+            withCredentials: true
+          };
+        }
+      });
+      this.getToken();
     },
 
     onAfterRendering: function() {
@@ -160,14 +152,11 @@ sap.ui.define([
       };
 
       jQuery.ajax({
-        url: '/api/session/login',
+        url: GOTMONEY.BACKEND_API_HOSTNAME + '/api/session/login',
         data: JSON.stringify(mPayload),
         method: 'POST',
         contentType: 'application/json',
-        dataType: 'json',
-        xhrFields: {
-          withCredentials: true
-        }
+        dataType: 'json'
       })
         .done(function() {
           that._loginDone();
@@ -209,14 +198,11 @@ sap.ui.define([
         email: Fragment.byId('Recovery', 'email').getValue()
       };
       jQuery.ajax({
-        url: '/api/session/recovery',
+        url: GOTMONEY.BACKEND_API_HOSTNAME + '/api/session/recovery',
         data: JSON.stringify(mPayload),
         method: 'PUT',
         contentType: 'application/json',
-        dataType: 'json',
-        xhrFields: {
-          withCredentials: true
-        }
+        dataType: 'json'
       })
         .done(function() {
           MessageBox.success(that.getResourceBundle().getText('Success.passwordRecovery'));
@@ -251,13 +237,10 @@ sap.ui.define([
       this.getView().setBusy(true);
       var that = this;
       jQuery.ajax({
-        url: '/api/session/logout',
+        url: GOTMONEY.BACKEND_API_HOSTNAME + '/api/session/logout',
         method: 'GET',
         contentType: 'application/json',
-        dataType: 'json',
-        xhrFields: {
-          withCredentials: true
-        }
+        dataType: 'json'
       })
         .done(function() {
           that._logoffDone();

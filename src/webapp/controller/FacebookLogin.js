@@ -49,16 +49,13 @@ sap.ui.define([
       this._oViewController.getView().setBusy(true);
       var that = this;
       jQuery.ajax({
-        url: '/api/session/facebook',
+        url: GOTMONEY.BACKEND_API_HOSTNAME + '/api/session/facebook',
         method: 'POST',
         headers: {
           'Authorization': 'Bearer ' + accessToken
         },
         contentType: 'application/json',
-        dataType: 'json',
-        xhrFields: {
-          withCredentials: true
-        }
+        dataType: 'json'
       })
         .done(function() {
           that._oViewController._loginDone();

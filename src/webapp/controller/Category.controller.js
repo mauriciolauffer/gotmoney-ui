@@ -100,14 +100,11 @@ sap.ui.define([
       mPayload.idcategory = jQuery.now();
 
       jQuery.ajax({
-        url: '/api/category',
+        url: GOTMONEY.BACKEND_API_HOSTNAME + '/api/category',
         data: JSON.stringify(mPayload),
         method: 'POST',
         contentType: 'application/json',
-        dataType: 'json',
-        xhrFields: {
-          withCredentials: true
-        }
+        dataType: 'json'
       })
         .done(function() {
           that._newDone(mPayload);
@@ -122,14 +119,11 @@ sap.ui.define([
       mPayload.idcategory = oContext.getProperty('idcategory');
 
       jQuery.ajax({
-        url: '/api/category/' + mPayload.idcategory,
+        url: GOTMONEY.BACKEND_API_HOSTNAME + '/api/category/' + mPayload.idcategory,
         data: JSON.stringify(mPayload),
         method: 'PUT',
         contentType: 'application/json',
-        dataType: 'json',
-        xhrFields: {
-          withCredentials: true
-        }
+        dataType: 'json'
       })
         .done(function() {
           that._editDone(mPayload, oContext);
@@ -142,13 +136,10 @@ sap.ui.define([
       this.getView().setBusy(true);
       var that = this;
       jQuery.ajax({
-        url: '/api/category/' + oContext.getProperty('idcategory'),
+        url: GOTMONEY.BACKEND_API_HOSTNAME + '/api/category/' + oContext.getProperty('idcategory'),
         method: 'DELETE',
         contentType: 'application/json',
-        dataType: 'json',
-        xhrFields: {
-          withCredentials: true
-        }
+        dataType: 'json'
       })
         .done(function() {
           that._deleteDone(oContext);

@@ -36,16 +36,13 @@ sap.ui.define([
       this._oViewController.getView().setBusy(true);
       var that = this;
       jQuery.ajax({
-        url: '/api/session/google',
+        url: GOTMONEY.BACKEND_API_HOSTNAME + '/api/session/google',
         method: 'POST',
         headers: {
           'Access_token': googleUser.getAuthResponse().access_token
         },
         contentType: 'application/json',
-        dataType: 'json',
-        xhrFields: {
-          withCredentials: true
-        }
+        dataType: 'json'
       })
         .done(function() {
           that._oViewController._loginDone();
