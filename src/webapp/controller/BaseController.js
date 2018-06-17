@@ -238,23 +238,6 @@ sap.ui.define([
           reject(errorThrown);
         });
     });
-
-    /*var connected = false;
-    jQuery.ajax({
-      url: GOTMONEY.BACKEND_API_HOSTNAME + '/api/session/loggedin',
-      async: false,
-      method: 'GET',
-      contentType: 'application/json',
-      dataType: 'json'
-    })
-      .done(function() {
-        connected = true;
-      })
-      .fail(function(jqXHR, textStatus, errorThrown) {
-        connected = false;
-      });
-    this.setUserLogged(connected);
-    return connected;*/
   };
 
   BaseController.prototype.vibrate = function() {
