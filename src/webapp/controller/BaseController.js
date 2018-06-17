@@ -50,7 +50,7 @@ sap.ui.define([
     //Initialize the Message Popover used to display the errors
     if (!this._messagePopover) {
       this._messagePopover = sap.ui.xmlfragment(this.getView().getId(),
-                                                'com.mlauffer.gotmoneyappui5.view.MessagePopover', this);
+        'com.mlauffer.gotmoneyappui5.view.MessagePopover', this);
       this.getView().addDependent(this._messagePopover);
 
     }
@@ -221,7 +221,25 @@ sap.ui.define([
   };
 
   BaseController.prototype.checkUserConnected = function() {
-    var connected = false;
+    var that = this;
+    return new Promise(function(resolve, reject) {
+      jQuery.ajax({
+        url: GOTMONEY.BACKEND_API_HOSTNAME + '/api/session/loggedin',
+        method: 'GET',
+        contentType: 'application/json',
+        dataType: 'json'
+      })
+        .done(function() {
+          that.setUserLogged(true);
+          resolve();
+        })
+        .fail(function(jqXHR, textStatus, errorThrown) {
+          that.setUserLogged(false);
+          reject(errorThrown);
+        });
+    });
+
+    /*var connected = false;
     jQuery.ajax({
       url: GOTMONEY.BACKEND_API_HOSTNAME + '/api/session/loggedin',
       async: false,
@@ -236,7 +254,7 @@ sap.ui.define([
         connected = false;
       });
     this.setUserLogged(connected);
-    return connected;
+    return connected;*/
   };
 
   BaseController.prototype.vibrate = function() {
@@ -264,10 +282,7 @@ sap.ui.define([
         });
       })
       .fail(function(jqXHR, textStatus, errorThrown) {
-        jQuery.sap.log.error('xxx');
-        console.dir(jqXHR);
-        console.dir(textStatus);
-        console.dir(errorThrown);
+        jQuery.sap.log.error(errorThrown);
       });
   };
 

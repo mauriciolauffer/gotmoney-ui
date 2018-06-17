@@ -51,10 +51,21 @@ sap.ui.define([
     },
 
     onAfterRendering: function() {
-      if (this.checkUserConnected()) {
+      var that = this;
+      this.checkUserConnected()
+        .then(function() {
+          console.log(11111111);
+          that._loadBackendData();
+          that._toogleButtonsVisible();
+        })
+        .catch(function(err) {
+          jQuery.sap.log.error(err);
+          that.getRouter().navTo('index', {}, true);
+        });
+      /*if (this.checkUserConnected()) {
         this._loadBackendData();
         this._toogleButtonsVisible();
-      }
+      }*/
     },
 
     /**
