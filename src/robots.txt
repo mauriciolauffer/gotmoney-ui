@@ -3,4 +3,4 @@ Disallow: /cgi-bin/
 Disallow: /wusage/
 Disallow: /application/
 Disallow: /library/
-Sitemap: http://www.gotmoneyapp.com/sitemap.xml
+Sitemap: https://www.gotmoneyapp.com/sitemap.xml
