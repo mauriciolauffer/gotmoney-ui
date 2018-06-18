@@ -26,6 +26,9 @@ sap.ui.require([
         },
         iPressTheCloseForgetPasswordDialogButton: function() {
           return firePress.call(this, 'Recovery--btClose');
+        },
+        iPressTheSignupDialogButton: function() {
+          return firePress.call(this, 'btSignup', 'App');
         }
       },
 
@@ -41,6 +44,14 @@ sap.ui.require([
         iShouldSeeTheForgetPasswordDialog: function() {
           return this.waitFor({
             id: 'Recovery--dialogRecovery',
+            success: function() {
+              Opa5.assert.ok(true, 'The dialog is open');
+            }
+          });
+        },
+        iShouldSeeTheSignupDialog: function() {
+          return this.waitFor({
+            id: 'Signup--dialogSignup',
             success: function() {
               Opa5.assert.ok(true, 'The dialog is open');
             }

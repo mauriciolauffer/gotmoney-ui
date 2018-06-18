@@ -48,13 +48,13 @@ sap.ui.define([
       this._oDialogLogin.open();
 
       var oGoogleLogin = new GoogleLogin();
-      oGoogleLogin.renderButton(this._oViewController, Fragment.byId('Login', 'btGoogle').getDomRef().id);
+      oGoogleLogin.renderButton(this, Fragment.byId('Login', 'btGoogle').getDomRef().id);
     },
 
     onFacebookLogin: function() {
       this._oViewController.vibrate();
       var oFacebookLogin = new FacebookLogin();
-      oFacebookLogin.login(this._oViewController);
+      oFacebookLogin.login(this);
     },
 
     onSystemLogin: function() {
@@ -84,9 +84,10 @@ sap.ui.define([
     },
 
     onCloseLogin: function() {
-      this._oViewController.vibrate();
-      this._oDialogLogin.setBusy(false);
-      this._oDialogLogin.close();
+      if (this._oDialogLogin) {
+        this._oDialogLogin.setBusy(false);
+        this._oDialogLogin.close();
+      }
       this._oViewController.getView().setBusy(false);
     },
 
@@ -170,13 +171,14 @@ sap.ui.define([
       this._oDialogSignup.open();
 
       var oGoogleLogin = new GoogleLogin();
-      oGoogleLogin.renderButton(this._oViewController, Fragment.byId('Signup', 'btGoogle').getDomRef().id);
+      oGoogleLogin.renderButton(this, Fragment.byId('Signup', 'btGoogle').getDomRef().id);
     },
 
     onCloseSignup: function() {
-      this._oViewController.vibrate();
-      this._oDialogSignup.setBusy(false);
-      this._oDialogSignup.close();
+      if (this._oDialogSignup) {
+        this._oDialogSignup.setBusy(false);
+        this._oDialogSignup.close();
+      }
       this._oViewController.getView().setBusy(false);
     },
 

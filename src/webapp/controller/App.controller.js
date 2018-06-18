@@ -8,9 +8,6 @@ sap.ui.define([
   'use strict';
 
   return BaseController.extend('com.mlauffer.gotmoneyappui5.controller.App', {
-    _oDialogLogin: null,
-    _oDialogRecovery: null,
-    _oGoogleLogin: null,
     _systemLogin: null,
 
     onInit: function() {
@@ -61,20 +58,6 @@ sap.ui.define([
           jQuery.sap.log.error(err);
           that.getRouter().navTo('index', {}, true);
         });
-    },
-
-    /**
-     * The component is destroyed by UI5 automatically.
-     * @public
-     * @override
-     */
-    destroy: function() {
-      if (this._oDialogLogin !== null) {
-        this._oDialogLogin.destroy();
-      }
-      if (this._oDialogRecovery !== null) {
-        this._oDialogRecovery.destroy();
-      }
     },
 
     onPressHome: function() {
