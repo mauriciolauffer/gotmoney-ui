@@ -119,11 +119,6 @@
           "target": "profile"
         },
         {
-          "pattern": "signup",
-          "name": "signup",
-          "target": "signup"
-        },
-        {
           "pattern": "account",
           "name": "accountList",
           "target": "accountList"
@@ -208,11 +203,6 @@
         "profile": {
           "viewId": "user",
           "viewName": "User",
-          "viewLevel": 2
-        },
-        "signup": {
-          "viewId": "signup",
-          "viewName": "Signup",
           "viewLevel": 2
         },
         "accountList": {

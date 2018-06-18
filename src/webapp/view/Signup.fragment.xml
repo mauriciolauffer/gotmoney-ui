@@ -1,0 +1,32 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m">
+  <Dialog id="dialogSignup" title="{i18n>Signup.title}" icon="sap-icon://leads" afterClose="onAfterCloseSignup" busyIndicatorDelay="0">
+    <Panel>
+      <VBox>
+        <Label text="{i18n>User.name}" required="true" />
+        <Input id="name" value="{user>/name}" />
+        <Label text="{i18n>User.email}" required="true" />
+        <Input id="email" type="Email" value="{user>/email}" />
+        <Label text="{i18n>User.password}" required="true" />
+        <Input id="pwd" type="Password" value="{user>/pwd}" />
+        <Label text="{i18n>User.passwordRepeat}" required="true" />
+        <Input id="pwdRepeat" type="Password" value="{user>/pwdRepeat}" />
+        <Label text="{i18n>User.terms}" required="true" />
+        <CheckBox id="terms" state="{user>/terms}" text="{i18n>User.termsAgree}" />
+      </VBox>
+    </Panel>
+    <Panel headerText="{i18n>Signup.social}">
+      <VBox>
+        <Button id="btFacebook" text="{i18n>Signup.facebook}" press="onFacebookLogin" icon="/webapp/images/facebook.png" iconDensityAware="false" />
+        <Button id="btGoogle" text="{i18n>Signup.google}" icon="/webapp/images/google.png" iconDensityAware="false" />
+      </VBox>
+    </Panel>
+    <buttons>
+      <Button id="btMessagePopover" icon="sap-icon://message-popup" type="Reject"
+              text="{=${message>/}.length}"
+              visible="{=${message>/}.length > 0}"
+              press="onMessagePopoverPress"/>
+      <Button id="btSave" icon="sap-icon://save" text="{i18n>XBUT.createAppAccount}" type="Emphasized" press="onCreateAccount" />
+      <Button id="btClose" icon="sap-icon://decline" type="Reject" press="onCloseSignup" />
+    </buttons>
+  </Dialog>
+</core:FragmentDefinition>

@@ -11,15 +11,6 @@
 			<Input id="email" type="Email" enabled="false" value="{email}" />
 			<Label text="{i18n>User.name}" required="true" />
 			<Input id="name" value="{name}" />
-			<Label text="{i18n>User.sex}" required="true" />
-			<Select id="sex" selectedKey="{gender}">
-				<core:Item key="F" text="{i18n>Female}" />
-				<core:Item key="M" text="{i18n>Male}" />
-			</Select>
-			<Label text="{i18n>User.birthdate}" required="true" />
-			<DatePicker id="birthdate" dateValue="{path:'birthdate', formatter:'.formatter.dateFromJSON'}" />
-			<Label text="{i18n>User.notification}" />
-			<Switch id="alert" state="{path:'alert', formatter:'.formatter.numeralBoolean'}" />
 			<core:Title text="{i18n>User.security}" />
 			<Label text="{i18n>User.passwordOld}" />
 			<Input id="pwdOld" type="Password" value="{pwdOld}" />

@@ -9,7 +9,7 @@ sap.ui.define([
   'com/mlauffer/gotmoneyappui5/model/formatter',
   'openui5/validator/Validator'
 ], function(jQuery, MessageBox, MessageToast, JSONModel, ValueState, BaseController,
-  ObjectFactory, formatter, Validator) {
+            ObjectFactory, formatter, Validator) {
   'use strict';
 
   return BaseController.extend('com.mlauffer.gotmoneyappui5.controller.User', {
@@ -20,7 +20,7 @@ sap.ui.define([
         this.getView().setModel(new JSONModel(), 'user');
         var oRouter = this.getRouter();
         oRouter.getRoute('profile').attachMatched(this._onRouteMatched, this);
-        oRouter.getRoute('signup').attachMatched(this._onRouteMatchedNew, this);
+        //oRouter.getRoute('signup').attachMatched(this._onRouteMatchedNew, this);
         this._initValidator();
         this.getView().addEventDelegate({
           onBeforeShow: function() {
@@ -118,8 +118,6 @@ sap.ui.define([
       try {
         var oModel = this.getView().getModel();
         oModel.setProperty('name', mPayload.name, oContext);
-        oModel.setProperty('gender', mPayload.gender, oContext);
-        oModel.setProperty('birthdate', mPayload.birthdate, oContext);
         oModel.setProperty('alert', mPayload.alert, oContext);
         this.onFinishBackendOperation();
         MessageToast.show(this.getResourceBundle().getText('Success.save'));
@@ -134,19 +132,12 @@ sap.ui.define([
     _getPayload: function() {
       var oView = this.getView();
       var mPayload = ObjectFactory.buildUser();
-      //iduser : null,
       mPayload.email = oView.byId('email').getValue();
       mPayload.passwdold = oView.byId('pwdOld').getValue();
       mPayload.passwd = oView.byId('pwd').getValue();
       mPayload.name = oView.byId('name').getValue();
-      mPayload.gender = oView.byId('sex').getSelectedKey();
-      mPayload.birthdate = oView.byId('birthdate').getDateValue();
-      mPayload.alert = oView.byId('alert').getState();
+      mPayload.alert = false;
       mPayload.lastchange = jQuery.now();
-      //mPayload.lastsync : null
-      if (mPayload.birthdate) {
-        mPayload.birthdate.setHours(12); //Workaround for date location, avoid D -1
-      }
       return mPayload;
     },
 
@@ -163,14 +154,6 @@ sap.ui.define([
             type: 'string',
             minLength: 3,
             maxLength: 80
-          },
-          gender: {
-            type: 'string',
-            enum: ['F', 'M'],
-            maxLength: 1
-          },
-          birthdate: {
-            format: 'date'
           },
           email: {
             type: 'string',
@@ -204,9 +187,7 @@ sap.ui.define([
       var oView = this.getView();
       this.getMessagePopover().close();
       oView.setBusy(true);
-      if (oView.getViewName() === 'com.mlauffer.gotmoneyappui5.view.User') {
-        this._saveEdit(context);
-      }
+      this._saveEdit(context);
     },
 
     _onValidationError: function(errors) {
@@ -214,7 +195,7 @@ sap.ui.define([
     },
 
     _clearValueState: function() {
-      var controls = ['name', 'gender', 'birthdate', 'email'];
+      var controls = ['name', 'email'];
       this.clearValueState(controls);
     }
   });
