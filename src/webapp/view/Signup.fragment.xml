@@ -21,10 +21,6 @@
       </VBox>
     </Panel>
     <buttons>
-      <Button id="btMessagePopover" icon="sap-icon://message-popup" type="Reject"
-              text="{=${message>/}.length}"
-              visible="{=${message>/}.length > 0}"
-              press="onMessagePopoverPress"/>
       <Button id="btSave" icon="sap-icon://save" text="{i18n>XBUT.createAppAccount}" type="Emphasized" press="onCreateAccount" />
       <Button id="btClose" icon="sap-icon://decline" type="Reject" press="onCloseSignup" />
     </buttons>
