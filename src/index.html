@@ -33,24 +33,20 @@
   //SAP OpenUI5
   'use strict';
   window["sap-ui-config"] = {};
-  window["sap-ui-config"].onInit = function () {
+  window["sap-ui-config"].onInit = function() {
     sap.ui.require([
-      'sap/m/Shell',
+      'sap/ui/core/Component',
       'sap/ui/core/ComponentContainer'
-    ], function (Shell, ComponentContainer) {
+    ], function (Component, ComponentContainer) {
       sap.ui.component({
         name: 'com.mlauffer.gotmoneyappui5',
         manifest: true,
         async: true
       })
         .then(function (oComponent) {
-          new Shell({
-            app: new ComponentContainer({
-              async: true,
-              height: '100%',
-              component: oComponent
-            }),
-            appWidthLimited: true
+          new ComponentContainer({
+            async: true,
+            component: oComponent
           }).placeAt('content');
         })
         .catch(function (err) {

@@ -30,7 +30,7 @@
       "sap_hcb",
       "sap_belize"
     ],
-    "fullWidth": true
+    "fullWidth": false
   },
   "sap.ui5": {
     "dependencies": {
