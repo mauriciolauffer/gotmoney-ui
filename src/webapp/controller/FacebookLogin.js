@@ -75,8 +75,8 @@ sap.ui.define([
           if (that._systemLogin._oDialogLogin) {
             that._systemLogin._oDialogLogin.setBusy(false);
           }
-          if (this._systemLogin._oDialogSignup) {
-            this._systemLogin._oDialogSignup.setBusy(false);
+          if (that._systemLogin._oDialogSignup) {
+            that._systemLogin._oDialogSignup.setBusy(false);
           }
           that._systemLogin._oViewController._ajaxFail(jqXHR, textStatus, errorThrown);
         });
