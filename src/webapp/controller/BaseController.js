@@ -132,33 +132,15 @@ sap.ui.define([
     this.vibrate();
     var sText = this.getResourceBundle().getText('Error.internalServerError');
     //var sDetail = this.getResourceBundle().getText("Error.noDetails");
-    try {
-      if (oResult.responseJSON.messageCode) {
-        sText = oResult.responseJSON.messageCode;
-      }
-
-      //TODO
-      /*if (oResult.responseJSON.messageCode = "Error.invalidInput") {
-       sDetail = oResult.responseJSON.message;
-       //MessageBox.error(this.getResourceBundle().getText(sText) + "\n\n", { details : sDetail });
-       } else {
-       MessageBox.error(this.getResourceBundle().getText(sText));
-       }*/
-
-    } catch (e) {
-      console.dir(e);
-      console.dir(oResult);
+    if (oResult && oResult.responseJSON && oResult.responseJSON.messageCode) {
+      sText = oResult.responseJSON.messageCode;
     }
-
     MessageBox.error(this.getResourceBundle().getText(sText));
 
     this.getView().setBusy(false);
-    try {
-      if (oResult.responseJSON.messageCode === 'Error.userNotLoggedIn') {
-        this.getRouter().navTo('index');
-      }
-    } catch (e) {
-      console.dir(e);
+    if (oResult && oResult.responseJSON &&
+      oResult.responseJSON.messageCode && oResult.responseJSON.messageCode === 'Error.userNotLoggedIn') {
+      this.getRouter().navTo('index');
     }
   };
 
