@@ -28,18 +28,6 @@ sap.ui.define([
        }, this);*/
 
       sap.ui.getCore().getMessageManager().registerObject(this.getView(), true);
-
-      jQuery.ajaxPrefilter( function(options) {
-        var regexp = new RegExp('^' + GOTMONEY.BACKEND_API_HOSTNAME);
-        if (regexp.test(options.url)) {
-          options.crossDomain = {
-            crossDomain: true
-          };
-          options.xhrFields = {
-            withCredentials: true
-          };
-        }
-      });
       this.getToken();
       this._systemLogin = new SystemLogin(this);
     },
@@ -55,7 +43,6 @@ sap.ui.define([
         })
         .catch(function(err) {
           that.getView().setBusy(false);
-          jQuery.sap.log.error(err);
           that.getRouter().navTo('index', {}, true);
         });
     },
@@ -167,6 +154,7 @@ sap.ui.define([
       this.destroySession();
       this._toogleShellOverlay();
       this._toogleButtonsVisible();
+      this.getView().getModel().setData({});
       this.getView().setBusy(false);
       this.getRouter().navTo('index');
       MessageToast.show(this.getResourceBundle().getText('Success.logoff'));
@@ -177,7 +165,7 @@ sap.ui.define([
       var oUser = new ShellHeadUserItem({
         image: 'sap-icon://person-placeholder',
         username: '{/User/name}',
-        press: jQuery.proxy(this.onUserItemPressed, this)
+        press: this.onUserItemPressed.bind(this)
       });
       this.getView().byId('appUShell').setUser(oUser);
     },

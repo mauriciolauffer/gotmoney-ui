@@ -43,7 +43,8 @@ sap.ui.define([
       this.getOwnerComponent().oMessageManager.removeAllMessages();
       var isValid = false;
       var errors = null;
-      if (this.getView().byId('occurrence').getSelectedKey() === 'U') {
+      var occurrenceElement = this.getView().byId('occurrence');
+      if (!occurrenceElement || occurrenceElement.getSelectedKey() === 'U') {
         isValid = this._validator.validate();
         errors = this._validator.getErrors();
       } else {
@@ -121,18 +122,16 @@ sap.ui.define([
       var that = this;
       var mPayload = this._createRepetition(oView.byId('occurrence').getSelectedKey());
       var data = { data: mPayload };
-
-      jQuery.ajax({
-        url: GOTMONEY.BACKEND_API_HOSTNAME + '/api/transaction',
-        data: JSON.stringify(data),
-        method: 'POST',
-        contentType: 'application/json',
-        dataType: 'json'
-      })
-        .done(function() {
-          that._newDone(mPayload);
+      var url = GOTMONEY.BACKEND_API_HOSTNAME + '/api/transaction';
+      fetch(url, this.getFetchOptions(JSON.stringify(data), 'POST'))
+        .then(function(response) {
+          if (response.ok) {
+            that._newDone(mPayload);
+          } else {
+            throw response.json();
+          }
         })
-        .fail(jQuery.proxy(that._ajaxFail, this));
+        .catch(this._backendFail);
     },
 
 
@@ -141,41 +140,39 @@ sap.ui.define([
       var that = this;
       var mPayload = this._getPayload();
       mPayload.idtransaction = oContext.getProperty('idtransaction');
-
-      jQuery.ajax({
-        url: GOTMONEY.BACKEND_API_HOSTNAME + '/api/transaction/' + mPayload.idtransaction,
-        data: JSON.stringify(mPayload),
-        method: 'PUT',
-        contentType: 'application/json',
-        dataType: 'json'
-      })
-        .done(function() {
-          that._editDone(mPayload, oContext);
+      var url = GOTMONEY.BACKEND_API_HOSTNAME + '/api/transaction/' + mPayload.idtransaction;
+      fetch(url, this.getFetchOptions(JSON.stringify(mPayload), 'PUT'))
+        .then(function(response) {
+          if (response.ok) {
+            that._editDone(mPayload, oContext);
+          } else {
+            throw response.json();
+          }
         })
-        .fail(jQuery.proxy(that._ajaxFail, this));
+        .catch(this._backendFail);
     },
 
 
     _delete: function(oContext) {
       this.getView().setBusy(true);
       var that = this;
-      jQuery.ajax({
-        url: GOTMONEY.BACKEND_API_HOSTNAME + '/api/transaction/' + oContext.getProperty('idtransaction'),
-        method: 'DELETE',
-        contentType: 'application/json',
-        dataType: 'json'
-      })
-        .done(function() {
-          that._deleteDone(oContext);
+      var url = GOTMONEY.BACKEND_API_HOSTNAME + '/api/transaction/' + oContext.getProperty('idtransaction');
+      fetch(url, this.getFetchOptions(null, 'DELETE'))
+        .then(function(response) {
+          if (response.ok) {
+            that._deleteDone(oContext);
+          } else {
+            throw response.json();
+          }
         })
-        .fail(jQuery.proxy(this._ajaxFail, this));
+        .catch(this._backendFail);
     },
 
 
     _newDone: function(payload) {
       try {
         var oView = this.getView();
-        jQuery.each(payload, function(i, item) {
+        payload.forEach(function(item) {
           oView.getModel().getData().User.Transaction.push(item);
         });
         this.getView().getModel().updateBindings(true);
@@ -280,7 +277,7 @@ sap.ui.define([
       var aPayloads = [];
       var mPayloadReference = this._getPayload();
       mPayloadReference.startdate = mPayloadReference.startdate || mPayloadReference.duedate;
-      mPayloadReference.idtransaction = jQuery.now();
+      mPayloadReference.idtransaction = Date.now();
 
       for (var i = 0; i < sSplit; i++) {
         var mPayload = jQuery.extend(true, {}, mPayloadReference);
@@ -288,7 +285,7 @@ sap.ui.define([
 
         //Set ID
         do {
-          mPayload.idtransaction = jQuery.now();
+          mPayload.idtransaction = Date.now();
         }
         while (sLastId === mPayload.idtransaction);
 

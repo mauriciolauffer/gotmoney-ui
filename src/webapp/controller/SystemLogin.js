@@ -65,21 +65,19 @@ sap.ui.define([
         email: Fragment.byId('Login', 'email').getValue(),
         passwd: Fragment.byId('Login', 'pwd').getValue()
       };
-
-      jQuery.ajax({
-        url: GOTMONEY.BACKEND_API_HOSTNAME + '/api/session/login',
-        data: JSON.stringify(mPayload),
-        method: 'POST',
-        contentType: 'application/json',
-        dataType: 'json'
-      })
-        .done(function() {
-          that.onCloseLogin();
-          that._oViewController._loginDone();
+      var url = GOTMONEY.BACKEND_API_HOSTNAME + '/api/session/login';
+      fetch(url, that._oViewController.getFetchOptions(JSON.stringify(mPayload), 'POST'))
+        .then(function(response) {
+          if (response.ok) {
+            that.onCloseLogin();
+            that._oViewController._loginDone();
+          } else {
+            throw response.json();
+          }
         })
-        .fail(function(jqXHR, textStatus, errorThrown) {
+        .catch(function(err) {
           that._oDialogLogin.setBusy(false);
-          that._oViewController._ajaxFail(jqXHR, textStatus, errorThrown);
+          that._oViewController._backendFail(err);
         });
     },
 
@@ -114,19 +112,18 @@ sap.ui.define([
       var mPayload = {
         email: Fragment.byId('Recovery', 'email').getValue()
       };
-      jQuery.ajax({
-        url: GOTMONEY.BACKEND_API_HOSTNAME + '/api/session/recovery',
-        data: JSON.stringify(mPayload),
-        method: 'PUT',
-        contentType: 'application/json',
-        dataType: 'json'
-      })
-        .done(function() {
-          MessageBox.success(that._oViewController.getResourceBundle().getText('Success.passwordRecovery'));
-          that.onCloseRecovery();
+      var url = GOTMONEY.BACKEND_API_HOSTNAME + '/api/session/recovery';
+      fetch(url, that._oViewController.getFetchOptions(JSON.stringify(mPayload), 'PUT'))
+        .then(function(response) {
+          if (response.ok) {
+            MessageBox.success(that._oViewController.getResourceBundle().getText('Success.passwordRecovery'));
+            that.onCloseRecovery();
+          } else {
+            throw response.json();
+          }
         })
-        .fail(function(jqXHR, textStatus, errorThrown) {
-          that._oViewController._ajaxFail(jqXHR, textStatus, errorThrown);
+        .catch(function(err) {
+          that._oViewController._backendFail(err);
           that.onCloseRecovery();
         });
     },
@@ -148,18 +145,16 @@ sap.ui.define([
       var viewController = this._oViewController;
       viewController.vibrate();
       viewController.getView().setBusy(true);
-      jQuery.ajax({
-        url: GOTMONEY.BACKEND_API_HOSTNAME + '/api/session/logout',
-        method: 'GET',
-        contentType: 'application/json',
-        dataType: 'json'
-      })
-        .done(function() {
-          viewController._logoffDone();
+      var url = GOTMONEY.BACKEND_API_HOSTNAME + '/api/session/logout';
+      fetch(url, viewController.getFetchOptions(null, 'GET'))
+        .then(function(response) {
+          if (response.ok) {
+            viewController._logoffDone();
+          } else {
+            throw response.json();
+          }
         })
-        .fail(function(jqXHR, textStatus, errorThrown) {
-          viewController._ajaxFail(jqXHR, textStatus, errorThrown);
-        });
+        .catch(viewController._backendFail);
     },
 
     onSignup: function() {
@@ -199,18 +194,16 @@ sap.ui.define([
     _saveNew: function() {
       var that = this;
       var mPayload = this._getPayload();
-
-      jQuery.ajax({
-        url: GOTMONEY.BACKEND_API_HOSTNAME + '/api/session/signup',
-        data: JSON.stringify(mPayload),
-        method: 'POST',
-        contentType: 'application/json',
-        dataType: 'json'
-      })
-        .done(function() {
-          that._newDone(mPayload);
+      var url = GOTMONEY.BACKEND_API_HOSTNAME + '/api/session/signup';
+      fetch(url, that._oViewController.getFetchOptions(JSON.stringify(mPayload), 'POST'))
+        .then(function(response) {
+          if (response.ok) {
+            that._newDone(mPayload);
+          } else {
+            throw response.json();
+          }
         })
-        .fail(jQuery.proxy(that._oViewController._ajaxFail, that._oViewController));
+        .catch(that._oViewController._backendFail);
     },
 
 

@@ -22,9 +22,7 @@ sap.ui.define([
     renderButton: function(oViewController, idButton) {
       this._systemLogin = oViewController;
       if (Google.auth2) {
-        Google.auth2.attachClickHandler(idButton, {},
-                                        jQuery.proxy(this.onSuccess, this),
-                                        jQuery.proxy(this.onFailure, this)
+        Google.auth2.attachClickHandler(idButton, {}, this.onSuccess.bind(this), this.onFailure.bind(this)
         );
       }
     },
@@ -38,28 +36,27 @@ sap.ui.define([
       }
       this._systemLogin._oViewController.getView().setBusy(true);
       var that = this;
-      jQuery.ajax({
-        url: GOTMONEY.BACKEND_API_HOSTNAME + '/api/session/google',
-        method: 'POST',
-        headers: {
-          'Access_token': googleUser.getAuthResponse().access_token
-        },
-        contentType: 'application/json',
-        dataType: 'json'
-      })
-        .done(function() {
-          that._systemLogin.onCloseLogin();
-          that._systemLogin.onCloseSignup();
-          that._systemLogin._oViewController._loginDone();
+      var url = GOTMONEY.BACKEND_API_HOSTNAME + '/api/session/google';
+      var options = that._systemLogin._oViewController.getFetchOptions(null, 'POST');
+      options.headers.Access_token = googleUser.getAuthResponse().access_token;
+      fetch(url, options)
+        .then(function(response) {
+          if (response.ok) {
+            that._systemLogin.onCloseLogin();
+            that._systemLogin.onCloseSignup();
+            that._systemLogin._oViewController._loginDone();
+          } else {
+            throw response.json();
+          }
         })
-        .fail(function(jqXHR, textStatus, errorThrown) {
+        .catch(function(err) {
           if (that._systemLogin._oDialogLogin) {
             that._systemLogin._oDialogLogin.setBusy(false);
           }
           if (that._systemLogin._oDialogSignup) {
             that._systemLogin._oDialogSignup.setBusy(false);
           }
-          that._systemLogin._oViewController._ajaxFail(jqXHR, textStatus, errorThrown);
+          that._systemLogin._oViewController._backendFail(err);
         });
     },
 

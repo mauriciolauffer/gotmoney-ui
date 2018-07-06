@@ -17,9 +17,12 @@ sap.ui.define([
     }
   };
 
+  var CSRF_TOKEN;
+
   var BaseController = Controller.extend('com.mlauffer.gotmoneyappui5.controller.BaseController', {
     _messagePopover: null
   });
+
 
   /**
    * Convenience method for accessing the router in every controller of the application.
@@ -128,20 +131,15 @@ sap.ui.define([
   };
 
 
-  BaseController.prototype._ajaxFail = function(oResult, textStatus, jqXHR) {
-    this.vibrate();
-    var sText = this.getResourceBundle().getText('Error.internalServerError');
-    //var sDetail = this.getResourceBundle().getText("Error.noDetails");
-    if (oResult && oResult.responseJSON && oResult.responseJSON.messageCode) {
-      sText = oResult.responseJSON.messageCode;
-    }
-    MessageBox.error(this.getResourceBundle().getText(sText));
+  BaseController.prototype._backendFail = function(result) {
+    MessageBox.error(this.getResourceBundle().getText('Error.internalServerError'));
+    //MessageBox.error(this.getResourceBundle().getText(sText));
 
     this.getView().setBusy(false);
-    if (oResult && oResult.responseJSON &&
+    /*if (oResult && oResult.responseJSON &&
       oResult.responseJSON.messageCode && oResult.responseJSON.messageCode === 'Error.userNotLoggedIn') {
       this.getRouter().navTo('index');
-    }
+    }*/
   };
 
 
@@ -158,7 +156,7 @@ sap.ui.define([
     sType = sType.toUpperCase();
     //var sUser = '';
     var sURL = jQuery(window.location).attr('href').toString();
-    var sLogMessage = sType + ': ' + sText + '. User accessed route ' + sURL + ', timestamp = ' + jQuery.now();
+    var sLogMessage = sType + ': ' + sText + '. User accessed route ' + sURL + ', timestamp = ' + Date.now();
     switch (sType) {
       case 'E':
         jQuery.sap.log.error(sLogMessage);
@@ -204,20 +202,20 @@ sap.ui.define([
 
   BaseController.prototype.checkUserConnected = function() {
     var that = this;
-    return new Promise(function(resolve, reject) {
-      jQuery.ajax({
-        url: GOTMONEY.BACKEND_API_HOSTNAME + '/api/session/loggedin',
-        method: 'GET',
-        contentType: 'application/json',
-        dataType: 'json'
-      })
-        .done(function() {
-          that.setUserLogged(true);
-          resolve();
+    return new Promise(function (resolve, reject) {
+      var url = GOTMONEY.BACKEND_API_HOSTNAME + '/api/session/loggedin';
+      fetch(url, that.getFetchOptions(null, 'GET'))
+        .then(function (response) {
+          if (response.ok) {
+            that.setUserLogged(true);
+            resolve();
+          } else {
+            throw response.json();
+          }
         })
-        .fail(function(jqXHR, textStatus, errorThrown) {
+        .catch(function(err) {
           that.setUserLogged(false);
-          reject(errorThrown);
+          reject();
         });
     });
   };
@@ -230,25 +228,29 @@ sap.ui.define([
   };
 
   BaseController.prototype.getToken = function() {
-    jQuery.ajax({
-      url: GOTMONEY.BACKEND_API_HOSTNAME + '/api/session/token',
-      method: 'GET',
-      contentType: 'application/json'
-    })
-      .done(function(result) {
-        jQuery.ajaxSetup({
-          beforeSend: function(jqXHR, settings) {
-            // Do not set CSRF header for external calls
-            var backendDomain = new RegExp('^' + GOTMONEY.BACKEND_API_HOSTNAME);
-            if (backendDomain.test(settings.url)) {
-              jqXHR.setRequestHeader('x-csrf-token', result.csrfToken);
-            }
-          }
-        });
+    var url = GOTMONEY.BACKEND_API_HOSTNAME + '/api/session/token';
+    fetch(url, this.getFetchOptions(null, 'GET'))
+      .then(function(response) {
+        return response.json();
       })
-      .fail(function(jqXHR, textStatus, errorThrown) {
-        jQuery.sap.log.error(errorThrown);
-      });
+      .then(function(result) {
+        CSRF_TOKEN = result.csrfToken;
+      })
+      .catch(this._backendFail);
+  };
+
+
+  BaseController.prototype.getFetchOptions = function(body, method) {
+    return {
+      body: body,
+      method: method,
+      credentials: 'include',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-csrf-token': CSRF_TOKEN
+      }
+    };
   };
 
   BaseController.prototype._loadBackendData = function() {
@@ -257,10 +259,7 @@ sap.ui.define([
     if (window.Promise) {
       var that = this;
       this.getView().getModel().setData(_initialData);
-      Promise.all([that._loadUser()])
-      /*.then(function() {
-       return Promise.all([that._loadAccount(), that._loadCategory(), that._loadAccountType()]);
-       })*/
+      that._loadUser()
         .then(function() {
           return that._loadTransaction();
         })
@@ -268,9 +267,9 @@ sap.ui.define([
           that.getView().getModel().updateBindings(true);
           that._oBusyDialog.close();
         })
-        .catch(function() {
+        .catch(function(err) {
           that._oBusyDialog.close();
-          console.dir('Promise error...');
+          jQuery.sap.log.error('Promise error...');
         });
     } else {
       MessageBox.error(this.getResourceBundle().getText('Error.notSupportPromise'));
@@ -280,63 +279,25 @@ sap.ui.define([
   BaseController.prototype._loadUser = function() {
     var that = this;
     return new Promise(function(resolve, reject) {
-      jQuery.ajax({
-        url: GOTMONEY.BACKEND_API_HOSTNAME + '/api/user/' + jQuery.now(),
-        method: 'GET',
-        contentType: 'application/json',
-        dataType: 'json'
-      })
-        .done(function(response) {
-          that.getView().getModel().getData().User = response.User;
-          that.getView().getModel().getData().User.Account = response.Account;
-          that.getView().getModel().getData().User.Category = response.Category;
-          that.getView().getModel().getData().AccountType = response.AccountType;
-          return resolve();
-
+      var url = GOTMONEY.BACKEND_API_HOSTNAME + '/api/user/' + Date.now();
+      fetch(url, that.getFetchOptions(null, 'GET'))
+        .then(function (response) {
+          if (response.ok) {
+            return response.json();
+          } else {
+            throw response.json();
+          }
         })
-        .fail(function(jqXHR, textStatus, errorThrown) {
-          that._ajaxFail(jqXHR, textStatus, errorThrown);
-          return reject();
-        });
-    });
-  };
-
-  BaseController.prototype._loadCategory = function() {
-    var that = this;
-    return new Promise(function(resolve, reject) {
-      jQuery.ajax({
-        url: GOTMONEY.BACKEND_API_HOSTNAME + '/api/category/',
-        method: 'GET',
-        contentType: 'application/json',
-        dataType: 'json'
-      })
-        .done(function(response) {
-          that.getView().getModel().getData().User.Category = response || [];
-          return resolve();
+        .then(function (result) {
+          that.getView().getModel().getData().User = result.User;
+          that.getView().getModel().getData().User.Account = result.Account;
+          that.getView().getModel().getData().User.Category = result.Category;
+          that.getView().getModel().getData().AccountType = result.AccountType;
+          resolve();
         })
-        .fail(function(jqXHR, textStatus, errorThrown) {
-          that._ajaxFail(jqXHR, textStatus, errorThrown);
-          return reject();
-        });
-    });
-  };
-
-  BaseController.prototype._loadAccount = function() {
-    var that = this;
-    return new Promise(function(resolve, reject) {
-      jQuery.ajax({
-        url: GOTMONEY.BACKEND_API_HOSTNAME + '/api/account/',
-        method: 'GET',
-        contentType: 'application/json',
-        dataType: 'json'
-      })
-        .done(function(response) {
-          that.getView().getModel().getData().User.Account = response || [];
-          return resolve();
-        })
-        .fail(function(jqXHR, textStatus, errorThrown) {
-          that._ajaxFail(jqXHR, textStatus, errorThrown);
-          return reject();
+        .catch(function(err) {
+          that._backendFail(err);
+          reject();
         });
     });
   };
@@ -344,39 +305,22 @@ sap.ui.define([
   BaseController.prototype._loadTransaction = function() {
     var that = this;
     return new Promise(function(resolve, reject) {
-      jQuery.ajax({
-        url: GOTMONEY.BACKEND_API_HOSTNAME + '/api/transaction/',
-        method: 'GET',
-        contentType: 'application/json',
-        dataType: 'json'
-      })
-        .done(function(response) {
-          that.getView().getModel().getData().User.Transaction = response || [];
-          return resolve();
+      var url = GOTMONEY.BACKEND_API_HOSTNAME + '/api/transaction/';
+      fetch(url, that.getFetchOptions(null, 'GET'))
+        .then(function(response) {
+          if (response.ok) {
+            return response.json();
+          } else {
+            throw response.json();
+          }
         })
-        .fail(function(jqXHR, textStatus, errorThrown) {
-          that._ajaxFail(jqXHR, textStatus, errorThrown);
-          return reject();
-        });
-    });
-  };
-
-  BaseController.prototype._loadAccountType = function() {
-    var that = this;
-    return new Promise(function(resolve, reject) {
-      jQuery.ajax({
-        url: GOTMONEY.BACKEND_API_HOSTNAME + '/api/accounttype/',
-        method: 'GET',
-        contentType: 'application/json',
-        dataType: 'json'
-      })
-        .done(function(response) {
-          that.getView().getModel().getData().AccountType = response || [];
-          return resolve();
+        .then(function(result) {
+          that.getView().getModel().getData().User.Transaction = result || [];
+          resolve();
         })
-        .fail(function(jqXHR, textStatus, errorThrown) {
-          that._ajaxFail(jqXHR, textStatus, errorThrown);
-          return reject();
+        .catch(function(err) {
+          that._backendFail(err);
+          reject();
         });
     });
   };

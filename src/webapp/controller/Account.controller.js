@@ -106,19 +106,17 @@ sap.ui.define([
     _saveNew: function() {
       var that = this;
       var mPayload = this._getPayload();
-      mPayload.idaccount = jQuery.now();
-
-      jQuery.ajax({
-        url: GOTMONEY.BACKEND_API_HOSTNAME + '/api/account',
-        data: JSON.stringify(mPayload),
-        method: 'POST',
-        contentType: 'application/json',
-        dataType: 'json'
-      })
-        .done(function() {
-          that._newDone(mPayload);
+      mPayload.idaccount = Date.now();
+      var url = GOTMONEY.BACKEND_API_HOSTNAME + '/api/account';
+      fetch(url, this.getFetchOptions(JSON.stringify(mPayload), 'POST'))
+        .then(function(response) {
+          if (response.ok) {
+            that._newDone(mPayload);
+          } else {
+            throw response.json();
+          }
         })
-        .fail(jQuery.proxy(that._ajaxFail, this));
+        .catch(this._backendFail);
     },
 
 
@@ -126,34 +124,32 @@ sap.ui.define([
       var that = this;
       var mPayload = this._getPayload();
       mPayload.idaccount = oContext.getProperty('idaccount');
-
-      jQuery.ajax({
-        url: GOTMONEY.BACKEND_API_HOSTNAME + '/api/account/' + mPayload.idaccount,
-        data: JSON.stringify(mPayload),
-        method: 'PUT',
-        contentType: 'application/json',
-        dataType: 'json'
-      })
-        .done(function() {
-          that._editDone(mPayload, oContext);
+      var url = GOTMONEY.BACKEND_API_HOSTNAME + '/api/account/' + mPayload.idaccount;
+      fetch(url, this.getFetchOptions(JSON.stringify(mPayload), 'PUT'))
+        .then(function(response) {
+          if (response.ok) {
+            that._editDone(mPayload, oContext);
+          } else {
+            throw response.json();
+          }
         })
-        .fail(jQuery.proxy(that._ajaxFail, this));
+        .catch(this._backendFail);
     },
 
 
     _delete: function(oContext) {
       this.getView().setBusy(true);
       var that = this;
-      jQuery.ajax({
-        url: GOTMONEY.BACKEND_API_HOSTNAME + '/api/account/' + oContext.getProperty('idaccount'),
-        method: 'DELETE',
-        contentType: 'application/json',
-        dataType: 'json'
-      })
-        .done(function() {
-          that._deleteDone(oContext);
+      var url = GOTMONEY.BACKEND_API_HOSTNAME + '/api/account/' + oContext.getProperty('idaccount');
+      fetch(url, this.getFetchOptions(null, 'DELETE'))
+        .then(function(response) {
+          if (response.ok) {
+            that._deleteDone(oContext);
+          } else {
+            throw response.json();
+          }
         })
-        .fail(jQuery.proxy(this._ajaxFail, this));
+        .catch(this._backendFail);
     },
 
 
@@ -212,7 +208,7 @@ sap.ui.define([
       mPayload.balance = 0;
       mPayload.openingdate = oView.byId('opendate').getDateValue();
       mPayload.duedate = parseInt(oView.byId('invoiceday').getValue(), 10);
-      mPayload.lastchange = jQuery.now();
+      mPayload.lastchange = Date.now();
       if (mPayload.openingdate) {
         mPayload.openingdate.setHours(12); //Workaround for date location, avoid D -1
       }

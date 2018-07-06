@@ -97,19 +97,18 @@ sap.ui.define([
     _saveNew: function() {
       var that = this;
       var mPayload = this._getPayload();
-      mPayload.idcategory = jQuery.now();
+      mPayload.idcategory = Date.now();
 
-      jQuery.ajax({
-        url: GOTMONEY.BACKEND_API_HOSTNAME + '/api/category',
-        data: JSON.stringify(mPayload),
-        method: 'POST',
-        contentType: 'application/json',
-        dataType: 'json'
-      })
-        .done(function() {
-          that._newDone(mPayload);
+      var url = GOTMONEY.BACKEND_API_HOSTNAME + '/api/category';
+      fetch(url, this.getFetchOptions(JSON.stringify(mPayload), 'POST'))
+        .then(function(response) {
+          if (response.ok) {
+            that._newDone(mPayload);
+          } else {
+            throw response.json();
+          }
         })
-        .fail(jQuery.proxy(that._ajaxFail, this));
+        .catch(this._backendFail);
     },
 
 
@@ -117,34 +116,32 @@ sap.ui.define([
       var that = this;
       var mPayload = this._getPayload();
       mPayload.idcategory = oContext.getProperty('idcategory');
-
-      jQuery.ajax({
-        url: GOTMONEY.BACKEND_API_HOSTNAME + '/api/category/' + mPayload.idcategory,
-        data: JSON.stringify(mPayload),
-        method: 'PUT',
-        contentType: 'application/json',
-        dataType: 'json'
-      })
-        .done(function() {
-          that._editDone(mPayload, oContext);
+      var url = GOTMONEY.BACKEND_API_HOSTNAME + '/api/category/' + mPayload.idcategory;
+      fetch(url, this.getFetchOptions(JSON.stringify(mPayload), 'PUT'))
+        .then(function(response) {
+          if (response.ok) {
+            that._editDone(mPayload, oContext);
+          } else {
+            throw response.json();
+          }
         })
-        .fail(jQuery.proxy(that._ajaxFail, this));
+        .catch(this._backendFail);
     },
 
 
     _delete: function(oContext) {
       this.getView().setBusy(true);
       var that = this;
-      jQuery.ajax({
-        url: GOTMONEY.BACKEND_API_HOSTNAME + '/api/category/' + oContext.getProperty('idcategory'),
-        method: 'DELETE',
-        contentType: 'application/json',
-        dataType: 'json'
-      })
-        .done(function() {
-          that._deleteDone(oContext);
+      var url = GOTMONEY.BACKEND_API_HOSTNAME + '/api/category/' + oContext.getProperty('idcategory');
+      fetch(url, this.getFetchOptions(null, 'DELETE'))
+        .then(function(response) {
+          if (response.ok) {
+            that._deleteDone(oContext);
+          } else {
+            throw response.json();
+          }
         })
-        .fail(jQuery.proxy(this._ajaxFail, this));
+        .catch(this._backendFail);
     },
 
 

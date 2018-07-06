@@ -17,6 +17,7 @@
   },
   "scripts": {
     "build": "grunt build",
+    "deploy": "firebase deploy",
     "test": "npm test",
     "postversion": "git push && git push --tags"
   },

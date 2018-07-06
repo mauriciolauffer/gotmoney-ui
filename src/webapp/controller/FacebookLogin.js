@@ -57,28 +57,27 @@ sap.ui.define([
       }
       this._systemLogin._oViewController.getView().setBusy(true);
       var that = this;
-      jQuery.ajax({
-        url: GOTMONEY.BACKEND_API_HOSTNAME + '/api/session/facebook',
-        method: 'POST',
-        headers: {
-          'Authorization': 'Bearer ' + accessToken
-        },
-        contentType: 'application/json',
-        dataType: 'json'
-      })
-        .done(function() {
-          that._systemLogin.onCloseLogin();
-          that._systemLogin.onCloseSignup();
-          that._systemLogin._oViewController._loginDone();
+      var url = GOTMONEY.BACKEND_API_HOSTNAME + '/api/session/facebook';
+      var options = that._systemLogin._oViewController.getFetchOptions(null, 'POST');
+      options.headers.Authorization = 'Bearer ' + accessToken;
+      fetch(url, options)
+        .then(function(response) {
+          if (response.ok) {
+            that._systemLogin.onCloseLogin();
+            that._systemLogin.onCloseSignup();
+            that._systemLogin._oViewController._loginDone();
+          } else {
+            throw response.json();
+          }
         })
-        .fail(function(jqXHR, textStatus, errorThrown) {
+        .catch(function(err) {
           if (that._systemLogin._oDialogLogin) {
             that._systemLogin._oDialogLogin.setBusy(false);
           }
           if (that._systemLogin._oDialogSignup) {
             that._systemLogin._oDialogSignup.setBusy(false);
           }
-          that._systemLogin._oViewController._ajaxFail(jqXHR, textStatus, errorThrown);
+          that._systemLogin._oViewController._backendFail(err);
         });
     },
 

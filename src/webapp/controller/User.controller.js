@@ -96,21 +96,17 @@ sap.ui.define([
         delete mPayload.passwd;
       }
 
-      jQuery.ajax({
-        url: GOTMONEY.BACKEND_API_HOSTNAME + '/api/user/' + mPayload.iduser,
-        data: JSON.stringify(mPayload),
-        method: 'PUT',
-        contentType: 'application/json',
-        dataType: 'json'
-      })
-        .done(function() {
-          that._editDone(mPayload, oContext);
-        })
-        .fail(jQuery.proxy(that._ajaxFail, this))
-        .always(function() {
+      var url = GOTMONEY.BACKEND_API_HOSTNAME + '/api/user/' + mPayload.iduser;
+      fetch(url, this.getFetchOptions(JSON.stringify(mPayload), 'PUT'))
+        .then(function(response) {
           that.getView().byId('btSave').setBusy(false);
+          if (response.ok) {
+            that._editDone(mPayload, oContext);
+          } else {
+            throw response.json();
+          }
         })
-      ;
+        .catch(this._backendFail);
     },
 
 
@@ -137,7 +133,7 @@ sap.ui.define([
       mPayload.passwd = oView.byId('pwd').getValue();
       mPayload.name = oView.byId('name').getValue();
       mPayload.alert = false;
-      mPayload.lastchange = jQuery.now();
+      mPayload.lastchange = Date.now();
       return mPayload;
     },
 
