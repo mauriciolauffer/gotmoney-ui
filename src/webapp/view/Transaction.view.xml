@@ -12,8 +12,8 @@
 			</Select>
 			<Label text="{i18n>Transaction.type}" required="true" />
 			<Select id="type" selectedKey="{type}">
-				<core:Item key="D" text="{i18n>Debit}" />
-				<core:Item key="C" text="{i18n>Credit}" />
+				<core:Item key="D" text="{i18n>Transaction.debit}" />
+				<core:Item key="C" text="{i18n>Transaction.credit}" />
 			</Select>
 			<Label text="{i18n>Transaction.description}" required="true" />
 			<Input id="description" value="{description}" />
