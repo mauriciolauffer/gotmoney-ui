@@ -5,19 +5,25 @@
   "author": "Mauricio Lauffer",
   "private": true,
   "devDependencies": {
-    "eslint": "^5.0.1",
+    "@ui5/cli": "^0.1.0",
+    "eslint": "^5.1.0",
     "grunt": "^1.0.3",
     "grunt-contrib-clean": "^1.1.0",
     "grunt-contrib-copy": "^1.0.0",
     "grunt-openui5": "^0.14.0"
   },
   "dependencies": {
+    "@openui5/sap.m": "^1.56.3",
+    "@openui5/sap.tnt": "^1.56.3",
+    "@openui5/sap.ui.core": "^1.56.3",
+    "@openui5/sap.ui.layout": "^1.56.3",
+    "@openui5/sap.ui.unified": "^1.56.3",
     "lockr": "^0.8.4",
     "openui5-validator": "^0.1.5"
   },
   "scripts": {
     "build": "grunt build",
-    "deploy": "firebase deploy",
+    "firedeploy": "firebase deploy",
     "test": "npm test",
     "postversion": "git push && git push --tags"
   },
