@@ -106,7 +106,7 @@ sap.ui.define([
             throw response.json();
           }
         })
-        .catch(this._backendFail);
+        .catch(this._backendFail.bind(this));
     },
 
 

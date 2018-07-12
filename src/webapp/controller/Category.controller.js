@@ -108,7 +108,7 @@ sap.ui.define([
             throw response.json();
           }
         })
-        .catch(this._backendFail);
+        .catch(this._backendFail.bind(this));
     },
 
 
@@ -125,7 +125,7 @@ sap.ui.define([
             throw response.json();
           }
         })
-        .catch(this._backendFail);
+        .catch(this._backendFail.bind(this));
     },
 
 
@@ -141,7 +141,7 @@ sap.ui.define([
             throw response.json();
           }
         })
-        .catch(this._backendFail);
+        .catch(this._backendFail.bind(this));
     },
 
 

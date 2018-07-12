@@ -236,7 +236,7 @@ sap.ui.define([
       .then(function(result) {
         CSRF_TOKEN = result.csrfToken;
       })
-      .catch(this._backendFail);
+      .catch(this._backendFail.bind(this));
   };
 
 
