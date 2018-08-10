@@ -133,7 +133,6 @@ sap.ui.define([
       mPayload.passwd = oView.byId('pwd').getValue();
       mPayload.name = oView.byId('name').getValue();
       mPayload.alert = false;
-      mPayload.lastchange = Date.now();
       return mPayload;
     },
 

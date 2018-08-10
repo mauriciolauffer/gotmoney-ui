@@ -230,7 +230,6 @@ sap.ui.define([
       mPayload.name = Fragment.byId('Signup', 'name').getValue();
       mPayload.alert = false;
       mPayload.tec = Fragment.byId('Signup', 'terms').getSelected();
-      mPayload.lastchange = Date.now();
       return mPayload;
     }
   });

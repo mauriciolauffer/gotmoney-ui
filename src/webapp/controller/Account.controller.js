@@ -208,7 +208,6 @@ sap.ui.define([
       mPayload.balance = 0;
       mPayload.openingdate = oView.byId('opendate').getDateValue();
       mPayload.duedate = parseInt(oView.byId('invoiceday').getValue(), 10);
-      mPayload.lastchange = Date.now();
       if (mPayload.openingdate) {
         mPayload.openingdate.setHours(12); //Workaround for date location, avoid D -1
       }

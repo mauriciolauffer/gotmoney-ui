@@ -18,7 +18,7 @@
     <link rel="manifest" href="../../manifest.json">
     <title>GotMoney App - MockServer for Testing</title>
     <script id="sap-ui-bootstrap"
-            src="../../../resources/sap-ui-core.js"
+            src="/resources/sap-ui-core.js"
             data-sap-ui-theme="sap_belize" data-sap-ui-libs="sap.m" data-sap-ui-bindingSyntax="complex"
             data-sap-ui-preload="async" data-sap-ui-compatVersion="edge" data-sap-ui-frameOptions="deny"
             data-sap-ui-xx-waitForTheme="true"
@@ -29,34 +29,30 @@
 <script>
   //SAP OpenUI5
   'use strict';
-  sap.ui.getCore().attachInit(function () {
+  window["sap-ui-config"] = {};
+  window["sap-ui-config"].onInit = function() {
     sap.ui.require([
-      'sap/m/Shell',
+      'sap/ui/core/Component',
       'sap/ui/core/ComponentContainer',
-      "com/mlauffer/gotmoneyappui5/localService/mockserver"
-    ], function (Shell, ComponentContainer, mockserver) {
+      'com/mlauffer/gotmoneyappui5/localService/mockserver'
+    ], function (Component, ComponentContainer, mockserver) {
       mockserver.init();
-      sap.ui.component({
+      Component.create({
         name: 'com.mlauffer.gotmoneyappui5',
         manifest: true,
         async: true
       })
         .then(function (oComponent) {
-          var shell = new Shell({
-            app: new ComponentContainer({
-              async: true,
-              height: '100%',
-              component: oComponent
-            }),
-            appWidthLimited: true
-          });
-          shell.placeAt('content');
+          new ComponentContainer({
+            async: true,
+            component: oComponent
+          }).placeAt('content');
         })
         .catch(function (err) {
           console.error(err);
         });
     });
-  });
+  };
 </script>
 <script src="../../webapp/js/gotmoneyapp.min.js" async defer></script>
 <script src="../../webapp/js/lockr.min.js" async defer></script>

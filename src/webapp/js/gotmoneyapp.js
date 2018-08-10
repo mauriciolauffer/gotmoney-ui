@@ -3,10 +3,6 @@ window.GOTMONEY = {
   BACKEND_API_HOSTNAME: (location.hostname === 'localhost') ? 'http://localhost:3000' : 'https://gotmoneyapp.herokuapp.com'
 };
 
-fetch(GOTMONEY.BACKEND_API_HOSTNAME + '/api/session/loggedin')
-  .then(function() {'use strict';})
-  .catch(function() {'use strict';});
-
 //GOOGLE
 var Google = {auth2: null}; // The Sign-In object.
 function onLoadGoogleClient() {
