@@ -31,6 +31,6 @@ window.fbAsyncInit = function() {
   FB.init({
     appId: window.GOTMONEY.FACEBOOK_APP_ID,
     xfbml: true,
-    version: 'v2.12'
+    version: 'v3.1'
   });
 };

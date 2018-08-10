@@ -12,17 +12,19 @@
     "grunt-openui5": "^0.14.0"
   },
   "dependencies": {
-    "@openui5/sap.m": "^1.56.3",
-    "@openui5/sap.tnt": "^1.56.3",
-    "@openui5/sap.ui.core": "^1.56.3",
-    "@openui5/sap.ui.layout": "^1.56.3",
-    "@openui5/sap.ui.unified": "^1.56.3",
+    "@openui5/sap.m": "^1.56.4",
+    "@openui5/sap.tnt": "^1.56.4",
+    "@openui5/sap.ui.core": "^1.56.4",
+    "@openui5/sap.ui.layout": "^1.56.4",
+    "@openui5/sap.ui.unified": "^1.56.4",
+    "@openui5/themelib_sap_belize": "^1.56.4",
     "lockr": "^0.8.4",
     "openui5-validator": "^0.1.5"
   },
   "scripts": {
+    "start": "ui5 serve",
     "build": "grunt build",
-    "firedeploy": "firebase deploy",
+    "deploy": "firebase deploy",
     "test": "npm test",
     "postversion": "git push && git push --tags"
   },
