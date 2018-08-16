@@ -4,7 +4,8 @@
     "node": true,
     "es6": true,
     "jquery": true,
-    "qunit": true
+    "qunit": true,
+    "amd": true
   },
   "globals": {
     "sap": true,
