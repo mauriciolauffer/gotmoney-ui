@@ -35,23 +35,18 @@
   window["sap-ui-config"] = {};
   window["sap-ui-config"].onInit = function() {
     sap.ui.require([
-      'sap/ui/core/Component',
       'sap/ui/core/ComponentContainer'
-    ], function (Component, ComponentContainer) {
-      Component.create({
+    ], function (ComponentContainer) {
+      let comp = new ComponentContainer({
+        id: 'gotmoneyappui5',
         name: 'com.mlauffer.gotmoneyappui5',
         manifest: true,
-        async: true
-      })
-        .then(function (oComponent) {
-          new ComponentContainer({
-            async: true,
-            component: oComponent
-          }).placeAt('content');
-        })
-        .catch(function (err) {
-          console.error(err);
-        });
+        async: true,
+        componentCreated: function(evt) {
+          comp = evt.getParameter('component');
+        }
+      });
+      comp.placeAt('content');
     });
   };
 </script>
