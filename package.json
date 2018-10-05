@@ -5,23 +5,23 @@
   "author": "Mauricio Lauffer",
   "private": true,
   "devDependencies": {
-    "eslint": "~5.6.0",
-    "grunt": "~1.0.3",
-    "grunt-contrib-clean": "~2.0.0",
-    "grunt-contrib-copy": "~1.0.0",
-    "grunt-openui5": "~0.14.0"
+    "eslint": "^5.6.1",
+    "grunt": "^1.0.3",
+    "grunt-contrib-clean": "^2.0.0",
+    "grunt-contrib-copy": "^1.0.0",
+    "grunt-openui5": "^0.14.0"
   },
   "dependencies": {
-    "@openui5/sap.m": "^1.58.2",
-    "@openui5/sap.tnt": "^1.58.2",
-    "@openui5/sap.ui.core": "^1.58.2",
-    "@openui5/sap.ui.layout": "^1.58.2",
-    "@openui5/sap.ui.unified": "^1.58.2",
-    "@openui5/themelib_sap_belize": "^1.58.2",
-    "lockr": "~0.8.4",
-    "openui5-model-json-crud": "~0.0.4",
-    "openui5-smart-mockserver": "~0.2.3",
-    "openui5-validator": "~0.1.8"
+    "@openui5/sap.m": "^1.58.3",
+    "@openui5/sap.tnt": "^1.58.3",
+    "@openui5/sap.ui.core": "^1.58.3",
+    "@openui5/sap.ui.layout": "^1.58.3",
+    "@openui5/sap.ui.unified": "^1.58.3",
+    "@openui5/themelib_sap_belize": "^1.58.3",
+    "lockr": "^0.8.5",
+    "openui5-model-json-crud": "^0.0.4",
+    "openui5-smart-mockserver": "^0.2.3",
+    "openui5-validator": "^0.1.8"
   },
   "scripts": {
     "start": "ui5 serve",
