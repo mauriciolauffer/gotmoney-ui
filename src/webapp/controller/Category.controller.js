@@ -95,59 +95,40 @@ sap.ui.define([
 
 
     _saveNew: function() {
-      var that = this;
       var mPayload = this._getPayload();
       mPayload.idcategory = Date.now();
-
-      var url = GOTMONEY.BACKEND_API_HOSTNAME + '/api/category';
-      fetch(url, this.getFetchOptions(JSON.stringify(mPayload), 'POST'))
-        .then(function(response) {
-          if (response.ok) {
-            that._newDone(mPayload);
-          } else {
-            throw response.json();
-          }
-        })
+      return this.getView().getModel().create('category', null, JSON.stringify(mPayload))
+        .then(function() {
+          this._newDone(mPayload);
+        }.bind(this))
         .catch(this._backendFail.bind(this));
     },
 
 
     _saveEdit: function(oContext) {
-      var that = this;
       var mPayload = this._getPayload();
       mPayload.idcategory = oContext.getProperty('idcategory');
-      var url = GOTMONEY.BACKEND_API_HOSTNAME + '/api/category/' + mPayload.idcategory;
-      fetch(url, this.getFetchOptions(JSON.stringify(mPayload), 'PUT'))
-        .then(function(response) {
-          if (response.ok) {
-            that._editDone(mPayload, oContext);
-          } else {
-            throw response.json();
-          }
-        })
+      return this.getView().getModel().update('category/' + mPayload.idcategory, null, JSON.stringify(mPayload))
+        .then(function() {
+          this._editDone(mPayload, oContext);
+        }.bind(this))
         .catch(this._backendFail.bind(this));
     },
 
 
     _delete: function(oContext) {
       this.getView().setBusy(true);
-      var that = this;
-      var url = GOTMONEY.BACKEND_API_HOSTNAME + '/api/category/' + oContext.getProperty('idcategory');
-      fetch(url, this.getFetchOptions(null, 'DELETE'))
-        .then(function(response) {
-          if (response.ok) {
-            that._deleteDone(oContext);
-          } else {
-            throw response.json();
-          }
-        })
+      return this.getView().getModel().delete('category/' + oContext.getProperty('idcategory'), oContext.getPath())
+        .then(function() {
+          this._deleteDone(oContext);
+        }.bind(this))
         .catch(this._backendFail.bind(this));
     },
 
 
     _newDone: function(mPayload) {
       try {
-        this.getView().getModel().getData().User.Category.push(mPayload);
+        this.getView().getModel().getProperty('/User/Category').push(mPayload);
         this.onFinishBackendOperation();
         MessageToast.show(this.getResourceBundle().getText('Success.save'));
 
@@ -173,7 +154,6 @@ sap.ui.define([
 
     _deleteDone: function(oContext) {
       try {
-        this.getView().getModel().getData().User.Category.splice(this.extractIdFromPath(oContext.getPath()), 1);
         this.onFinishBackendOperation();
         MessageToast.show(this.getResourceBundle().getText('Success.delete'));
 

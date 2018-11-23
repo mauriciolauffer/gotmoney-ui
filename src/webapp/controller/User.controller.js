@@ -88,24 +88,15 @@ sap.ui.define([
 
 
     _saveEdit: function(oContext) {
-      var that = this;
       var mPayload = this._getPayload();
-      that.getView().byId('btSave').setBusy(true);
       mPayload.iduser = oContext.getProperty('iduser');
       if (!mPayload.passwd) {
         delete mPayload.passwd;
       }
-
-      var url = GOTMONEY.BACKEND_API_HOSTNAME + '/api/user/' + mPayload.iduser;
-      fetch(url, this.getFetchOptions(JSON.stringify(mPayload), 'PUT'))
-        .then(function(response) {
-          that.getView().byId('btSave').setBusy(false);
-          if (response.ok) {
-            that._editDone(mPayload, oContext);
-          } else {
-            throw response.json();
-          }
-        })
+      return this.getView().getModel().update('user/' + mPayload.iduser, null, JSON.stringify(mPayload))
+        .then(function() {
+          this._editDone(mPayload, oContext);
+        }.bind(this))
         .catch(this._backendFail.bind(this));
     },
 
@@ -179,9 +170,8 @@ sap.ui.define([
     },
 
     _onValidationSuccess: function(context) {
-      var oView = this.getView();
       this.getMessagePopover().close();
-      oView.setBusy(true);
+      this.getView().setBusy(true);
       this._saveEdit(context);
     },
 

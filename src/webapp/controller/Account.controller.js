@@ -104,60 +104,42 @@ sap.ui.define([
 
 
     _saveNew: function() {
-      var that = this;
       var mPayload = this._getPayload();
       mPayload.idaccount = Date.now();
-      var url = GOTMONEY.BACKEND_API_HOSTNAME + '/api/account';
-      fetch(url, this.getFetchOptions(JSON.stringify(mPayload), 'POST'))
-        .then(function(response) {
-          if (response.ok) {
-            that._newDone(mPayload);
-          } else {
-            throw response.json();
-          }
-        })
+      return this.getView().getModel().create('account', null, JSON.stringify(mPayload))
+        .then(function() {
+          this._newDone(mPayload);
+        }.bind(this))
         .catch(this._backendFail.bind(this));
     },
 
 
     _saveEdit: function(oContext) {
-      var that = this;
       var mPayload = this._getPayload();
       mPayload.idaccount = oContext.getProperty('idaccount');
-      var url = GOTMONEY.BACKEND_API_HOSTNAME + '/api/account/' + mPayload.idaccount;
-      fetch(url, this.getFetchOptions(JSON.stringify(mPayload), 'PUT'))
-        .then(function(response) {
-          if (response.ok) {
-            that._editDone(mPayload, oContext);
-          } else {
-            throw response.json();
-          }
-        })
+      return this.getView().getModel().update('account/' + mPayload.idaccount, null, JSON.stringify(mPayload))
+        .then(function() {
+          this._editDone(mPayload, oContext);
+        }.bind(this))
         .catch(this._backendFail.bind(this));
     },
 
 
     _delete: function(oContext) {
       this.getView().setBusy(true);
-      var that = this;
-      var url = GOTMONEY.BACKEND_API_HOSTNAME + '/api/account/' + oContext.getProperty('idaccount');
-      fetch(url, this.getFetchOptions(null, 'DELETE'))
-        .then(function(response) {
-          if (response.ok) {
-            that._deleteDone(oContext);
-          } else {
-            throw response.json();
-          }
-        })
+      return this.getView().getModel().delete('account/' + oContext.getProperty('idaccount'), oContext.getPath())
+        .then(function() {
+          this._deleteDone(oContext);
+        }.bind(this))
         .catch(this._backendFail.bind(this));
     },
 
 
     _newDone: function(mPayload) {
       try {
-        this.getView().getModel().getData().User.Account.push(mPayload);
+        this.getView().getModel().getProperty('/User/Account').push(mPayload);
+        //this.getView().getModel().getData().User.Account.push(mPayload);
         this.onFinishBackendOperation();
-        this.getView().setBusy(false);
         MessageToast.show(this.getResourceBundle().getText('Success.save'));
 
       } catch (e) {
@@ -188,7 +170,6 @@ sap.ui.define([
 
     _deleteDone: function(oContext) {
       try {
-        this.getView().getModel().getData().User.Account.splice(this.extractIdFromPath(oContext.getPath()), 1);
         this.onFinishBackendOperation();
         MessageToast.show(this.getResourceBundle().getText('Success.delete'));
 

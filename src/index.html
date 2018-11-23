@@ -16,9 +16,6 @@
   <style type="text/css">
     @keyframes spinner{to{transform:rotate(360deg)}}@-webkit-keyframes spinner{to{-webkit-transform:rotate(360deg)}}.spinner:before{content:'Loading...';position:fixed;top:0;left:0;bottom:0;right:0;width:100px;height:100px;margin:auto}.spinner:not(:required):before{content:'';border-radius:50%;border:5px solid transparent;border-top-color:#03ade0;border-bottom-color:#03ade0;animation:spinner .8s ease infinite;-webkit-animation:spinner .8s ease infinite}
   </style>
-  <link rel="icon" type="image/ico" href="./webapp/images/favicon.ico">
-  <link rel="icon" type="image/png" sizes="192x192" href="./webapp/images/pig-192x192.png">
-  <link rel="manifest" href="./manifest.json">
   <link rel="dns-prefetch" href="https://openui5.hana.ondemand.com">
   <link rel="dns-prefetch" href="https://apis.google.com">
   <link rel="dns-prefetch" href="https://www.googletagmanager.com">
@@ -26,36 +23,21 @@
   <link rel="dns-prefetch" href="https://connect.facebook.net">
   <link rel="dns-prefetch" href="https://staticxx.facebook.com">
   <link rel="dns-prefetch" href="https://www.google-analytics.com">
+  <link rel="icon" type="image/ico" href="./webapp/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="192x192" href="./webapp/images/pig-192x192.png">
+  <link rel="manifest" href="./manifest.json">
 </head>
 <body class="sapUiBody" role="application">
-<div id="content" class="spinner"></div>
-<script>
-  //SAP OpenUI5
-  'use strict';
-  window["sap-ui-config"] = {};
-  window["sap-ui-config"].onInit = function() {
-    sap.ui.require([
-      'sap/ui/core/ComponentContainer'
-    ], function (ComponentContainer) {
-      let comp = new ComponentContainer({
-        id: 'gotmoneyappui5',
-        name: 'com.mlauffer.gotmoneyappui5',
-        manifest: true,
-        async: true,
-        componentCreated: function(evt) {
-          comp = evt.getParameter('component');
-        }
-      });
-      comp.placeAt('content');
-    });
-  };
-</script>
+<div id="content" class="spinner" data-sap-ui-component
+     data-name="com.mlauffer.gotmoneyappui5" data-settings='{"id" : "gotmoneyappui5"}'></div>
 <script id="sap-ui-bootstrap"
-        src="https://openui5.hana.ondemand.com/1.58.2/resources/sap-ui-core.js"
+        src="https://openui5.hana.ondemand.com/1.60.1/resources/sap-ui-core.js"
         data-sap-ui-theme="sap_belize" data-sap-ui-libs="sap.m" data-sap-ui-bindingSyntax="complex"
         data-sap-ui-preload="async" data-sap-ui-compatVersion="edge" data-sap-ui-frameOptions="deny"
+        data-sap-ui-async="true" data-sap-ui-oninit="module:sap/ui/core/ComponentSupport"
         data-sap-ui-xx-waitForTheme="true"
-        data-sap-ui-resourceroots='{"com.mlauffer.gotmoneyappui5": "./webapp/"}' async defer></script>
+        data-sap-ui-resourceroots='{"com.mlauffer.gotmoneyappui5": "./webapp/"}'
+        crossorigin="anonymous" async defer></script>
 <script src="./webapp/js/gotmoneyapp.min.js" async defer></script>
 <script src="./webapp/js/lockr.min.js" async defer></script>
 <script src="https://apis.google.com/js/platform.js?onload=onLoadGoogleClient" async defer></script>

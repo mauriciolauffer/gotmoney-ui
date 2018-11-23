@@ -1,8 +1,9 @@
 sap.ui.define([
   'sap/ui/model/BindingMode',
   'sap/ui/model/json/JSONModel',
-  'sap/ui/Device'
-], function(BindingMode, JSONModel, Device) {
+  'sap/ui/Device',
+  'openui5/model/json/crud/CRUDModel'
+], function(BindingMode, JSONModel, Device, CRUDModel) {
   'use strict';
 
   return {
@@ -12,7 +13,8 @@ sap.ui.define([
       return oModel;
     },
 
-    editDefaultModel: function(model) {
+    createDefaultModel: function() {
+      const model = new CRUDModel('http://localhost:3000/api/');
       model.setDefaultBindingMode(BindingMode.OneWay);
       model.setSizeLimit(1000);
       model.setData({
@@ -23,6 +25,15 @@ sap.ui.define([
           Transaction: []
         }
       });
+      model.setFetchParameters({
+        cache: 'no-cache',
+        credentials: 'include',
+        mode: 'cors',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      return model;
     }
   };
 });

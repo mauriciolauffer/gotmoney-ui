@@ -41,12 +41,14 @@
         "sap.ui.layout": {},
         "sap.ui.unified": {},
         "sap.tnt": {},
-        "openui5.validator": {}
+        "openui5.validator": {},
+        "openui5.model.json.crud": {}
       }
     },
     "resourceRoots": {
       "openui5.password": "./js/openui5/password/",
-      "openui5.validator": "./js/openui5/validator/"
+      "openui5.validator": "./js/openui5/validator/",
+      "openui5.model.json.crud": "./js/openui5/model/json/crud/"
     },
     "models": {
       "i18n": {
@@ -54,12 +56,6 @@
         "settings": {
           "bundleName": "com.mlauffer.gotmoneyappui5.i18n.i18n"
         }
-      },
-      "": {
-        "type": "sap.ui.model.json.JSONModel"
-      },
-      "local": {
-        "type": "com.mlauffer.gotmoneyappui5.model.LocalStorageModel"
       }
     },
     "contentDensities": {

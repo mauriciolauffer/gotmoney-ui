@@ -14,14 +14,8 @@ sap.ui.define([
      * @override
      */
     init: function() {
-      // call the base component's init function
       UIComponent.prototype.init.apply(this, arguments);
-
       this.setModels();
-      this.oMessageProcessor = new ControlMessageProcessor();
-      this.oMessageManager = sap.ui.getCore().getMessageManager();
-      this.oMessageManager.registerMessageProcessor(this.oMessageProcessor);
-      this.setModel(this.oMessageManager.getMessageModel(), 'message');
       this.getRouter().initialize();
     },
 
@@ -32,15 +26,17 @@ sap.ui.define([
      * @override
      */
     destroy: function() {
-      // call the base component's destroy function
       this._resourceBundle.destroy();
       UIComponent.prototype.destroy.apply(this, arguments);
     },
 
 
     setModels: function() {
-      Models.editDefaultModel(this.getModel());
+      this.setModel(Models.createDefaultModel());
       this.setModel(Models.createDeviceModel(), 'device');
+      this.oMessageManager = sap.ui.getCore().getMessageManager();
+      this.oMessageManager.registerMessageProcessor(new ControlMessageProcessor());
+      this.setModel(this.oMessageManager.getMessageModel(), 'message');
     }
   });
 });

@@ -119,52 +119,34 @@ sap.ui.define([
       if (oView.byId('occurrence').getSelectedKey() !== 'U' && !oView.byId('startdate').getDateValue()) {
         return;
       }
-      var that = this;
       var mPayload = this._createRepetition(oView.byId('occurrence').getSelectedKey());
       var data = { data: mPayload };
-      var url = GOTMONEY.BACKEND_API_HOSTNAME + '/api/transaction';
-      fetch(url, this.getFetchOptions(JSON.stringify(data), 'POST'))
-        .then(function(response) {
-          if (response.ok) {
-            that._newDone(mPayload);
-          } else {
-            throw response.json();
-          }
-        })
+      return this.getView().getModel().create('transaction', null, JSON.stringify(data))
+        .then(function() {
+          this._newDone(mPayload);
+        }.bind(this))
         .catch(this._backendFail.bind(this));
     },
 
 
     _saveEdit: function(oContext) {
       //TODO: Validation
-      var that = this;
       var mPayload = this._getPayload();
       mPayload.idtransaction = oContext.getProperty('idtransaction');
-      var url = GOTMONEY.BACKEND_API_HOSTNAME + '/api/transaction/' + mPayload.idtransaction;
-      fetch(url, this.getFetchOptions(JSON.stringify(mPayload), 'PUT'))
-        .then(function(response) {
-          if (response.ok) {
-            that._editDone(mPayload, oContext);
-          } else {
-            throw response.json();
-          }
-        })
+      return this.getView().getModel().update('transaction/' + mPayload.idtransaction, null, JSON.stringify(mPayload))
+        .then(function() {
+          this._editDone(mPayload, oContext);
+        }.bind(this))
         .catch(this._backendFail.bind(this));
     },
 
 
     _delete: function(oContext) {
       this.getView().setBusy(true);
-      var that = this;
-      var url = GOTMONEY.BACKEND_API_HOSTNAME + '/api/transaction/' + oContext.getProperty('idtransaction');
-      fetch(url, this.getFetchOptions(null, 'DELETE'))
-        .then(function(response) {
-          if (response.ok) {
-            that._deleteDone(oContext);
-          } else {
-            throw response.json();
-          }
-        })
+      return this.getView().getModel().delete('transaction/' + oContext.getProperty('idtransaction'), oContext.getPath())
+        .then(function() {
+          this._deleteDone(oContext);
+        }.bind(this))
         .catch(this._backendFail.bind(this));
     },
 

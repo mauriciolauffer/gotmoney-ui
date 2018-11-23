@@ -75,7 +75,7 @@ sap.ui.define([
     },
 
     _getTransactionOverdueItems: function() {
-      var overdue = this.getView().getModel().getData().User.Transaction.filter(function(item) {
+      var overdue = this.getView().getModel().getProperty('/User/Transaction').filter(function(item) {
         return item.idstatus === 0 && item.duedate < new Date().toJSON();
       });
       return overdue.length;

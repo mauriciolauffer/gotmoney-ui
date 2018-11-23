@@ -202,22 +202,20 @@ sap.ui.define([
 
   BaseController.prototype.checkUserConnected = function() {
     var that = this;
-    return new Promise(function (resolve, reject) {
-      var url = GOTMONEY.BACKEND_API_HOSTNAME + '/api/session/loggedin';
-      fetch(url, that.getFetchOptions(null, 'GET'))
-        .then(function (response) {
-          if (response.ok) {
-            that.setUserLogged(true);
-            resolve();
-          } else {
-            throw response.json();
-          }
-        })
-        .catch(function(err) {
-          that.setUserLogged(false);
-          reject();
-        });
-    });
+    var url = GOTMONEY.BACKEND_API_HOSTNAME + '/api/session/loggedin';
+    return fetch(url, that.getFetchOptions(null, 'GET'))
+      .then(function (response) {
+        if (response.ok) {
+          that.setUserLogged(true);
+        } else {
+          throw response;
+        }
+      })
+      .catch(function(err) {
+        that.setUserLogged(false);
+        throw err;
+      });
+
   };
 
   BaseController.prototype.vibrate = function() {
@@ -228,13 +226,24 @@ sap.ui.define([
   };
 
   BaseController.prototype.getToken = function() {
+    var that = this;
     var url = GOTMONEY.BACKEND_API_HOSTNAME + '/api/session/token';
-    fetch(url, this.getFetchOptions(null, 'GET'))
+    return fetch(url, this.getFetchOptions(null, 'GET'))
       .then(function(response) {
-        return response.json();
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw response;
+        }
       })
       .then(function(result) {
         CSRF_TOKEN = result.csrfToken;
+        that.getView().getModel().setFetchParameters({
+          headers: {
+            'Content-Type': 'application/json',
+            'x-csrf-token': CSRF_TOKEN
+          }
+        });
       })
       .catch(this._backendFail.bind(this));
   };
@@ -256,73 +265,29 @@ sap.ui.define([
   BaseController.prototype._loadBackendData = function() {
     this._oBusyDialog = new BusyDialog();
     this._oBusyDialog.open();
-    if (window.Promise) {
-      var that = this;
-      this.getView().getModel().setData(_initialData);
-      that._loadUser()
-        .then(function() {
-          return that._loadTransaction();
-        })
-        .then(function() {
-          that.getView().getModel().updateBindings(true);
-          that._oBusyDialog.close();
-        })
-        .catch(function(err) {
-          that._oBusyDialog.close();
-          jQuery.sap.log.error('Promise error...');
-        });
-    } else {
-      MessageBox.error(this.getResourceBundle().getText('Error.notSupportPromise'));
-    }
+    var that = this;
+    this.getView().getModel().setData(_initialData);
+    that._loadUser()
+      .then(function() {
+        return that._loadTransaction();
+      })
+      .then(function() {
+        that.getView().getModel().updateBindings(true);
+        that._oBusyDialog.close();
+      })
+      .catch(function(err) {
+        that._backendFail(err);
+        that._oBusyDialog.close();
+        jQuery.sap.log.error('Promise error...');
+      });
   };
 
   BaseController.prototype._loadUser = function() {
-    var that = this;
-    return new Promise(function(resolve, reject) {
-      var url = GOTMONEY.BACKEND_API_HOSTNAME + '/api/user/' + Date.now();
-      fetch(url, that.getFetchOptions(null, 'GET'))
-        .then(function (response) {
-          if (response.ok) {
-            return response.json();
-          } else {
-            throw response.json();
-          }
-        })
-        .then(function (result) {
-          that.getView().getModel().getData().User = result.User;
-          that.getView().getModel().getData().User.Account = result.Account;
-          that.getView().getModel().getData().User.Category = result.Category;
-          that.getView().getModel().getData().AccountType = result.AccountType;
-          resolve();
-        })
-        .catch(function(err) {
-          that._backendFail(err);
-          reject();
-        });
-    });
+    return this.getView().getModel().read('user/' + Date.now(), '/');
   };
 
   BaseController.prototype._loadTransaction = function() {
-    var that = this;
-    return new Promise(function(resolve, reject) {
-      var url = GOTMONEY.BACKEND_API_HOSTNAME + '/api/transaction/';
-      fetch(url, that.getFetchOptions(null, 'GET'))
-        .then(function(response) {
-          if (response.ok) {
-            return response.json();
-          } else {
-            throw response.json();
-          }
-        })
-        .then(function(result) {
-          that.getView().getModel().getData().User.Transaction = result || [];
-          resolve();
-        })
-        .catch(function(err) {
-          that._backendFail(err);
-          reject();
-        });
-    });
+    return this.getView().getModel().read('transaction/', '/User/Transaction');
   };
 
   return BaseController;
