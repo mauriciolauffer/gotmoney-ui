@@ -1,9 +1,8 @@
 sap.ui.require([
-  'jquery.sap.global',
   'com/mlauffer/gotmoneyappui5/controller/AccountList.controller',
   'sap/ui/thirdparty/sinon',
   'sap/ui/thirdparty/sinon-qunit'
-], function(jQuery, AccountList) {
+], function(AccountList) {
   'use strict';
 
   var stub;

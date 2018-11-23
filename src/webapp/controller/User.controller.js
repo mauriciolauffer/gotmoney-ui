@@ -1,5 +1,4 @@
 sap.ui.define([
-  'jquery.sap.global',
   'sap/m/MessageBox',
   'sap/m/MessageToast',
   'sap/ui/model/json/JSONModel',
@@ -8,7 +7,7 @@ sap.ui.define([
   'com/mlauffer/gotmoneyappui5/model/ObjectFactory',
   'com/mlauffer/gotmoneyappui5/model/formatter',
   'openui5/validator/Validator'
-], function(jQuery, MessageBox, MessageToast, JSONModel, ValueState, BaseController,
+], function(MessageBox, MessageToast, JSONModel, ValueState, BaseController,
             ObjectFactory, formatter, Validator) {
   'use strict';
 

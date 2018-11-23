@@ -1,11 +1,11 @@
 sap.ui.define([
-  'jquery.sap.global',
+  'sap/base/Log',
   'sap/ui/core/ValueState',
   'sap/ui/core/mvc/Controller',
   'sap/ui/core/routing/History',
   'sap/m/BusyDialog',
   'sap/m/MessageBox'
-], function(jQuery, ValueState, Controller, History, BusyDialog, MessageBox) {
+], function(Log, ValueState, Controller, History, BusyDialog, MessageBox) {
   'use strict';
 
   var _initialData = {
@@ -151,27 +151,27 @@ sap.ui.define([
     //TODO
     // do something, i.e. send usage statistics to backend
     // in order to improve our app and the user experience (Build-Measure-Learn cycle)
-    //console.dir(jQuery(window.location).attr('href'));
-    //console.dir(jQuery(window.location).attr('hash'));
+    //console.dir(window.location.href);
+    //console.dir(window.location.hash);
     sType = sType.toUpperCase();
     //var sUser = '';
-    var sURL = jQuery(window.location).attr('href').toString();
+    var sURL = window.location.href.toString();
     var sLogMessage = sType + ': ' + sText + '. User accessed route ' + sURL + ', timestamp = ' + Date.now();
     switch (sType) {
       case 'E':
-        jQuery.sap.log.error(sLogMessage);
+        Log.error(sLogMessage);
         break;
       case 'I':
-        jQuery.sap.log.info(sLogMessage);
+        Log.info(sLogMessage);
         break;
       case 'S':
-        jQuery.sap.log.info(sLogMessage);
+        Log.info(sLogMessage);
         break;
       case 'W':
-        jQuery.sap.log.warning(sLogMessage);
+        Log.warning(sLogMessage);
         break;
       default:
-        jQuery.sap.log.info(sLogMessage);
+        Log.info(sLogMessage);
         break;
     }
   };
@@ -278,7 +278,6 @@ sap.ui.define([
       .catch(function(err) {
         that._backendFail(err);
         that._oBusyDialog.close();
-        jQuery.sap.log.error('Promise error...');
       });
   };
 

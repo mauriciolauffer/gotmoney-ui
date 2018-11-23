@@ -1,5 +1,5 @@
 sap.ui.define([
-  'jquery.sap.global',
+  'sap/base/util/merge',
   'sap/m/MessageBox',
   'sap/m/MessageToast',
   'sap/ui/model/json/JSONModel',
@@ -7,7 +7,7 @@ sap.ui.define([
   'com/mlauffer/gotmoneyappui5/model/ObjectFactory',
   'com/mlauffer/gotmoneyappui5/model/formatter',
   'openui5/validator/Validator'
-], function(jQuery, MessageBox, MessageToast, JSONModel, BaseController, ObjectFactory, formatter, Validator) {
+], function(merge, MessageBox, MessageToast, JSONModel, BaseController, ObjectFactory, formatter, Validator) {
   'use strict';
 
   return BaseController.extend('com.mlauffer.gotmoneyappui5.controller.Transaction', {
@@ -262,7 +262,7 @@ sap.ui.define([
       mPayloadReference.idtransaction = Date.now();
 
       for (var i = 0; i < sSplit; i++) {
-        var mPayload = jQuery.extend(true, {}, mPayloadReference);
+        var mPayload = merge({}, mPayloadReference);
         mPayload.duedate = this._getRepetitionDueDate(sOccurrence, mPayload.startdate, i);
 
         //Set ID

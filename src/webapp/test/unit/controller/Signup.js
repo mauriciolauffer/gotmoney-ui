@@ -1,9 +1,8 @@
 sap.ui.require([
-  'jquery.sap.global',
   'com/mlauffer/gotmoneyappui5/controller/Signup.controller',
   'sap/ui/thirdparty/sinon',
   'sap/ui/thirdparty/sinon-qunit'
-], function(jQuery, Signup) {
+], function(Signup) {
   'use strict';
 
   var stub;

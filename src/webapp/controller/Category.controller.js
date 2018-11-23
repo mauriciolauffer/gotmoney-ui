@@ -1,12 +1,11 @@
 sap.ui.define([
-  'jquery.sap.global',
   'sap/m/MessageBox',
   'sap/m/MessageToast',
   'sap/ui/model/json/JSONModel',
   'com/mlauffer/gotmoneyappui5/controller/BaseController',
   'com/mlauffer/gotmoneyappui5/model/ObjectFactory',
   'openui5/validator/Validator'
-], function(jQuery, MessageBox, MessageToast, JSONModel, BaseController, ObjectFactory, Validator) {
+], function(MessageBox, MessageToast, JSONModel, BaseController, ObjectFactory, Validator) {
   'use strict';
 
   return BaseController.extend('com.mlauffer.gotmoneyappui5.controller.Category', {

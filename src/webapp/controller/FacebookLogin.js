@@ -1,8 +1,7 @@
 sap.ui.define([
-  'jquery.sap.global',
   'sap/m/MessageBox',
   'sap/ui/core/mvc/Controller'
-], function(jQuery, MessageBox, Controller) {
+], function(MessageBox, Controller) {
   'use strict';
 
   return Controller.extend('com.mlauffer.gotmoneyappui5.controller.FacebookLogin', {

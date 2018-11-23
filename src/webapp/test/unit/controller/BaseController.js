@@ -1,5 +1,4 @@
 sap.ui.require([
-  'jquery.sap.global',
   'sap/ui/model/BindingMode',
   'sap/ui/model/json/JSONModel',
   'sap/ui/model/resource/ResourceModel',
@@ -7,7 +6,7 @@ sap.ui.require([
   'com/mlauffer/gotmoneyappui5/controller/BaseController',
   'sap/ui/thirdparty/sinon',
   'sap/ui/thirdparty/sinon-qunit'
-], function(jQuery, BindingMode, JSONModel, ResourceModel, Device, BaseController) {
+], function(BindingMode, JSONModel, ResourceModel, Device, BaseController) {
   'use strict';
 
   var stub;
@@ -34,8 +33,8 @@ sap.ui.require([
   QUnit.module('BaseController:getResourceBundle()', {
     beforeEach: function() {
       this.oResourceModel = new ResourceModel({
-        bundleUrl: jQuery.sap.getModulePath('com.mlauffer.gotmoneyappui5', '/i18n/i18n.properties')
-      });
+        bundleUrl: sap.ui.require.toUrl('com/mlauffer/gotmoneyappui5/i18n/i18n.properties')
+    });
     },
     afterEach: function() {
       this.oResourceModel.destroy();

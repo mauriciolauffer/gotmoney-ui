@@ -1,5 +1,4 @@
 sap.ui.define([
-  'jquery.sap.global',
   'sap/m/MessageBox',
   'sap/m/MessageToast',
   'sap/ui/core/Fragment',
@@ -7,7 +6,7 @@ sap.ui.define([
   'com/mlauffer/gotmoneyappui5/controller/FacebookLogin',
   'com/mlauffer/gotmoneyappui5/controller/GoogleLogin',
   'com/mlauffer/gotmoneyappui5/model/ObjectFactory'
-], function(jQuery, MessageBox, MessageToast, Fragment, BaseController, FacebookLogin, GoogleLogin, ObjectFactory) {
+], function(MessageBox, MessageToast, Fragment, BaseController, FacebookLogin, GoogleLogin, ObjectFactory) {
   'use strict';
 
   return BaseController.extend('com.mlauffer.gotmoneyappui5.controller.SystemLogin', {

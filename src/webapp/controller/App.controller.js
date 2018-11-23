@@ -1,10 +1,10 @@
 sap.ui.define([
-  'jquery.sap.global',
+  'sap/base/Log',
   'sap/m/MessageToast',
   'sap/ui/unified/ShellHeadUserItem',
   'com/mlauffer/gotmoneyappui5/controller/BaseController',
   'com/mlauffer/gotmoneyappui5/controller/SystemLogin'
-], function(jQuery, MessageToast, ShellHeadUserItem, BaseController, SystemLogin) {
+], function(Log, MessageToast, ShellHeadUserItem, BaseController, SystemLogin) {
   'use strict';
 
   return BaseController.extend('com.mlauffer.gotmoneyappui5.controller.App', {
@@ -16,14 +16,14 @@ sap.ui.define([
         var sHash = oEvent.getParameter('hash');
         // do something here, i.e. send logging data to the backend for analysis
         // telling what resource the user tried to access...
-        jQuery.sap.log.info("Sorry, but the hash '" + sHash + "' is invalid.", 'The resource was not found.');
+        Log.info("Sorry, but the hash '" + sHash + "' is invalid.", 'The resource was not found.');
         this.saveLog('E', 'notFound');
       }, this);
       /*oRouter.attachRouteMatched(function(oEvent) {
        var sRouteName = oEvent.getParameter("name");
        // do something, i.e. send usage statistics to backend
        // in order to improve our app and the user experience (Build-Measure-Learn cycle)
-       jQuery.sap.log.info("User accessed route " + sRouteName + ", timestamp = " + new Date().getTime());
+       Log.info("User accessed route " + sRouteName + ", timestamp = " + new Date().getTime());
        this.saveLog("I", sRouteName);
        }, this);*/
 

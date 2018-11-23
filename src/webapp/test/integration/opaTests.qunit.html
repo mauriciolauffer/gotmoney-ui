@@ -1,33 +1,48 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html>
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <meta name=author content="Mauricio Lauffer">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Mauricio Lauffer">
     <title>GotMoney App - Integration Tests</title>
-    <script type="text/javascript" id="sap-ui-bootstrap"
-            src="../../../../resources/sap-ui-core.js"
-            data-sap-ui-resourceroots='{
-            "com.mlauffer.gotmoneyappui5": "../../",
-			"test.integration": "./"}'>
-    </script>
-    <script type="text/javascript">
-      jQuery.sap.require("sap.ui.qunit.qunit-css");
-      jQuery.sap.require("sap.ui.thirdparty.qunit");
-      jQuery.sap.require("sap.ui.qunit.qunit-junit");
-      jQuery.sap.require("sap.ui.qunit.qunit-coverage");
-      QUnit.config.autostart = false;
-
-      sap.ui.require([
-          "test/integration/allTests"
-        ], function() {
-          QUnit.start();
-        }
-      );
-    </script>
+    <link rel="stylesheet" href="https://openui5.hana.ondemand.com/1.60.1/resources/sap/ui/thirdparty/qunit-2.css" type="text/css" crossorigin="anonymous">
 </head>
 <body>
 <div id="qunit"></div>
 <div id="qunit-fixture"></div>
+<script type="text/javascript" src="/webapp/js/lockr.js" async defer></script>
+<script id="sap-ui-bootstrap"
+        src="https://openui5.hana.ondemand.com/1.60.1/resources/sap-ui-core.js"
+        data-sap-ui-async="true"
+        data-sap-ui-preload="async"
+        data-sap-ui-oninit="boot"
+        data-sap-ui-resourceroots='{
+            "com.mlauffer.gotmoneyappui5": "../../",
+			"test.unit": "./"}'
+        crossorigin="anonymous" async defer></script>
+<script>
+  function boot() {
+    'use strict';
+    if (window.blanket) {
+      window.blanket.options('sap-ui-cover-only', 'com/mlauffer/gotmoneyappui5');
+    }
+    sap.ui.require([
+        'sap/ui/thirdparty/qunit-2',
+        'sap/ui/thirdparty/sinon',
+        'sap/ui/thirdparty/sinon-qunit',
+        'sap/ui/qunit/qunit-coverage'
+      ], function() {
+        QUnit.config.autostart = false;
+        sap.ui.require([
+            "test/integration/allTests"
+          ], function() {
+            QUnit.start();
+          }
+        );
+      }
+    );
+  }
+</script>
 </body>
 </html>

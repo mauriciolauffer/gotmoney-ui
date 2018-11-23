@@ -1,9 +1,8 @@
 sap.ui.require([
-  'jquery.sap.global',
   'com/mlauffer/gotmoneyappui5/controller/TransactionList.controller',
   'sap/ui/thirdparty/sinon',
   'sap/ui/thirdparty/sinon-qunit'
-], function(jQuery, TransactionList) {
+], function(TransactionList) {
   'use strict';
 
   var stub;

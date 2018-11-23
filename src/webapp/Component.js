@@ -1,10 +1,9 @@
 sap.ui.define([
-  'jquery.sap.global',
   'sap/ui/core/message/ControlMessageProcessor',
   'sap/ui/core/UIComponent',
   'sap/ui/Device',
   'com/mlauffer/gotmoneyappui5/model/models'
-], function(jQuery, ControlMessageProcessor, UIComponent, Device, Models) {
+], function(ControlMessageProcessor, UIComponent, Device, Models) {
   'use strict';
 
   return UIComponent.extend('com.mlauffer.gotmoneyappui5.Component', {
@@ -14,6 +13,7 @@ sap.ui.define([
      * @override
      */
     init: function() {
+      this.setPolyfills();
       UIComponent.prototype.init.apply(this, arguments);
       this.setModels();
       this.getRouter().initialize();
@@ -37,6 +37,14 @@ sap.ui.define([
       this.oMessageManager = sap.ui.getCore().getMessageManager();
       this.oMessageManager.registerMessageProcessor(new ControlMessageProcessor());
       this.setModel(this.oMessageManager.getMessageModel(), 'message');
+    },
+
+    setPolyfills: function() {
+      if (Number.isFinite === undefined) {
+        Number.isFinite = function(value) {
+          return typeof value === 'number' && isFinite(value);
+        };
+      }
     }
   });
 });

@@ -1,5 +1,4 @@
 sap.ui.define([
-  'jquery.sap.global',
   'sap/m/MessageBox',
   'sap/m/MessageToast',
   'sap/ui/model/json/JSONModel',
@@ -7,7 +6,7 @@ sap.ui.define([
   'com/mlauffer/gotmoneyappui5/model/formatter',
   'com/mlauffer/gotmoneyappui5/model/ObjectFactory',
   'openui5/validator/Validator'
-], function(jQuery, MessageBox, MessageToast, JSONModel, BaseController, formatter, ObjectFactory, Validator) {
+], function(MessageBox, MessageToast, JSONModel, BaseController, formatter, ObjectFactory, Validator) {
   'use strict';
 
   return BaseController.extend('com.mlauffer.gotmoneyappui5.controller.Account', {
@@ -192,7 +191,7 @@ sap.ui.define([
       if (mPayload.openingdate) {
         mPayload.openingdate.setHours(12); //Workaround for date location, avoid D -1
       }
-      if (!jQuery.isNumeric(mPayload.duedate) || mPayload.duedate === 0) {
+      if (!Number.isFinite(mPayload.duedate) || mPayload.duedate === 0) {
         mPayload.duedate = null;
       }
       return mPayload;

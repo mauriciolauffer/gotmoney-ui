@@ -1,16 +1,15 @@
 sap.ui.require([
-  'jquery.sap.global',
   'sap/ui/core/ValueState',
   'sap/ui/model/json/JSONModel',
   'sap/ui/model/resource/ResourceModel',
   'com/mlauffer/gotmoneyappui5/model/formatter',
   'sap/ui/thirdparty/sinon',
   'sap/ui/thirdparty/sinon-qunit'
-], function(jQuery, ValueState, JSONModel, ResourceModel, formatter) {
+], function(ValueState, JSONModel, ResourceModel, formatter) {
   'use strict';
 
   var oResourceModel = new ResourceModel({
-    bundleUrl: jQuery.sap.getModulePath('com.mlauffer.gotmoneyappui5', '/i18n/i18n.properties')
+    bundleUrl: sap.ui.require.toUrl('com/mlauffer/gotmoneyappui5/i18n/i18n.properties')
   });
 
   QUnit.module('formatter', {});
