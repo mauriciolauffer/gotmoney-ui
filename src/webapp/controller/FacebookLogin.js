@@ -21,7 +21,7 @@ sap.ui.define([
 
     login: function(oViewController) {
       try {
-        var that = this;
+        const that = this;
 
         this._systemLogin = oViewController;
         if (this._systemLogin._oDialogLogin) {
@@ -55,9 +55,9 @@ sap.ui.define([
         this._systemLogin._oDialogSignup.setBusy(true);
       }
       this._systemLogin._oViewController.getView().setBusy(true);
-      var that = this;
-      var url = GOTMONEY.BACKEND_API_HOSTNAME + '/api/session/facebook';
-      var options = that._systemLogin._oViewController.getFetchOptions(null, 'POST');
+      const that = this;
+      const url = GOTMONEY.BACKEND_API_HOSTNAME + '/api/session/facebook';
+      const options = that._systemLogin._oViewController.getFetchOptions(null, 'POST');
       options.headers.Authorization = 'Bearer ' + accessToken;
       fetch(url, options)
         .then(function(response) {

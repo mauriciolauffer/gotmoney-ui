@@ -17,7 +17,7 @@ sap.ui.define([
     onInit: function() {
       try {
         this.getView().setModel(new JSONModel(), 'user');
-        var oRouter = this.getRouter();
+        const oRouter = this.getRouter();
         oRouter.getRoute('profile').attachMatched(this._onRouteMatched, this);
         //oRouter.getRoute('signup').attachMatched(this._onRouteMatchedNew, this);
         this._initValidator();
@@ -50,7 +50,7 @@ sap.ui.define([
 
 
     _onRouteMatched: function() {
-      var sObjectPath = '/User/';
+      const sObjectPath = '/User/';
       this._bindView(sObjectPath);
     },
 
@@ -61,7 +61,7 @@ sap.ui.define([
 
 
     _bindView: function(sPath) {
-      var oView = this.getView();
+      const oView = this.getView();
       oView.unbindElement();
       oView.bindElement({
         path: sPath,
@@ -87,7 +87,7 @@ sap.ui.define([
 
 
     _saveEdit: function(oContext) {
-      var mPayload = this._getPayload();
+      const mPayload = this._getPayload();
       mPayload.iduser = oContext.getProperty('iduser');
       if (!mPayload.passwd) {
         delete mPayload.passwd;
@@ -102,7 +102,7 @@ sap.ui.define([
 
     _editDone: function(mPayload, oContext) {
       try {
-        var oModel = this.getView().getModel();
+        const oModel = this.getView().getModel();
         oModel.setProperty('name', mPayload.name, oContext);
         oModel.setProperty('alert', mPayload.alert, oContext);
         this.onFinishBackendOperation();
@@ -116,8 +116,8 @@ sap.ui.define([
 
 
     _getPayload: function() {
-      var oView = this.getView();
-      var mPayload = ObjectFactory.buildUser();
+      const oView = this.getView();
+      const mPayload = ObjectFactory.buildUser();
       mPayload.email = oView.byId('email').getValue();
       mPayload.passwdold = oView.byId('pwdOld').getValue();
       mPayload.passwd = oView.byId('pwd').getValue();
@@ -129,7 +129,7 @@ sap.ui.define([
 
     _initValidator: function() {
       //This is the schema with all rules used to validate the UI5 Controls
-      var validationSchema = {
+      const validationSchema = {
         properties: {
           iduser: {
             type: 'integer',
@@ -159,7 +159,7 @@ sap.ui.define([
           },
           pwdRepeat: {
             type: 'string',
-            const: { '$data': '1/pwd' }
+            const: {'$data': '1/pwd'}
           }
         }
       };
@@ -179,7 +179,7 @@ sap.ui.define([
     },
 
     _clearValueState: function() {
-      var controls = ['name', 'email'];
+      const controls = ['name', 'email'];
       this.clearValueState(controls);
     }
   });

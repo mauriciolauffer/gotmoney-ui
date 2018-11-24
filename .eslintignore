@@ -6,3 +6,4 @@ data/logs/
 node_modules/
 .nyc_output/
 **/openui5/
+/**/webapp/js/

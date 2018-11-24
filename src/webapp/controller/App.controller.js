@@ -11,9 +11,9 @@ sap.ui.define([
     _systemLogin: null,
 
     onInit: function() {
-      var oRouter = this.getRouter();
+      const oRouter = this.getRouter();
       oRouter.attachBypassed(function(oEvent) {
-        var sHash = oEvent.getParameter('hash');
+        const sHash = oEvent.getParameter('hash');
         // do something here, i.e. send logging data to the backend for analysis
         // telling what resource the user tried to access...
         Log.info("Sorry, but the hash '" + sHash + "' is invalid.", 'The resource was not found.');
@@ -33,7 +33,7 @@ sap.ui.define([
     },
 
     onAfterRendering: function() {
-      var that = this;
+      const that = this;
       that.getView().setBusy(true);
       this.checkUserConnected()
         .then(function() {
@@ -119,16 +119,16 @@ sap.ui.define([
 
     _toogleShellOverlay: function() {
       this.vibrate();
-      var oItem = this.getView().byId('btMenu');
-      var oShell = this.getView().byId('appUShell');
-      var bState = oShell.getShowPane();
+      const oItem = this.getView().byId('btMenu');
+      const oShell = this.getView().byId('appUShell');
+      let bState = oShell.getShowPane();
       oShell.setShowPane(!bState);
       oItem.setShowMarker(!bState);
       oItem.setSelected(!bState);
     },
 
     _toogleButtonsVisible: function() {
-      var bState = this.getUserLogged();
+      let bState = this.getUserLogged();
       this.getView().byId('btHome').setVisible(bState);
       this.getView().byId('btMenu').setVisible(bState);
       this.getView().byId('btIndex').setVisible(!bState);
@@ -162,7 +162,7 @@ sap.ui.define([
 
 
     _createShellUserButton: function() {
-      var oUser = new ShellHeadUserItem({
+      const oUser = new ShellHeadUserItem({
         image: 'sap-icon://person-placeholder',
         username: '{/User/name}',
         press: this.onUserItemPressed.bind(this)

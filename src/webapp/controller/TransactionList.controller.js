@@ -30,7 +30,7 @@ sap.ui.define([
 
     onAfterRendering: function() {
       if (this.getView().getViewName() === 'com.mlauffer.gotmoneyappui5.view.TransactionList') {
-        var oDataRange = new DateRange({ startDate: new Date()});
+        const oDataRange = new DateRange({startDate: new Date()});
         this.getView().byId('transactionTable').getBinding('items').filter([]);
         this.getView().byId('calendar').addSelectedDate(oDataRange);
         this._setFilterByYearMonth(new Date());
@@ -102,26 +102,26 @@ sap.ui.define([
     },
 
     _calculateTotal: function() {
-      var debit = 0;
-      var credit = 0;
+      let debit = 0;
+      let credit = 0;
       this.getView().byId('transactionTable').getItems().forEach(function(item) {
-        var context = item.getBindingContext();
-        var amount = parseFloat(context.getProperty('amount'));
+        const context = item.getBindingContext();
+        const amount = parseFloat(context.getProperty('amount'));
         if (context.getProperty('type') === 'D') {
           debit += amount;
         } else {
           credit += amount;
         }
       });
-      var total = parseFloat(credit - debit).toFixed(2);
-      var state = (total < 0) ? ValueState.Error : ValueState.Success;
+      const total = parseFloat(credit - debit).toFixed(2);
+      const state = (total < 0) ? ValueState.Error : ValueState.Success;
       this.getView().byId('totalAmount').setText('$ ' + total);
       this.getView().byId('totalAmount').setState(state);
     },
 
     _filterOverdue: function() {
-      var aFilters = [];
-      var table = this.getView().byId('transactionTable');
+      const aFilters = [];
+      const table = this.getView().byId('transactionTable');
       table.setBusy(true);
       aFilters.push(new Filter('duedate', FilterOperator.LT, new Date().toJSON()));
       aFilters.push(new Filter('idstatus', FilterOperator.EQ, 0));
@@ -130,11 +130,11 @@ sap.ui.define([
     },
 
     _setFilterByYearMonth: function(oDateFrom) {
-      var aFilters = [];
-      var table = this.getView().byId('transactionTable');
+      const aFilters = [];
+      const table = this.getView().byId('transactionTable');
       table.setBusy(true);
       oDateFrom = new Date(oDateFrom.getFullYear(), (oDateFrom.getMonth()), 1);
-      var oDateTo = new Date(oDateFrom.getFullYear(), (oDateFrom.getMonth() + 1), 0);
+      const oDateTo = new Date(oDateFrom.getFullYear(), (oDateFrom.getMonth() + 1), 0);
       aFilters.push(new Filter('duedate', FilterOperator.BT, oDateFrom.toJSON(), oDateTo.toJSON()));
       table.getBinding('items').filter(aFilters);
       table.setBusy(false);

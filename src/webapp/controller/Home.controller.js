@@ -60,22 +60,17 @@ sap.ui.define([
 
 
     _getTitleTotalItems: function() {
-      try {
-        var oView = this.getView();
-        var oData = oView.getModel().getData();
-
-        if (oData) {
-          oView.byId('accountTile').setValue(oData.User.Account.length);
-          oView.byId('categoryTile').setValue(oData.User.Category.length);
-          oView.byId('transactionOverdueTile').setValue(this._getTransactionOverdueItems());
-        }
-      } catch (e) {
-        console.dir(e);
+      const oView = this.getView();
+      const oData = oView.getModel().getData();
+      if (oData) {
+        oView.byId('accountTile').setValue(oData.User.Account.length);
+        oView.byId('categoryTile').setValue(oData.User.Category.length);
+        oView.byId('transactionOverdueTile').setValue(this._getTransactionOverdueItems());
       }
     },
 
     _getTransactionOverdueItems: function() {
-      var overdue = this.getView().getModel().getProperty('/User/Transaction').filter(function(item) {
+      const overdue = this.getView().getModel().getProperty('/User/Transaction').filter(function (item) {
         return item.idstatus === 0 && item.duedate < new Date().toJSON();
       });
       return overdue.length;

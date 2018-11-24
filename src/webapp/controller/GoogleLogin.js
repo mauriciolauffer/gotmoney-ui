@@ -34,9 +34,9 @@ sap.ui.define([
         this._systemLogin._oDialogSignup.setBusy(true);
       }
       this._systemLogin._oViewController.getView().setBusy(true);
-      var that = this;
-      var url = GOTMONEY.BACKEND_API_HOSTNAME + '/api/session/google';
-      var options = that._systemLogin._oViewController.getFetchOptions(null, 'POST');
+      const that = this;
+      const url = GOTMONEY.BACKEND_API_HOSTNAME + '/api/session/google';
+      const options = that._systemLogin._oViewController.getFetchOptions(null, 'POST');
       options.headers.Access_token = googleUser.getAuthResponse().access_token;
       fetch(url, options)
         .then(function(response) {

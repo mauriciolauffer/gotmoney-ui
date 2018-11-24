@@ -12,7 +12,7 @@ sap.ui.define([
     onInit: function() {
       try {
         this.getView().setModel(new JSONModel(), 'category');
-        var oRouter = this.getRouter();
+        const oRouter = this.getRouter();
         oRouter.getRoute('category').attachMatched(this._onRouteMatched, this);
         oRouter.getRoute('categoryNew').attachMatched(this._onRouteMatchedNew, this);
         this._initValidator();
@@ -46,8 +46,8 @@ sap.ui.define([
 
     onDelete: function(oEvent) {
       this.vibrate();
-      var that = this;
-      var oContext = oEvent.getSource().getBindingContext();
+      const that = this;
+      const oContext = oEvent.getSource().getBindingContext();
       MessageBox.confirm(that.getResourceBundle().getText('Delete.message'), function(sAction) {
         if (MessageBox.Action.OK === sAction) {
           that._delete(oContext);
@@ -57,7 +57,7 @@ sap.ui.define([
 
 
     _onRouteMatched: function(oEvent) {
-      var sObjectPath = '/User/Category/' + oEvent.getParameter('arguments').categoryId;
+      const sObjectPath = '/User/Category/' + oEvent.getParameter('arguments').categoryId;
       this._bindView(sObjectPath);
     },
 
@@ -68,7 +68,7 @@ sap.ui.define([
 
 
     _bindView: function(sPath) {
-      var oView = this.getView();
+      const oView = this.getView();
       oView.unbindElement();
       oView.bindElement({
         path: sPath,
@@ -94,7 +94,7 @@ sap.ui.define([
 
 
     _saveNew: function() {
-      var mPayload = this._getPayload();
+      const mPayload = this._getPayload();
       mPayload.idcategory = Date.now();
       return this.getView().getModel().create('category', null, JSON.stringify(mPayload))
         .then(function() {
@@ -105,7 +105,7 @@ sap.ui.define([
 
 
     _saveEdit: function(oContext) {
-      var mPayload = this._getPayload();
+      const mPayload = this._getPayload();
       mPayload.idcategory = oContext.getProperty('idcategory');
       return this.getView().getModel().update('category/' + mPayload.idcategory, null, JSON.stringify(mPayload))
         .then(function() {
@@ -164,8 +164,8 @@ sap.ui.define([
 
 
     _getPayload: function() {
-      var oView = this.getView();
-      var mPayload = ObjectFactory.buildCategory();
+      const oView = this.getView();
+      const mPayload = ObjectFactory.buildCategory();
       mPayload.description = oView.byId('description').getValue();
       return mPayload;
     },
@@ -173,7 +173,7 @@ sap.ui.define([
 
     _initValidator: function() {
       //This is the schema with all rules used to validate the UI5 Controls
-      var validationSchema = {
+      const validationSchema = {
         properties: {
           iduser: {
             type: 'integer',
@@ -210,7 +210,7 @@ sap.ui.define([
     },
 
     _clearValueState: function() {
-      var controls = ['description'];
+      const controls = ['description'];
       this.clearValueState(controls);
     }
   });

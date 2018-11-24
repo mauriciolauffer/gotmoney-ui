@@ -15,7 +15,7 @@ sap.ui.define([
     onInit: function() {
       try {
         this.getView().setModel(new JSONModel(), 'account');
-        var oRouter = this.getRouter();
+        const oRouter = this.getRouter();
         oRouter.getRoute('account').attachMatched(this._onRouteMatched, this);
         oRouter.getRoute('accountNew').attachMatched(this._onRouteMatchedNew, this);
         this._initValidator();
@@ -48,8 +48,8 @@ sap.ui.define([
 
     onDelete: function(oEvent) {
       this.vibrate();
-      var that = this;
-      var oContext = oEvent.getSource().getBindingContext();
+      const that = this;
+      const oContext = oEvent.getSource().getBindingContext();
       MessageBox.confirm(that.getResourceBundle().getText('Delete.message'), function(sAction) {
         if (MessageBox.Action.OK === sAction) {
           that._delete(oContext);
@@ -63,7 +63,7 @@ sap.ui.define([
     },
 
     _onRouteMatched: function(oEvent) {
-      var sObjectPath = '/User/Account/' + oEvent.getParameter('arguments').accountId;
+      const sObjectPath = '/User/Account/' + oEvent.getParameter('arguments').accountId;
       this._bindView(sObjectPath);
       this._setInvoicedayVisibility();
     },
@@ -77,7 +77,7 @@ sap.ui.define([
 
 
     _bindView: function(sPath) {
-      var oView = this.getView();
+      const oView = this.getView();
       oView.unbindElement();
       oView.bindElement({
         path: sPath,
@@ -103,7 +103,7 @@ sap.ui.define([
 
 
     _saveNew: function() {
-      var mPayload = this._getPayload();
+      const mPayload = this._getPayload();
       mPayload.idaccount = Date.now();
       return this.getView().getModel().create('account', null, JSON.stringify(mPayload))
         .then(function() {
@@ -114,7 +114,7 @@ sap.ui.define([
 
 
     _saveEdit: function(oContext) {
-      var mPayload = this._getPayload();
+      const mPayload = this._getPayload();
       mPayload.idaccount = oContext.getProperty('idaccount');
       return this.getView().getModel().update('account/' + mPayload.idaccount, null, JSON.stringify(mPayload))
         .then(function() {
@@ -150,7 +150,7 @@ sap.ui.define([
 
     _editDone: function(mPayload, oContext) {
       try {
-        var oModel = this.getView().getModel();
+        const oModel = this.getView().getModel();
         oModel.setProperty('idtype', mPayload.idtype, oContext);
         oModel.setProperty('description', mPayload.description, oContext);
         //TODO: mPayload.balance = 1;
@@ -180,8 +180,8 @@ sap.ui.define([
 
 
     _getPayload: function() {
-      var oView = this.getView();
-      var mPayload = ObjectFactory.buildAccount();
+      const oView = this.getView();
+      const mPayload = ObjectFactory.buildAccount();
       mPayload.idtype = parseInt(oView.byId('idtype').getSelectedKey(), 10);
       mPayload.description = oView.byId('description').getValue();
       mPayload.creditlimit = parseFloat(oView.byId('creditlimit').getValue());
@@ -199,7 +199,7 @@ sap.ui.define([
 
 
     _setInvoicedayVisibility: function() {
-      var bShow = (this.getView().byId('idtype').getSelectedKey() === '2');
+      const bShow = (this.getView().byId('idtype').getSelectedKey() === '2');
       this.getView().byId('invoiceday').setVisible(bShow);
       this.getView().byId('invoicedayLabel').setVisible(bShow);
     },
@@ -207,7 +207,7 @@ sap.ui.define([
 
     _initValidator: function() {
       //This is the schema with all rules used to validate the UI5 Controls
-      var validationSchema = {
+      const validationSchema = {
         properties: {
           iduser: {
             type: 'integer',
@@ -266,7 +266,7 @@ sap.ui.define([
     },
 
     _clearValueState: function() {
-      var controls = ['idtype', 'description', 'creditlimit', 'balance', 'opendate', 'duedate'];
+      const controls = ['idtype', 'description', 'creditlimit', 'balance', 'opendate', 'duedate'];
       this.clearValueState(controls);
     }
   });

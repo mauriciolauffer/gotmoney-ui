@@ -8,7 +8,7 @@ sap.ui.define([
 ], function(Log, ValueState, Controller, History, BusyDialog, MessageBox) {
   'use strict';
 
-  var _initialData = {
+  const _initialData = {
     AccountType: [],
     User: {
       Account: [],
@@ -17,9 +17,9 @@ sap.ui.define([
     }
   };
 
-  var CSRF_TOKEN;
+  let CSRF_TOKEN;
 
-  var BaseController = Controller.extend('com.mlauffer.gotmoneyappui5.controller.BaseController', {
+  const BaseController = Controller.extend('com.mlauffer.gotmoneyappui5.controller.BaseController', {
     _messagePopover: null
   });
 
@@ -62,11 +62,11 @@ sap.ui.define([
 
 
   BaseController.prototype.clearValueState = function(controlIds) {
-    var that = this;
+    const that = this;
     this.getOwnerComponent().oMessageManager.removeAllMessages();
     if (controlIds) {
       controlIds.forEach(function(controlId) {
-        var control = that.getView().byId(controlId);
+        const control = that.getView().byId(controlId);
         if (control) {
           if (control.setValueState) {
             control.setValueState(ValueState.None);
@@ -99,7 +99,7 @@ sap.ui.define([
    */
   BaseController.prototype.onNavBack = function() {
     this.vibrate();
-    var sPreviousHash = History.getInstance().getPreviousHash();
+    const sPreviousHash = History.getInstance().getPreviousHash();
     if (sPreviousHash !== undefined) {
       // The history contains a previous entry
       history.go(-1);
@@ -155,8 +155,8 @@ sap.ui.define([
     //console.dir(window.location.hash);
     sType = sType.toUpperCase();
     //var sUser = '';
-    var sURL = window.location.href.toString();
-    var sLogMessage = sType + ': ' + sText + '. User accessed route ' + sURL + ', timestamp = ' + Date.now();
+    const sURL = window.location.href.toString();
+    const sLogMessage = sType + ': ' + sText + '. User accessed route ' + sURL + ', timestamp = ' + Date.now();
     switch (sType) {
       case 'E':
         Log.error(sLogMessage);
@@ -178,7 +178,7 @@ sap.ui.define([
 
   BaseController.prototype.checkSession = function() {
     if (!this.getUserLogged()) {
-      var that = this;
+      const that = this;
       MessageBox.error(this.getResourceBundle().getText('Error.userNotConnected'), {
         onClose: function(sAction) {
           that.getRouter().navTo('index');
@@ -201,10 +201,10 @@ sap.ui.define([
   };
 
   BaseController.prototype.checkUserConnected = function() {
-    var that = this;
-    var url = GOTMONEY.BACKEND_API_HOSTNAME + '/api/session/loggedin';
+    const that = this;
+    const url = GOTMONEY.BACKEND_API_HOSTNAME + '/api/session/loggedin';
     return fetch(url, that.getFetchOptions(null, 'GET'))
-      .then(function (response) {
+      .then(function(response) {
         if (response.ok) {
           that.setUserLogged(true);
         } else {
@@ -226,8 +226,8 @@ sap.ui.define([
   };
 
   BaseController.prototype.getToken = function() {
-    var that = this;
-    var url = GOTMONEY.BACKEND_API_HOSTNAME + '/api/session/token';
+    const that = this;
+    const url = GOTMONEY.BACKEND_API_HOSTNAME + '/api/session/token';
     return fetch(url, this.getFetchOptions(null, 'GET'))
       .then(function(response) {
         if (response.ok) {
@@ -265,7 +265,7 @@ sap.ui.define([
   BaseController.prototype._loadBackendData = function() {
     this._oBusyDialog = new BusyDialog();
     this._oBusyDialog.open();
-    var that = this;
+    const that = this;
     this.getView().getModel().setData(_initialData);
     that._loadUser()
       .then(function() {

@@ -16,7 +16,7 @@ sap.ui.define([
     onInit: function() {
       try {
         this.getView().setModel(new JSONModel(), 'transaction');
-        var oRouter = this.getRouter();
+        const oRouter = this.getRouter();
         oRouter.getRoute('transaction').attachMatched(this._onRouteMatched, this);
         oRouter.getRoute('transactionNew').attachMatched(this._onRouteMatchedNew, this);
         this._initValidator();
@@ -41,9 +41,9 @@ sap.ui.define([
       //Validates UI5 Controls against the validation schema set before
       this.vibrate();
       this.getOwnerComponent().oMessageManager.removeAllMessages();
-      var isValid = false;
-      var errors = null;
-      var occurrenceElement = this.getView().byId('occurrence');
+      let isValid = false;
+      let errors = null;
+      let occurrenceElement = this.getView().byId('occurrence');
       if (!occurrenceElement || occurrenceElement.getSelectedKey() === 'U') {
         isValid = this._validator.validate();
         errors = this._validator.getErrors();
@@ -61,8 +61,8 @@ sap.ui.define([
 
     onDelete: function(oEvent) {
       this.vibrate();
-      var that = this;
-      var oContext = oEvent.getSource().getBindingContext();
+      const that = this;
+      const oContext = oEvent.getSource().getBindingContext();
       MessageBox.confirm(that.getResourceBundle().getText('Delete.message'), function(sAction) {
         if (MessageBox.Action.OK === sAction) {
           that._delete(oContext);
@@ -76,7 +76,7 @@ sap.ui.define([
 
 
     _onRouteMatched: function(oEvent) {
-      var sObjectPath = '/User/Transaction/' + oEvent.getParameter('arguments').transactionId;
+      const sObjectPath = '/User/Transaction/' + oEvent.getParameter('arguments').transactionId;
       this._bindView(sObjectPath);
     },
 
@@ -88,7 +88,7 @@ sap.ui.define([
 
 
     _bindView: function(sPath) {
-      var oView = this.getView();
+      const oView = this.getView();
       oView.unbindElement();
       oView.bindElement({
         path: sPath,
@@ -115,12 +115,12 @@ sap.ui.define([
 
     _saveNew: function() {
       //TODO: Validation
-      var oView = this.getView();
+      const oView = this.getView();
       if (oView.byId('occurrence').getSelectedKey() !== 'U' && !oView.byId('startdate').getDateValue()) {
         return;
       }
-      var mPayload = this._createRepetition(oView.byId('occurrence').getSelectedKey());
-      var data = { data: mPayload };
+      const mPayload = this._createRepetition(oView.byId('occurrence').getSelectedKey());
+      const data = {data: mPayload};
       return this.getView().getModel().create('transaction', null, JSON.stringify(data))
         .then(function() {
           this._newDone(mPayload);
@@ -131,7 +131,7 @@ sap.ui.define([
 
     _saveEdit: function(oContext) {
       //TODO: Validation
-      var mPayload = this._getPayload();
+      const mPayload = this._getPayload();
       mPayload.idtransaction = oContext.getProperty('idtransaction');
       return this.getView().getModel().update('transaction/' + mPayload.idtransaction, null, JSON.stringify(mPayload))
         .then(function() {
@@ -153,7 +153,7 @@ sap.ui.define([
 
     _newDone: function(payload) {
       try {
-        var oView = this.getView();
+        const oView = this.getView();
         payload.forEach(function(item) {
           oView.getModel().getData().User.Transaction.push(item);
         });
@@ -170,7 +170,7 @@ sap.ui.define([
 
     _editDone: function(mPayload, oContext) {
       try {
-        var oModel = this.getView().getModel();
+        const oModel = this.getView().getModel();
         oModel.setProperty('idaccount', mPayload.idaccount, oContext);
         oModel.setProperty('type', mPayload.type, oContext);
         oModel.setProperty('idstatus', mPayload.idstatus, oContext);
@@ -203,8 +203,8 @@ sap.ui.define([
 
 
     _getPayload: function() {
-      var oView = this.getView();
-      var mPayload = ObjectFactory.buildTransaction();
+      const oView = this.getView();
+      const mPayload = ObjectFactory.buildTransaction();
       //idlancamento : null,
       //mPayload.idparent = null;
       mPayload.idaccount = parseInt(oView.byId('idaccount').getSelectedKey(), 10);
@@ -226,8 +226,10 @@ sap.ui.define([
     },
 
     _getTag: function() {
-      var tag = '';
-      var categories = this.getView().byId('category').getSelectedKeys().filter(function(item) { return (item); });
+      let tag = '';
+      const categories = this.getView().byId('category').getSelectedKeys().filter(function (item) {
+        return (item);
+      });
       if (categories.length > 0) {
         tag = '#' + categories.join(', #');
       }
@@ -235,8 +237,8 @@ sap.ui.define([
     },
 
     _setOccurrenceVisibility: function() {
-      var oView = this.getView();
-      var bShow = (oView.byId('occurrence').getSelectedKey() !== 'U');
+      const oView = this.getView();
+      let bShow = (oView.byId('occurrence').getSelectedKey() !== 'U');
 
       // Show?
       oView.byId('startdate').setVisible(bShow);
@@ -252,17 +254,17 @@ sap.ui.define([
 
 
     _createRepetition: function(sOccurrence) {
-      var oView = this.getView();
+      const oView = this.getView();
       //var oStartDate = oView.byId("startdate").getDateValue() || oView.byId("duedate").getDateValue();
-      var sSplit = oView.byId('split').getValue() || 1;
-      var sLastId;
-      var aPayloads = [];
-      var mPayloadReference = this._getPayload();
+      const sSplit = oView.byId('split').getValue() || 1;
+      let sLastId;
+      const aPayloads = [];
+      const mPayloadReference = this._getPayload();
       mPayloadReference.startdate = mPayloadReference.startdate || mPayloadReference.duedate;
       mPayloadReference.idtransaction = Date.now();
 
-      for (var i = 0; i < sSplit; i++) {
-        var mPayload = merge({}, mPayloadReference);
+      for (let i = 0; i < sSplit; i++) {
+        const mPayload = merge({}, mPayloadReference);
         mPayload.duedate = this._getRepetitionDueDate(sOccurrence, mPayload.startdate, i);
 
         //Set ID
@@ -288,7 +290,7 @@ sap.ui.define([
     },
 
     _getRepetitionDueDate: function(sOccurrence, startDate, index) {
-      var dueDate = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate());
+      const dueDate = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate());
       switch (sOccurrence) {
         case 'U': //Once
           break;
@@ -319,7 +321,7 @@ sap.ui.define([
 
     _initValidator: function() {
       //This is the schema with all rules used to validate the UI5 Controls
-      var validationSchema = {
+      const validationSchema = {
         properties: {
           iduser: {
             type: 'integer',
@@ -374,7 +376,7 @@ sap.ui.define([
 
     _initValidatorMultiple: function() {
     //This is the schema with all rules used to validate the UI5 Controls
-      var validationSchema = {
+      const validationSchema = {
         properties: {
           iduser: {
             type: 'integer',
@@ -446,7 +448,7 @@ sap.ui.define([
     },
 
     _clearValueState: function() {
-      var controls = ['description', 'amount', 'type', 'duedate', 'startdate', 'tag', 'split'];
+      const controls = ['description', 'amount', 'type', 'duedate', 'startdate', 'tag', 'split'];
       this.clearValueState(controls);
     }
   });

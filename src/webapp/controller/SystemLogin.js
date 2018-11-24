@@ -46,25 +46,25 @@ sap.ui.define([
       }
       this._oDialogLogin.open();
 
-      var oGoogleLogin = new GoogleLogin();
+      const oGoogleLogin = new GoogleLogin();
       oGoogleLogin.renderButton(this, Fragment.byId('Login', 'btGoogle').getDomRef().id);
     },
 
     onFacebookLogin: function() {
       this._oViewController.vibrate();
-      var oFacebookLogin = new FacebookLogin();
+      const oFacebookLogin = new FacebookLogin();
       oFacebookLogin.login(this);
     },
 
     onSystemLogin: function() {
       this._oDialogLogin.setBusy(true);
-      var that = this;
-      var mPayload = {
+      const that = this;
+      const mPayload = {
         login: 'system',
         email: Fragment.byId('Login', 'email').getValue(),
         passwd: Fragment.byId('Login', 'pwd').getValue()
       };
-      var url = GOTMONEY.BACKEND_API_HOSTNAME + '/api/session/login';
+      const url = GOTMONEY.BACKEND_API_HOSTNAME + '/api/session/login';
       fetch(url, that._oViewController.getFetchOptions(JSON.stringify(mPayload), 'POST'))
         .then(function(response) {
           if (response.ok) {
@@ -101,17 +101,17 @@ sap.ui.define([
         this._oViewController.getView().addDependent(this._oDialogRecovery);
       }
       this._oDialogRecovery.open();
-      var email = Fragment.byId('Login', 'email').getValue();
+      const email = Fragment.byId('Login', 'email').getValue();
       Fragment.byId('Recovery', 'email').setValue(email);
     },
 
     onResetPassword: function() {
       this._oDialogRecovery.setBusy(true);
-      var that = this;
-      var mPayload = {
+      const that = this;
+      const mPayload = {
         email: Fragment.byId('Recovery', 'email').getValue()
       };
-      var url = GOTMONEY.BACKEND_API_HOSTNAME + '/api/session/recovery';
+      const url = GOTMONEY.BACKEND_API_HOSTNAME + '/api/session/recovery';
       fetch(url, that._oViewController.getFetchOptions(JSON.stringify(mPayload), 'PUT'))
         .then(function(response) {
           if (response.ok) {
@@ -141,10 +141,10 @@ sap.ui.define([
     },
 
     onLogoff: function() {
-      var viewController = this._oViewController;
+      const viewController = this._oViewController;
       viewController.vibrate();
       viewController.getView().setBusy(true);
-      var url = GOTMONEY.BACKEND_API_HOSTNAME + '/api/session/logout';
+      const url = GOTMONEY.BACKEND_API_HOSTNAME + '/api/session/logout';
       fetch(url, viewController.getFetchOptions(null, 'GET'))
         .then(function(response) {
           if (response.ok) {
@@ -164,7 +164,7 @@ sap.ui.define([
       }
       this._oDialogSignup.open();
 
-      var oGoogleLogin = new GoogleLogin();
+      const oGoogleLogin = new GoogleLogin();
       oGoogleLogin.renderButton(this, Fragment.byId('Signup', 'btGoogle').getDomRef().id);
     },
 
@@ -191,9 +191,9 @@ sap.ui.define([
     },
 
     _saveNew: function() {
-      var that = this;
-      var mPayload = this._getPayload();
-      var url = GOTMONEY.BACKEND_API_HOSTNAME + '/api/session/signup';
+      const that = this;
+      const mPayload = this._getPayload();
+      const url = GOTMONEY.BACKEND_API_HOSTNAME + '/api/session/signup';
       fetch(url, that._oViewController.getFetchOptions(JSON.stringify(mPayload), 'POST'))
         .then(function(response) {
           if (response.ok) {
@@ -221,7 +221,7 @@ sap.ui.define([
 
 
     _getPayload: function() {
-      var mPayload = ObjectFactory.buildUser();
+      const mPayload = ObjectFactory.buildUser();
       mPayload.iduser = Date.now();
       mPayload.email = Fragment.byId('Signup', 'email').getValue();
       mPayload.passwd = Fragment.byId('Signup', 'pwd').getValue();
