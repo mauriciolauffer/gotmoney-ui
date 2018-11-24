@@ -28,7 +28,6 @@ sap.ui.define([
        }, this);*/
 
       sap.ui.getCore().getMessageManager().registerObject(this.getView(), true);
-      this.getToken();
       this._systemLogin = new SystemLogin(this);
     },
 

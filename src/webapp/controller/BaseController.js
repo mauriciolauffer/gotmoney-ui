@@ -205,6 +205,7 @@ sap.ui.define([
     const url = GOTMONEY.BACKEND_API_HOSTNAME + '/api/session/loggedin';
     return fetch(url, that.getFetchOptions(null, 'GET'))
       .then(function(response) {
+        that.setCsrfToken(response.headers.get('x-csrf-token'));
         if (response.ok) {
           that.setUserLogged(true);
         } else {
@@ -215,7 +216,16 @@ sap.ui.define([
         that.setUserLogged(false);
         throw err;
       });
+  };
 
+  BaseController.prototype.setCsrfToken = function(token) {
+    CSRF_TOKEN = token;
+    this.getView().getModel().setFetchParameters({
+      headers: {
+        'Content-Type': 'application/json',
+        'x-csrf-token': CSRF_TOKEN
+      }
+    });
   };
 
   BaseController.prototype.vibrate = function() {
@@ -224,30 +234,6 @@ sap.ui.define([
       navigator.vibrate(50);
     }
   };
-
-  BaseController.prototype.getToken = function() {
-    const that = this;
-    const url = GOTMONEY.BACKEND_API_HOSTNAME + '/api/session/token';
-    return fetch(url, this.getFetchOptions(null, 'GET'))
-      .then(function(response) {
-        if (response.ok) {
-          return response.json();
-        } else {
-          throw response;
-        }
-      })
-      .then(function(result) {
-        CSRF_TOKEN = result.csrfToken;
-        that.getView().getModel().setFetchParameters({
-          headers: {
-            'Content-Type': 'application/json',
-            'x-csrf-token': CSRF_TOKEN
-          }
-        });
-      })
-      .catch(this._backendFail.bind(this));
-  };
-
 
   BaseController.prototype.getFetchOptions = function(body, method) {
     return {
