@@ -11,7 +11,7 @@
         <Label text="{i18n>User.passwordRepeat}" required="true" />
         <Input id="pwdRepeat" type="Password" value="{user>/pwdRepeat}" />
         <Label text="{i18n>User.terms}" required="true" />
-        <CheckBox id="terms" state="{user>/terms}" text="{i18n>User.termsAgree}" />
+        <CheckBox id="terms" selected="{user>/terms}" text="{i18n>User.termsAgree}" />
       </VBox>
     </Panel>
     <Panel headerText="{i18n>Signup.social}">
