@@ -5,8 +5,8 @@ sap.ui.require([
 ], function(Index) {
   'use strict';
 
-  var stub;
-  var oIndex = new Index();
+  let stub;
+  const oIndex = new Index();
 
   QUnit.module('Index', {});
 });

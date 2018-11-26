@@ -1,7 +1,8 @@
 sap.ui.define([
+  'sap/base/Log',
   'sap/ui/core/ValueState',
   'sap/ui/core/format/DateFormat'
-], function(ValueState, DateFormat) {
+], function(Log, ValueState, DateFormat) {
   'use strict';
 
   return {
@@ -12,7 +13,7 @@ sap.ui.define([
      * @returns {date} JavaScript Date Object
      */
     getCalendarStartDate: function() {
-      var year = new Date().getFullYear();
+      const year = new Date().getFullYear();
       return new Date(year, 0, 1);
     },
 
@@ -62,21 +63,21 @@ sap.ui.define([
     },
 
     accountName: function(sValue) {
-      var sDesc = sValue;
+      let sDesc = sValue;
       try {
-        var oModel = this.getView().getModel();
+        const oModel = this.getView().getModel();
         if (oModel) {
-          var nItems = oModel.getData().User.Account.length;
-          var aAccounts = oModel.getData().User.Account;
-          for (var i = 0; i < nItems; i++) {
+          const nItems = oModel.getData().User.Account.length;
+          const aAccounts = oModel.getData().User.Account;
+          for (let i = 0; i < nItems; i++) {
             if (aAccounts[i].idaccount === sValue) {
               sDesc = aAccounts[i].description;
               break;
             }
           }
         }
-      } catch (e) {
-        console.dir(e);
+      } catch (err) {
+        Log.error(err.toString());
       }
       return sDesc;
     },
@@ -87,7 +88,7 @@ sap.ui.define([
 
     dateMySQLFormat: function(dateJS) {
       if (dateJS) {
-        var oDateFormat = DateFormat.getDateTimeInstance({pattern: 'yyyy-MM-dd'});
+        const oDateFormat = DateFormat.getDateTimeInstance({pattern: 'yyyy-MM-dd'});
         return oDateFormat.format(new Date(dateJS));
       } else {
         return dateJS;

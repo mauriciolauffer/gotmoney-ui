@@ -8,7 +8,7 @@ sap.ui.require([
 ], function(ValueState, JSONModel, ResourceModel, formatter) {
   'use strict';
 
-  var oResourceModel = new ResourceModel({
+  const oResourceModel = new ResourceModel({
     bundleUrl: sap.ui.require.toUrl('com/mlauffer/gotmoneyappui5/i18n/i18n.properties')
   });
 
@@ -67,24 +67,24 @@ sap.ui.require([
 
   QUnit.module('formatter:paymentTooltip()', {});
   QUnit.test('Should return tooltip', function(assert) {
-    var oResourceBundleStub = {
+    const oResourceBundleStub = {
       getResourceBundleSync: this.stub().returns(oResourceModel.getResourceBundle())
     };
-    var oControllerStub = {
+    const oControllerStub = {
       getOwnerComponent: this.stub().returns(oResourceBundleStub)
     };
-    var isolatedFormatter = formatter.paymentTooltip.bind(oControllerStub);
+    const isolatedFormatter = formatter.paymentTooltip.bind(oControllerStub);
     assert.ok(isolatedFormatter(0), 'The tooltip is correct');
   });
 
   QUnit.test('Should return tooltip', function(assert) {
-    var oResourceBundleStub = {
+    const oResourceBundleStub = {
       getResourceBundleSync: this.stub().returns(oResourceModel.getResourceBundle())
     };
-    var oControllerStub = {
+    const oControllerStub = {
       getOwnerComponent: this.stub().returns(oResourceBundleStub)
     };
-    var isolatedFormatter = formatter.paymentTooltip.bind(oControllerStub);
+    const isolatedFormatter = formatter.paymentTooltip.bind(oControllerStub);
     assert.ok(isolatedFormatter(1), 'The tooltip is correct');
     assert.ok(isolatedFormatter(true), 'The tooltip is correct');
   });
@@ -102,13 +102,13 @@ sap.ui.require([
 
   QUnit.module('formatter:accountTypeName()', {});
   QUnit.test('Should return Account Type name', function(assert) {
-    var oResourceBundleStub = {
+    const oResourceBundleStub = {
       getResourceBundleSync: this.stub().returns(oResourceModel.getResourceBundle())
     };
-    var oControllerStub = {
+    const oControllerStub = {
       getOwnerComponent: this.stub().returns(oResourceBundleStub)
     };
-    var isolatedFormatter = formatter.accountTypeName.bind(oControllerStub);
+    const isolatedFormatter = formatter.accountTypeName.bind(oControllerStub);
     assert.ok(isolatedFormatter(1), 'The name is correct');
     assert.ok(isolatedFormatter(2), 'The name is correct');
     assert.ok(isolatedFormatter(3), 'The name is correct');
@@ -127,13 +127,13 @@ sap.ui.require([
     }
   });
   QUnit.test('Should return Account Name for ID', function(assert) {
-    var oViewStub = {
+    const oViewStub = {
       getModel: this.stub().returns(this.oModel)
     };
-    var oControllerStub = {
+    const oControllerStub = {
       getView: this.stub().returns(oViewStub)
     };
-    var isolatedFormatter = formatter.accountName.bind(oControllerStub);
+    const isolatedFormatter = formatter.accountName.bind(oControllerStub);
     assert.strictEqual(isolatedFormatter(13642352580536), 'Cash', 'The name is correct');
     assert.strictEqual(isolatedFormatter(13639248531753), 'ahhhhhhhhhh234', 'The name is correct');
   });
@@ -157,7 +157,7 @@ sap.ui.require([
 
   QUnit.module('formatter:dateMySQLFormat()', {});
   QUnit.test('Should return formatted date', function(assert) {
-    var formattedDate = formatter.dateMySQLFormat(new Date());
+    const formattedDate = formatter.dateMySQLFormat(new Date());
     assert.strictEqual(formattedDate.substr(0, 4), new Date().getFullYear().toString(), 'The year is correct');
     assert.strictEqual(parseInt(formattedDate.substr(5, 2), 10), new Date().getMonth() + 1, 'The month is correct');
     assert.strictEqual(parseInt(formattedDate.substr(8, 2), 10), new Date().getDate(), 'The day is correct');

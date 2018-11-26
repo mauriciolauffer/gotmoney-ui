@@ -5,8 +5,8 @@ sap.ui.require([
 ], function(Home) {
   'use strict';
 
-  var stub;
-  var oHome = new Home();
+  let stub;
+  const oHome = new Home();
 
   QUnit.module('Home', {});
 });

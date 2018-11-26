@@ -5,8 +5,8 @@ sap.ui.require([
 ], function(Signup) {
   'use strict';
 
-  var stub;
-  var oSignup = new Signup();
+  let stub;
+  const oSignup = new Signup();
 
   QUnit.module('Signup', {});
 });

@@ -5,8 +5,8 @@ sap.ui.require([
 ], function(Category) {
   'use strict';
 
-  var stub;
-  var oCategory = new Category();
+  let stub;
+  const oCategory = new Category();
 
   QUnit.module('Category', {});
 });

@@ -5,8 +5,8 @@ sap.ui.require([
 ], function(App) {
   'use strict';
 
-  var stub;
-  var oApp = new App();
+  let stub;
+  const oApp = new App();
 
   QUnit.module('App', {});
 });

@@ -9,8 +9,8 @@ sap.ui.require([
 ], function(BindingMode, JSONModel, ResourceModel, Device, BaseController) {
   'use strict';
 
-  var stub;
-  var oBaseController = new BaseController();
+  let stub;
+  const oBaseController = new BaseController();
 
   QUnit.module('BaseController', {});
   QUnit.module('BaseController:getRouter()', {
@@ -20,8 +20,8 @@ sap.ui.require([
     }
   });
   QUnit.test('Should return router', function(assert) {
-    var oRouter = {
-      getRouter: function() {
+    const oRouter = {
+      getRouter: function () {
         return {};
       }
     };
@@ -43,7 +43,7 @@ sap.ui.require([
     }
   });
   QUnit.test('Should return resource bundle', function(assert) {
-    var oResourceBundleStub = {
+    const oResourceBundleStub = {
       getResourceBundleSync: this.stub().returns(this.oResourceModel.getResourceBundle())
     };
     stub = this.stub(oBaseController, 'getOwnerComponent').returns(oResourceBundleStub);
@@ -78,13 +78,13 @@ sap.ui.require([
     }
   });
   QUnit.test('Should destroy session', function(assert) {
-    var oViewStub = {
+    const oViewStub = {
       getModel: this.stub().returns(this.oModel)
     };
-    var oControllerStub = {
+    const oControllerStub = {
       getView: this.stub().returns(oViewStub)
     };
-    var initialData = {
+    const initialData = {
       AccountType: [],
       User: {
         Account: [],

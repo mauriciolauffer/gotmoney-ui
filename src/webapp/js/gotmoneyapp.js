@@ -4,7 +4,7 @@ window.GOTMONEY = {
 };
 
 //GOOGLE
-var Google = {auth2: null}; // The Sign-In object.
+const Google = {auth2: null}; // The Sign-In object.
 function onLoadGoogleClient() {
   'use strict';
   gapi.load('auth2', function() {

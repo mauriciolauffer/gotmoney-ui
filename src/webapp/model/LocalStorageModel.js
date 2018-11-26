@@ -37,7 +37,7 @@ sap.ui.define([
      * Loads the current state of the model from local storage
      */
     _loadData: function() {
-      var sJSON = this._storage.get(this._STORAGE_KEY);
+      const sJSON = this._storage.get(this._STORAGE_KEY);
       if (sJSON) {
         this.setData(JSON.parse(sJSON));
       }
@@ -48,9 +48,9 @@ sap.ui.define([
      * Saves the current state of the model to local storage
      */
     _storeData: function() {
-      var oData = this.getData();
+      const oData = this.getData();
       // update local storage with current data
-      var sJSON = JSON.stringify(oData);
+      const sJSON = JSON.stringify(oData);
       this._storage.put(this._STORAGE_KEY, sJSON);
     },
 

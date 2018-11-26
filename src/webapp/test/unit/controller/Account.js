@@ -5,8 +5,8 @@ sap.ui.require([
 ], function(Account) {
   'use strict';
 
-  var stub;
-  var oAccount = new Account();
+  let stub;
+  const oAccount = new Account();
 
   QUnit.module('Account', {});
 });

@@ -6,7 +6,7 @@ sap.ui.define([
 ], function(Log, UriParameters, MockServer, JSONModel) {
   'use strict';
 
-  var oMockServer;
+  let oMockServer;
 
   return {
     /**
@@ -17,18 +17,18 @@ sap.ui.define([
      */
 
     init: function() {
-      var oUriParameters = new UriParameters(window.location.href);
-      var oMockServer = new MockServer({
+      const oUriParameters = new UriParameters(window.location.href);
+      const oMockServer = new MockServer({
         rootUri: '/'
       });
       MockServer.config({
         autoRespond: true,
         autoRespondAfter: oUriParameters.get('serverDelay') || 1000
       });
-      var sPath = sap.ui.require.toUrl('com/mlauffer/gotmoneyappui5/localService');
+      const sPath = sap.ui.require.toUrl('com/mlauffer/gotmoneyappui5/localService');
       //oMockServer.simulate(sPath + '/metadata.xml', sPath + '/mockdata', true);
 
-      var oModel = new JSONModel(sPath + '/mockdata/mock.json');
+      const oModel = new JSONModel(sPath + '/mockdata/mock.json');
       oModel.loadData(sPath + '/mockdata/mock.json', false);
 
       this.setRequestHandler(oMockServer, oModel);
@@ -47,7 +47,7 @@ sap.ui.define([
 
     setRequestHandler: function(mockServer, model) {
       // handling mocking a function import call step
-      var aRequests = mockServer.getRequests();
+      const aRequests = mockServer.getRequests();
       aRequests.push({
         method: 'GET',
         path: new RegExp('api/session/(.*)'),

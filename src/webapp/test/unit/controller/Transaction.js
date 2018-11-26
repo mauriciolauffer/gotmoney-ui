@@ -5,8 +5,8 @@ sap.ui.require([
 ], function(Transaction) {
   'use strict';
 
-  var stub;
-  var oTransaction = new Transaction();
+  let stub;
+  const oTransaction = new Transaction();
 
   QUnit.module('Transaction', {});
 });
