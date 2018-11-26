@@ -14,7 +14,7 @@ sap.ui.define([
     },
 
     createDefaultModel: function() {
-      const model = new CRUDModel('http://localhost:3000/api/');
+      const model = new CRUDModel(window.GOTMONEY.BACKEND_API_HOSTNAME + '/api/');
       model.setDefaultBindingMode(BindingMode.OneWay);
       model.setSizeLimit(1000);
       model.setData({
