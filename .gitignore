@@ -9,3 +9,4 @@ public/webapp/js/resources/
 .env.*
 *.log
 .nyc_output/
+.firebase/
