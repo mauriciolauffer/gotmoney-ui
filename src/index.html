@@ -12,6 +12,13 @@
   <meta name="theme-color" content="#6699ff">
   <meta name="google-signin-scope" content="profile email">
   <meta name="google-signin-client_id" content="512998861746.apps.googleusercontent.com">
+  <meta http-equiv="Content-Security-Policy"
+        content="
+        default-src 'self' localhost:* https://openui5.hana.ondemand.com https://*.google.com https://*.facebook.com https://gotmoneyapp.herokuapp.com;
+        style-src 'self' 'unsafe-inline' https://openui5.hana.ondemand.com;
+        script-src 'self' 'unsafe-eval' https://openui5.hana.ondemand.com https://*.facebook.com https://*.facebook.net
+        https://*.google.com https://*.googletagmanager.com https://*.google-analytics.com;
+        img-src 'self' data: https://*.facebook.com https://*.google-analytics.com">
   <title>GotMoney App</title>
   <style type="text/css">
     @keyframes spinner{to{transform:rotate(360deg)}}@-webkit-keyframes spinner{to{-webkit-transform:rotate(360deg)}}.spinner:before{content:'Loading...';position:fixed;top:0;left:0;bottom:0;right:0;width:100px;height:100px;margin:auto}.spinner:not(:required):before{content:'';border-radius:50%;border:5px solid transparent;border-top-color:#03ade0;border-bottom-color:#03ade0;animation:spinner .8s ease infinite;-webkit-animation:spinner .8s ease infinite}
