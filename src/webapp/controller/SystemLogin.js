@@ -202,7 +202,12 @@ sap.ui.define([
             throw response.json();
           }
         })
-        .catch(that._oViewController._backendFail);
+        .catch(function(err) {
+          that._oViewController._backendFail(err);
+        })
+        .finally(function() {
+          that._oViewController.getView().setBusy(false);
+        });
     },
 
 

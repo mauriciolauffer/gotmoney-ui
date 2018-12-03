@@ -1,4 +1,4 @@
-<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m">
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns:pwd="openui5.password" xmlns="sap.m">
   <Dialog id="dialogSignup" title="{i18n>Signup.title}" icon="sap-icon://leads" afterClose="onAfterCloseSignup" busyIndicatorDelay="0">
     <Panel>
       <VBox>
@@ -7,7 +7,9 @@
         <Label text="{i18n>User.email}" required="true" />
         <Input id="email" type="Email" value="{user>/email}" />
         <Label text="{i18n>User.password}" required="true" />
-        <Input id="pwd" type="Password" value="{user>/pwd}" />
+        <pwd:Password id="pwd" value="{user>/pwd}"
+                      requireNumbers="false" requireLetters="false" requireSymbols="false"
+                      requireLowercase="false" requireUppercase="false" />
         <Label text="{i18n>User.passwordRepeat}" required="true" />
         <Input id="pwdRepeat" type="Password" value="{user>/pwdRepeat}" />
         <Label text="{i18n>User.terms}" required="true" />
