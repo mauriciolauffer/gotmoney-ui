@@ -1,16 +1,16 @@
 'use strict';
 
-const appCacheName = 'GotMoneyApp-PWA-v000';
+const appCacheName = 'GotMoneyApp-PWA-v005';
 const ui5CDN = 'https://openui5.hana.ondemand.com/1.60.1/resources/';
 const rxLocal = /^http:.*local.*\/api\//;
 const rxServer = /^https:.*gotmoney.*\/api\//;
 const localFilesToCache = [
   '/index.html',
-  '/index-sw.html',
   '/manifest.json',
   '/sw-reg.js',
   '/webapp/Component-preload.js',
   '/webapp/manifest.json',
+  '/webapp/manifest.json?sap-language=EN',
   '/webapp/css/gotmoneyapp.min.css',
   '/webapp/i18n/i18n.properties',
   '/webapp/i18n/i18n_en.properties',
