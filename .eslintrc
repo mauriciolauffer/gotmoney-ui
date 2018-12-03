@@ -82,7 +82,7 @@
     "wrap-iife": [2, "any"],
     "yoda": 2,
 
-    "strict": [2, "function"],
+    "strict": [2, "safe"],
 
     "no-catch-shadow": 2,
     "no-delete-var": 2,

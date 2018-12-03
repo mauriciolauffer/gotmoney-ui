@@ -6,22 +6,37 @@
       "**/.*",
       "**/node_modules/**"
     ],
-    "headers": [{
-      "source": "index.html",
-      "headers": [
-        {
-          "key": "X-Content-Type-Options",
-          "value": "nosniff"
-        },
-        {
-          "key": "X-Frame-Options",
-          "value": "DENY"
-        },
-        {
-          "key": "X-XSS-Protection",
-          "value": "1; mode=block"
-        }
-      ]
-    }]
+    "headers": [
+      {
+        "source": "index.html",
+        "headers": [
+          {
+            "key": "X-Content-Type-Options",
+            "value": "nosniff"
+          },
+          {
+            "key": "X-Frame-Options",
+            "value": "DENY"
+          },
+          {
+            "key": "X-XSS-Protection",
+            "value": "1; mode=block"
+          }]
+      },
+      {
+        "source": "**",
+        "headers": [{
+          "key": "Cache-Control",
+          "value": "max-age=86400000"
+        }]
+      },
+      {
+        "source": "**/*.@(jpg|jpeg|gif|png)",
+        "headers": [{
+          "key": "Cache-Control",
+          "value": "max-age=604800000"
+        }]
+      }
+    ]
   }
 }
