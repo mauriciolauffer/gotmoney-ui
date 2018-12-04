@@ -1,6 +1,6 @@
 'use strict';
 
-const appCacheName = 'GotMoneyApp-PWA-v005';
+const appCacheName = 'GotMoneyApp-PWA-v006';
 const ui5CDN = 'https://openui5.hana.ondemand.com/1.60.1/resources/';
 const rxLocal = /^http:.*local.*\/api\//;
 const rxServer = /^https:.*gotmoney.*\/api\//;

@@ -8,13 +8,6 @@
     ],
     "headers": [
       {
-        "source": "/webapp/**",
-        "headers": [{
-          "key": "Cache-Control",
-          "value": "max-age=86400000"
-        }]
-      },
-      {
         "source": "**/*.@(jpg|jpeg|gif|png)",
         "headers": [{
           "key": "Cache-Control",
@@ -22,7 +15,14 @@
         }]
       },
       {
-        "source": "index.html",
+        "source": "/webapp/**",
+        "headers": [{
+          "key": "Cache-Control",
+          "value": "max-age=43200000"
+        }]
+      },
+      {
+        "source": "/index.html",
         "headers": [
           {
             "key": "X-Content-Type-Options",
@@ -38,7 +38,7 @@
           }]
       },
       {
-        "source": "sw.js",
+        "source": "/sw.js",
         "headers": [{
           "key": "Cache-Control",
           "value": "no-cache"

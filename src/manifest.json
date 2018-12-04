@@ -1,11 +1,11 @@
 {
   "name": "GotMoney",
   "short_name": "GotMoney",
-  "start_url": "/index.html",
+  "start_url": "index.html",
   "display": "standalone",
   "background_color": "#FFFFFF",
   "theme_color": "#6699FF",
-  "description": "A simply personal finance management",
+  "description": "A simple personal finance management",
   "icons": [
     {
       "src": "webapp/images/pig-48x48.png",
@@ -18,12 +18,12 @@
       "type": "image/png"
     },
     {
-      "src": "/webapp/images/pig-128x128.png",
+      "src": "webapp/images/pig-128x128.png",
       "sizes": "128x128",
       "type": "image/png"
     },
     {
-      "src": "/webapp/images/pig-144x144.png",
+      "src": "webapp/images/pig-144x144.png",
       "sizes": "144x144",
       "type": "image/png"
     },
