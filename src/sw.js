@@ -1,6 +1,6 @@
 'use strict';
 
-const appCacheName = 'GotMoneyApp-PWA-v006';
+const appCacheName = 'GotMoneyApp-PWA-v008';
 const ui5CDN = 'https://openui5.hana.ondemand.com/1.60.1/resources/';
 const rxLocal = /^http:.*local.*\/api\//;
 const rxServer = /^https:.*gotmoney.*\/api\//;
@@ -26,6 +26,7 @@ const localFilesToCache = [
   '/webapp/images/google.png',
   '/webapp/js/gotmoneyapp.min.js',
   '/webapp/js/lockr.min.js',
+  '/webapp/js/openui5/password/library-preload.js',
   '/webapp/js/openui5/validator/library-preload.js',
   '/webapp/js/openui5/model/json/crud/library-preload.js'
 ];

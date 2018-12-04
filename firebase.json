@@ -35,6 +35,10 @@
           {
             "key": "X-XSS-Protection",
             "value": "1; mode=block"
+          },
+          {
+            "key": "Cache-Control",
+            "value": "max-age=43200000"
           }]
       },
       {
