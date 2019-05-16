@@ -2,7 +2,7 @@
           displayBlock="true" xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:u="sap.ui.unified" xmlns="sap.m"
           busyIndicatorDelay="0">
   <Shell>
-    <u:Shell id="appUShell" icon="/webapp/images/pig-32x32.png">
+    <u:Shell id="appUShell" icon="/images/pig-32x32.png">
       <u:headItems>
         <u:ShellHeadItem id="btIndex" tooltip="{i18n>Menu.home}" icon="sap-icon://home" press="onPressIndex" />
         <u:ShellHeadItem id="btHome" tooltip="{i18n>Menu.home}" icon="sap-icon://home" press="onPressHome" visible="false" />

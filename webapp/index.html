@@ -28,25 +28,25 @@
   <link rel="dns-prefetch" href="https://staticxx.facebook.com">
   <link rel="dns-prefetch" href="https://www.google-analytics.com">
   <script src="./sw-reg.js"></script>
-  <link rel="icon" type="image/ico" href="./webapp/images/favicon.ico">
-  <link rel="icon" type="image/png" sizes="192x192" href="./webapp/images/pig-192x192.png">
-  <link rel="manifest" href="./manifest.json">
-  <link rel="preload" href="https://openui5.hana.ondemand.com/1.60.1/resources/sap/ui/core/themes/sap_belize/fonts/72-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
-  <link rel="preload" href="https://openui5.hana.ondemand.com/1.60.1/resources/sap/ui/core/themes/base/fonts/SAP-icons.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+  <link rel="icon" type="image/ico" href="./images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="192x192" href="./images/pig-192x192.png">
+  <link rel="manifest" href="./manifest-pwa.json">
+  <link rel="preload" href="https://openui5.hana.ondemand.com/1.65.1/resources/sap/ui/core/themes/sap_belize/fonts/72-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+  <link rel="preload" href="https://openui5.hana.ondemand.com/1.65.1/resources/sap/ui/core/themes/base/fonts/SAP-icons.woff2" as="font" type="font/woff2" crossorigin="anonymous">
 </head>
 <body class="sapUiBody" role="application">
 <div id="content" class="spinner" data-sap-ui-component
      data-name="com.mlauffer.gotmoneyappui5" data-settings='{"id" : "gotmoneyappui5"}'></div>
 <script id="sap-ui-bootstrap"
-        src="https://openui5.hana.ondemand.com/1.60.1/resources/sap-ui-core.js"
+        src="https://openui5.hana.ondemand.com/1.65.1/resources/sap-ui-core.js"
         data-sap-ui-theme="sap_belize"
         data-sap-ui-compatVersion="edge" data-sap-ui-frameOptions="deny"
         data-sap-ui-async="true" data-sap-ui-oninit="module:sap/ui/core/ComponentSupport"
         data-sap-ui-xx-waitForTheme="true"
-        data-sap-ui-resourceroots='{"com.mlauffer.gotmoneyappui5": "./webapp/"}'
+        data-sap-ui-resourceroots='{"com.mlauffer.gotmoneyappui5": "./"}'
         crossorigin="anonymous" async defer></script>
-<script src="./webapp/js/gotmoneyapp.min.js" async defer></script>
-<script src="./webapp/js/lockr.min.js" async defer></script>
+<script src="./js/gotmoneyapp.min.js" async defer></script>
+<script src="./js/lockr.min.js" async defer></script>
 <script src="https://apis.google.com/js/platform.js?onload=onLoadGoogleClient" async defer></script>
 <script src="https://www.googletagmanager.com/gtag/js?id=UA-11465363-7" async defer></script>
 <script id="facebook-jssdk" src="https://connect.facebook.net/en_US/sdk.js" async defer></script>

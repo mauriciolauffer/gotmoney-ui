@@ -18,8 +18,8 @@
     </Panel>
     <Panel headerText="{i18n>Signup.social}">
       <VBox>
-        <Button id="btFacebook" text="{i18n>Signup.facebook}" press="onFacebookLogin" icon="/webapp/images/facebook.png" iconDensityAware="false" />
-        <Button id="btGoogle" text="{i18n>Signup.google}" icon="/webapp/images/google.png" iconDensityAware="false" />
+        <Button id="btFacebook" text="{i18n>Signup.facebook}" press="onFacebookLogin" icon="/images/facebook.png" iconDensityAware="false" />
+        <Button id="btGoogle" text="{i18n>Signup.google}" icon="/images/google.png" iconDensityAware="false" />
       </VBox>
     </Panel>
     <buttons>

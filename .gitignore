@@ -4,7 +4,6 @@ build/
 coverage/
 data/logs/
 node_modules/
-public/webapp/js/resources/
 .env
 .env.*
 *.log
