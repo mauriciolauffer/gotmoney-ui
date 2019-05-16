@@ -1,34 +1,34 @@
 'use strict';
 
-const appCacheName = 'GotMoneyApp-PWA-v008';
-const ui5CDN = 'https://openui5.hana.ondemand.com/1.60.1/resources/';
+const appCacheName = 'GotMoneyApp-PWA-v009';
+const ui5CDN = 'https://openui5.hana.ondemand.com/1.65.1/resources/';
 const rxLocal = /^http:.*local.*\/api\//;
 const rxServer = /^https:.*gotmoney.*\/api\//;
 const localFilesToCache = [
   '/index.html',
   '/manifest.json',
   '/sw-reg.js',
-  '/webapp/Component-preload.js',
-  '/webapp/manifest.json',
-  '/webapp/manifest.json?sap-language=EN',
-  '/webapp/css/gotmoneyapp.min.css',
-  '/webapp/i18n/i18n.properties',
-  '/webapp/i18n/i18n_en.properties',
-  '/webapp/i18n/i18n_pt.properties',
-  '/webapp/images/favicon.ico',
-  '/webapp/images/pig-32x32.png',
-  '/webapp/images/pig-48x48.png',
-  '/webapp/images/pig-72x72.png',
-  '/webapp/images/pig-144x144.png',
-  '/webapp/images/pig-192x192.png',
-  '/webapp/images/pig-512x512.png',
-  '/webapp/images/facebook.png',
-  '/webapp/images/google.png',
-  '/webapp/js/gotmoneyapp.min.js',
-  '/webapp/js/lockr.min.js',
-  '/webapp/js/openui5/password/library-preload.js',
-  '/webapp/js/openui5/validator/library-preload.js',
-  '/webapp/js/openui5/model/json/crud/library-preload.js'
+  '/Component-preload.js',
+  '/manifest.json',
+  '/manifest.json?sap-language=EN',
+  '/css/gotmoneyapp.min.css',
+  '/i18n/i18n.properties',
+  '/i18n/i18n_en.properties',
+  '/i18n/i18n_pt.properties',
+  '/images/favicon.ico',
+  '/images/pig-32x32.png',
+  '/images/pig-48x48.png',
+  '/images/pig-72x72.png',
+  '/images/pig-144x144.png',
+  '/images/pig-192x192.png',
+  '/images/pig-512x512.png',
+  '/images/facebook.png',
+  '/images/google.png',
+  '/js/gotmoneyapp.min.js',
+  '/js/lockr.min.js',
+  '/js/openui5/password/library-preload.js',
+  '/js/openui5/validator/library-preload.js',
+  '/js/openui5/model/json/crud/library-preload.js'
 ];
 const ui5FilesToCache = [
   //ui5CDN + 'sap-ui-version.json',

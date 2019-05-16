@@ -5,11 +5,7 @@
   "author": "Mauricio Lauffer",
   "private": true,
   "devDependencies": {
-    "eslint": "^5.9.0",
-    "grunt": "^1.0.3",
-    "grunt-contrib-clean": "^2.0.0",
-    "grunt-contrib-copy": "^1.0.0",
-    "grunt-openui5": "^0.15.0"
+    "eslint": "^5.16.0"
   },
   "dependencies": {
     "@openui5/sap.m": "^1.60.1",
@@ -26,7 +22,7 @@
   },
   "scripts": {
     "start": "ui5 serve",
-    "build": "grunt build",
+    "build": "ui5 build",
     "deploy": "firebase deploy",
     "test": "npm test",
     "postversion": "git push && git push --tags"

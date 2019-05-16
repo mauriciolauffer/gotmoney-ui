@@ -15,14 +15,14 @@
         }]
       },
       {
-        "source": "/webapp/**",
+        "source": "**",
         "headers": [{
           "key": "Cache-Control",
           "value": "max-age=43200000"
         }]
       },
       {
-        "source": "/index.html",
+        "source": "index.html",
         "headers": [
           {
             "key": "X-Content-Type-Options",
@@ -37,12 +37,16 @@
             "value": "1; mode=block"
           },
           {
+            "key": "Referrer-Policy",
+            "value": "same-origin"
+          },
+          {
             "key": "Cache-Control",
             "value": "max-age=43200000"
           }]
       },
       {
-        "source": "/sw.js",
+        "source": "sw.js",
         "headers": [{
           "key": "Cache-Control",
           "value": "no-cache"
