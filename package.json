@@ -18,7 +18,7 @@
     "openui5-model-json-crud": "^0.0.8",
     "openui5-password": "^0.1.4",
     "openui5-smart-mockserver": "^0.2.5",
-    "openui5-validator": "^0.1.10"
+    "openui5-validator": "^0.1.16"
   },
   "scripts": {
     "start": "ui5 serve",
