@@ -5,20 +5,14 @@
   "author": "Mauricio Lauffer",
   "private": true,
   "devDependencies": {
+    "@ui5/cli": "^3.0.0",
     "eslint": "^5.16.0"
   },
   "dependencies": {
-    "@openui5/sap.m": "^1.60.1",
-    "@openui5/sap.tnt": "^1.60.1",
-    "@openui5/sap.ui.core": "^1.60.1",
-    "@openui5/sap.ui.layout": "^1.60.1",
-    "@openui5/sap.ui.unified": "^1.60.1",
-    "@openui5/themelib_sap_belize": "^1.60.1",
-    "lockr": "^0.8.5",
-    "openui5-model-json-crud": "^0.0.8",
-    "openui5-password": "^0.1.4",
-    "openui5-smart-mockserver": "^0.2.5",
-    "openui5-validator": "^0.1.10"
+    "@ui5/webcomponents": "^1.0.0-rc.15",
+    "@ui5/webcomponents-fiori": "^1.0.0-rc.15",
+    "@ui5/webcomponents-icons": "^1.0.0-rc.15",
+    "lockr": "^0.8.5"
   },
   "scripts": {
     "start": "ui5 serve",

@@ -7,56 +7,11 @@
   <meta name="author" content="Mauricio Lauffer">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#6699ff">
-  <meta name="google-signin-scope" content="profile email">
-  <meta name="google-signin-client_id" content="512998861746.apps.googleusercontent.com">
-  <meta http-equiv="Content-Security-Policy"
-        content="
-        default-src 'self' localhost:* https://openui5.hana.ondemand.com https://*.google.com https://*.facebook.com https://gotmoneyapp.herokuapp.com;
-        style-src 'self' 'unsafe-inline' https://openui5.hana.ondemand.com;
-        script-src 'self' 'unsafe-eval' https://openui5.hana.ondemand.com https://*.facebook.com https://*.facebook.net
-        https://*.google.com https://*.googletagmanager.com https://*.google-analytics.com;
-        img-src 'self' data: https://*.facebook.com https://*.googletagmanager.com https://*.google-analytics.com">
   <title>GotMoney App</title>
-  <style type="text/css">
-    @keyframes spinner{to{transform:rotate(360deg)}}@-webkit-keyframes spinner{to{-webkit-transform:rotate(360deg)}}.spinner:before{content:'Loading...';position:fixed;top:0;left:0;bottom:0;right:0;width:100px;height:100px;margin:auto}.spinner:not(:required):before{content:'';border-radius:50%;border:5px solid transparent;border-top-color:#03ade0;border-bottom-color:#03ade0;animation:spinner .8s ease infinite;-webkit-animation:spinner .8s ease infinite}
-  </style>
-  <link rel="dns-prefetch" href="https://openui5.hana.ondemand.com">
-  <link rel="dns-prefetch" href="https://apis.google.com">
-  <link rel="dns-prefetch" href="https://www.googletagmanager.com">
-  <link rel="dns-prefetch" href="https://accounts.google.com">
-  <link rel="dns-prefetch" href="https://connect.facebook.net">
-  <link rel="dns-prefetch" href="https://staticxx.facebook.com">
-  <link rel="dns-prefetch" href="https://www.google-analytics.com">
-  <script src="./sw-reg.js"></script>
-  <link rel="icon" type="image/ico" href="./images/favicon.ico">
-  <link rel="icon" type="image/png" sizes="192x192" href="./images/pig-192x192.png">
-  <link rel="manifest" href="./manifest-pwa.json">
-  <link rel="preload" href="https://openui5.hana.ondemand.com/1.65.1/resources/sap/ui/core/themes/sap_belize/fonts/72-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
-  <link rel="preload" href="https://openui5.hana.ondemand.com/1.65.1/resources/sap/ui/core/themes/base/fonts/SAP-icons.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+  <script src="./js/lockr.min.js" async defer></script>
+  <script type="module" src="./app.js"></script>
 </head>
-<body class="sapUiBody" role="application">
-<div id="content" class="spinner" data-sap-ui-component
-     data-name="com.mlauffer.gotmoneyappui5" data-settings='{"id" : "gotmoneyappui5"}'></div>
-<script id="sap-ui-bootstrap"
-        src="https://openui5.hana.ondemand.com/1.65.1/resources/sap-ui-core.js"
-        data-sap-ui-theme="sap_belize"
-        data-sap-ui-compatVersion="edge" data-sap-ui-frameOptions="deny"
-        data-sap-ui-async="true" data-sap-ui-oninit="module:sap/ui/core/ComponentSupport"
-        data-sap-ui-xx-waitForTheme="true"
-        data-sap-ui-resourceroots='{"com.mlauffer.gotmoneyappui5": "./"}'
-        crossorigin="anonymous" async defer></script>
-<script src="./js/gotmoneyapp.min.js" async defer></script>
-<script src="./js/lockr.min.js" async defer></script>
-<script src="https://apis.google.com/js/platform.js?onload=onLoadGoogleClient" async defer></script>
-<script src="https://www.googletagmanager.com/gtag/js?id=UA-11465363-7" async defer></script>
-<script id="facebook-jssdk" src="https://connect.facebook.net/en_US/sdk.js" async defer></script>
-<noscript>
-  <div id="noScriptMessageEN">GotMoney cannot be displayed! JavaScript is not enabled. Please enable JavaScript in
-    your browser and try again...
-  </div>
-  <div id="noScriptMessagePT">GotMoney não pode ser exibido! JavaScript não está habilitado. Por favor, habilite
-    JavaScript no seu navegador e tente novamente...
-  </div>
-</noscript>
+<body>
+  <div id="content"></div>
 </body>
 </html>
