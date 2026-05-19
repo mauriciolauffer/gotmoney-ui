@@ -1,0 +1,11 @@
+CREATE TABLE IF NOT EXISTS pixels (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  x INTEGER NOT NULL,
+  y INTEGER NOT NULL,
+  color TEXT NOT NULL,
+  link TEXT,
+  owner TEXT,
+  UNIQUE(x, y)
+);
+
+CREATE INDEX IF NOT EXISTS idx_pixels_coords ON pixels(x, y);
