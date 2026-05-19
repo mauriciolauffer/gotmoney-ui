@@ -1,37 +1,15 @@
 {
-  "name": "gotmoney-ui",
-  "version": "0.1.7",
-  "description": "GotMoney App",
-  "author": "Mauricio Lauffer",
+  "name": "million-pixel-billboard",
   "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
   "devDependencies": {
-    "eslint": "^5.16.0"
-  },
-  "dependencies": {
-    "@openui5/sap.m": "^1.60.1",
-    "@openui5/sap.tnt": "^1.60.1",
-    "@openui5/sap.ui.core": "^1.60.1",
-    "@openui5/sap.ui.layout": "^1.60.1",
-    "@openui5/sap.ui.unified": "^1.60.1",
-    "@openui5/themelib_sap_belize": "^1.60.1",
-    "lockr": "^0.8.5",
-    "openui5-model-json-crud": "^0.0.8",
-    "openui5-password": "^0.1.4",
-    "openui5-smart-mockserver": "^0.2.5",
-    "openui5-validator": "^0.1.10"
+    "oxlint": "latest"
   },
   "scripts": {
-    "start": "ui5 serve",
-    "build": "ui5 build",
-    "deploy": "firebase deploy",
-    "test": "npm test",
-    "postversion": "git push && git push --tags"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/mauriciolauffer/gotmoney-ui.git"
-  },
-  "bugs": {
-    "url": "https://github.com/mauriciolauffer/gotmoney-ui/issues"
+    "lint": "oxlint",
+    "format": "oxlint --fix",
+    "test": "npm test -ws --if-present"
   }
 }

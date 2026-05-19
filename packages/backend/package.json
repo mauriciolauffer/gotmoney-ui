@@ -1,0 +1,18 @@
+{
+  "name": "backend",
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy --minify",
+    "cf-typegen": "wrangler types --env-interface CloudflareBindings",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "hono": "^4.12.19"
+  },
+  "devDependencies": {
+    "@cloudflare/vitest-pool-workers": "^0.16.6",
+    "vitest": "^4.1.6",
+    "wrangler": "^4.4.0"
+  }
+}
